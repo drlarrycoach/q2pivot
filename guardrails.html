@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Bans to Guardrails | Q2 Pivot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10/dist/framer-motion.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-cyan': '#0ff0fc',
+                        'q2-gold': '#c5a059',
+                        'q2-dark': '#0a0a12',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0a0a12;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(15, 240, 252, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 240, 252, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { motion } = Motion;
+
+        function App() {
+            return (
+                <div className="min-h-screen grid-bg relative overflow-hidden pb-24">
+
+                    {/* Back Link */}
+                    <nav className="p-8">
+                        <a href="index.html" className="text-gray-400 hover:text-q2-cyan transition-colors flex items-center gap-2 text-sm uppercase tracking-widest">
+                            ← Return to Q2 Pivot
+                        </a>
+                    </nav>
+
+                    <main className="max-w-4xl mx-auto px-8 mt-12">
+
+                        {/* Header */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="border-l-4 border-q2-gold pl-8 mb-16 relative"
+                        >
+                            <span className="text-q2-gold text-sm font-mono tracking-widest uppercase mb-2 block">Governance Strategy</span>
+                            <h1 className="text-5xl md:text-6xl font-bold mb-4">From Bans to Guardrails</h1>
+                            <p className="text-2xl text-gray-300 italic">Comply with the Ministry. Govern the Architecture.</p>
+                        </motion.div>
+
+                        {/* Core Concept */}
+                        <motion.section
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                            className="space-y-12 text-lg text-gray-300 leading-relaxed"
+                        >
+                            <div className="bg-white/5 border border-white/10 rounded-2xl p-8 md:p-12">
+                                <h2 className="text-3xl font-bold text-white mb-6">The Governance Gap</h2>
+                                <p className="mb-6">
+                                    Most schools are stuck in <strong className="text-white">Compliance Mode</strong>—frantically trying to follow external mandates from the Ministry, District, or State. They try to "ban" AI because it doesn't fit the existing rules.
+                                </p>
+                                <p>
+                                    <strong className="text-q2-cyan">Governance Mode</strong> is different. It involves setting internal North Stars. You comply with the external rules, but you <strong>govern</strong> your own ecosystem with sovereign authority.
+                                </p>
+                            </div>
+
+                            {/* The 45-Day Cycle */}
+                            <div>
+                                <h2 className="text-3xl font-bold text-white mb-8">The Solution: The 45-Day Alignment Cycle</h2>
+                                <p className="mb-8">
+                                    The Semester System is a compliance artifact—19th-century industrial batch processing. It moves too slow for the exponential curve of AI. We introduce the <strong>45-Day Alignment Cycle</strong>:
+                                </p>
+
+                                <div className="grid md:grid-cols-3 gap-6">
+                                    <div className="bg-black/40 border border-q2-cyan/30 p-6 rounded-xl">
+                                        <div className="text-4xl mb-4">🔭</div>
+                                        <h3 className="text-q2-cyan font-bold text-xl mb-2">01. SCAN</h3>
+                                        <p className="text-sm text-gray-400 uppercase tracking-widest mb-4">DAYS 1-5</p>
+                                        <p className="text-sm">What new models dropped? (DeepSeek-V4, Gemini 2.0). What capabilities have changed?</p>
+                                    </div>
+
+                                    <div className="bg-black/40 border border-q2-gold/30 p-6 rounded-xl">
+                                        <div className="text-4xl mb-4">🧪</div>
+                                        <h3 className="text-q2-gold font-bold text-xl mb-2">02. PILOT</h3>
+                                        <p className="text-sm text-gray-400 uppercase tracking-widest mb-4">DAYS 6-35</p>
+                                        <p className="text-sm">Run controlled experiments in "Sandbox Classrooms". Test specific use cases safely.</p>
+                                    </div>
+
+                                    <div className="bg-black/40 border border-purple-500/30 p-6 rounded-xl">
+                                        <div className="text-4xl mb-4">⚖️</div>
+                                        <h3 className="text-purple-400 font-bold text-xl mb-2">03. ALIGN</h3>
+                                        <p className="text-sm text-gray-400 uppercase tracking-widest mb-4">DAYS 36-45</p>
+                                        <p className="text-sm">Update internal policies. What worked? Scale it. What failed? Kill it.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Pivot Comparison */}
+                            <div className="grid md:grid-cols-2 gap-8 border-t border-white/10 pt-12">
+                                <div>
+                                    <h3 className="text-gray-500 font-bold uppercase tracking-widest mb-4">Old Way</h3>
+                                    <p className="text-xl">Wait for the Ministry to release a policy (2 years).</p>
+                                </div>
+                                <div>
+                                    <h3 className="text-q2-cyan font-bold uppercase tracking-widest mb-4">Q2 Way</h3>
+                                    <p className="text-xl">Execute internal governance cycles (45 days) while maintaining external compliance.</p>
+                                </div>
+                            </div>
+
+                            {/* CTA */}
+                            <div className="bg-gradient-to-r from-q2-cyan/10 to-transparent border border-q2-cyan/30 rounded-2xl p-8 mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
+                                <div>
+                                    <h3 className="text-2xl font-bold text-white">Ready to Govern?</h3>
+                                    <p className="text-gray-400">Book a Governance Workshop for your leadership team.</p>
+                                </div>
+                                <button className="bg-q2-cyan text-black font-bold py-3 px-8 rounded hover:bg-white transition-colors">
+                                    BOOK BRIEFING
+                                </button>
+                            </div>
+
+                        </motion.section>
+                    </main>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

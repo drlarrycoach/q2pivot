@@ -855,24 +855,25 @@
 
                 <div className="space-y-8">
                   {[
-                    { num: "01", title: "From Bans to Guardrails", desc: "We do not block the future; we shape it." },
-                    { num: "02", title: "From Assessment to Authenticity", desc: "If a robot can pass your test, your test is broken. We value human synthesis." },
-                    { num: "03", title: "From Administration to Architecture", desc: "Leaders must stop managing the status quo and start architecting the new ecosystem." }
+                    { num: "01", title: "From Bans to Guardrails", desc: "Comply with the Ministry. Govern the Architecture.", link: "guardrails.html" },
+                    { num: "02", title: "From Assessment to Authenticity", desc: "If a robot can pass your test, your test is broken. Verify the Process.", link: "authenticity.html" },
+                    { num: "03", title: "From Administration to Architecture", desc: "Leaders must stop managing the status quo and start architecting the new ecosystem.", link: "architecture.html" }
                   ].map((item, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.3, duration: 0.6 }}
-                      className="flex gap-4"
-                    >
-                      <span className="text-q2-cyan text-3xl font-bold">{item.num}</span>
-                      <div>
-                        <h3 className="text-2xl md:text-3xl font-bold mb-2">{item.title}</h3>
-                        <p className="text-gray-400 text-lg">{item.desc}</p>
-                      </div>
-                    </motion.div>
+                    <a href={item.link} key={i} className="block group">
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.3, duration: 0.6 }}
+                        className="flex gap-4 p-4 -ml-4 rounded-xl hover:bg-white/5 transition-colors cursor-pointer"
+                      >
+                        <span className="text-q2-cyan text-3xl font-bold group-hover:text-q2-gold transition-colors">{item.num}</span>
+                        <div>
+                          <h3 className="text-xl font-bold mb-2 group-hover:text-q2-cyan transition-colors">{item.title} →</h3>
+                          <p className="text-gray-400 group-hover:text-gray-300 transition-colors">{item.desc}</p>
+                        </div>
+                      </motion.div>
+                    </a>
                   ))}
                 </div>
 
