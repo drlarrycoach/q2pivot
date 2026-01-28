@@ -85,69 +85,86 @@
                                 </p>
                             </div>
 
-                            <div className="space-y-6">
-                                <h2 className="text-3xl font-bold text-white mb-8">The 7 Levels of AI Cognition</h2>
+                            <div className="space-y-4 max-w-3xl mx-auto">
+                                <h2 className="text-3xl font-bold text-white mb-8 text-center pt-8">The 7 Levels of AI Cognition</h2>
 
-                                {/* NEW TOP LAYER: TRANSFORM */}
-                                <div className="group border border-q2-gold/30 p-8 rounded-xl bg-q2-gold/5 hover:border-q2-gold transition-colors relative overflow-hidden">
-                                    <div className="absolute top-0 right-0 bg-q2-gold text-black text-xs font-bold px-3 py-1 uppercase tracking-widest">
-                                        New Top Level
+                                {/* LEVEL 7: TOP (Crown) */}
+                                <div className="group border border-q2-cyan/50 p-6 rounded-t-2xl bg-q2-cyan/5 hover:bg-q2-cyan/10 transition-colors relative overflow-hidden text-center">
+                                    <div className="absolute top-0 right-0 bg-q2-cyan text-black text-xs font-bold px-3 py-1 uppercase tracking-widest hidden md:block">
+                                        Top Level
                                     </div>
-                                    <div className="flex items-start justify-between mb-4">
-                                        <div>
-                                            <h3 className="text-q2-gold font-bold text-2xl">07. TRANSFORM</h3>
-                                            <p className="text-xs text-gray-500 uppercase tracking-widest mb-1">DRIVE SOCIAL IMPACT</p>
-                                        </div>
-                                        <span className="text-4xl">🚀</span>
+                                    <div className="mb-2">
+                                        <h3 className="text-q2-cyan font-bold text-2xl">07. TRANSFORM</h3>
+                                        <p className="text-xs text-q2-cyan/70 uppercase tracking-widest mb-1">DRIVE SOCIAL IMPACT</p>
                                     </div>
-                                    <p className="text-gray-300">
+                                    <p className="text-gray-300 max-w-xl mx-auto">
                                         Apply knowledge and tools to drive real-world change. Don't just make an artifact—influence the system.
                                     </p>
                                 </div>
 
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    {/* CO-CREATE */}
-                                    <div className="border border-white/10 p-6 rounded-xl bg-black/40">
-                                        <div className="flex justify-between mb-2">
-                                            <h3 className="text-white font-bold text-lg">06. Co-Create</h3>
-                                            <span className="text-xs text-gray-500 uppercase">Was: Create</span>
-                                        </div>
+                                {/* LEVELS 4, 5, 6: RIM (Horizontal) */}
+                                <div className="grid md:grid-cols-3 gap-4">
+                                    {/* 06 */}
+                                    <div className="border border-q2-gold/30 p-4 bg-black/40 hover:border-q2-gold transition-colors text-center">
+                                        <h3 className="text-q2-gold font-bold text-lg mb-1">06. Co-Create</h3>
+                                        <p className="text-xs text-stone-500 uppercase mb-2">Was: Create</p>
                                         <p className="text-gray-400 text-sm">
-                                            Use AI as a starting point for original, iterative work. Orchestrate the output.
+                                            Orchestrate the AI output. Iterative design.
                                         </p>
                                     </div>
 
-                                    {/* CHALLENGE & REFLECT */}
-                                    <div className="border border-white/10 p-6 rounded-xl bg-black/40">
-                                        <div className="flex justify-between mb-2">
-                                            <h3 className="text-white font-bold text-lg">05. Challenge & Reflect</h3>
-                                            <span className="text-xs text-gray-500 uppercase">Was: Evaluate</span>
-                                        </div>
+                                    {/* 05 */}
+                                    <div className="border border-q2-gold/30 p-4 bg-black/40 hover:border-q2-gold transition-colors text-center">
+                                        <h3 className="text-q2-gold font-bold text-lg mb-1">05. Challenge</h3>
+                                        <p className="text-xs text-stone-500 uppercase mb-2">Was: Evaluate</p>
                                         <p className="text-gray-400 text-sm">
-                                            Make ethical judgments. Refine perspectives. Argue for/against AI use.
+                                            Make ethical judgments. Argue for/against usage.
                                         </p>
                                     </div>
 
-                                    {/* COMPARE & VALIDATE */}
-                                    <div className="border border-white/10 p-6 rounded-xl bg-black/40">
-                                        <div className="flex justify-between mb-2">
-                                            <h3 className="text-white font-bold text-lg">04. Compare & Validate</h3>
-                                            <span className="text-xs text-gray-500 uppercase">Was: Analyze</span>
-                                        </div>
+                                    {/* 04 */}
+                                    <div className="border border-q2-gold/30 p-4 bg-black/40 hover:border-q2-gold transition-colors text-center">
+                                        <h3 className="text-q2-gold font-bold text-lg mb-1">04. Compare</h3>
+                                        <p className="text-xs text-stone-500 uppercase mb-2">Was: Analyze</p>
                                         <p className="text-gray-400 text-sm">
-                                            Examine AI outputs for accuracy, bias, and hallucination. Audit the machine.
+                                            Audit the machine. Check for hallucinations.
                                         </p>
                                     </div>
+                                </div>
 
-                                    {/* PROMPT & EXPLAIN */}
-                                    <div className="border border-white/10 p-6 rounded-xl bg-black/40">
-                                        <div className="flex justify-between mb-2">
-                                            <h3 className="text-white font-bold text-lg">02. Prompt & Explain</h3>
-                                            <span className="text-xs text-gray-500 uppercase">Was: Understand</span>
+                                {/* LEVELS 3, 2, 1: BASE (Stacked Vertical) */}
+                                <div className="space-y-4 max-w-2xl mx-auto">
+                                    {/* 03 */}
+                                    <div className="border border-white/10 p-4 rounded-lg bg-black/20 hover:border-stone-400 transition-colors flex items-center gap-4">
+                                        <div className="text-stone-400 font-bold text-xl min-w-[3rem]">03</div>
+                                        <div>
+                                            <h3 className="text-stone-300 font-bold text-lg">Adapt & Apply</h3>
+                                            <p className="text-gray-500 text-sm">
+                                                Contextualize the output. Modify general answers for specific local constraints.
+                                            </p>
                                         </div>
-                                        <p className="text-gray-400 text-sm">
-                                            Communicate ideas clearly to generate inputs. Explain the "Why" behind the output.
-                                        </p>
+                                    </div>
+
+                                    {/* 02 */}
+                                    <div className="border border-white/10 p-4 rounded-lg bg-black/20 hover:border-stone-400 transition-colors flex items-center gap-4">
+                                        <div className="text-stone-400 font-bold text-xl min-w-[3rem]">02</div>
+                                        <div>
+                                            <h3 className="text-stone-300 font-bold text-lg">Prompt & Explain</h3>
+                                            <p className="text-gray-500 text-sm md:pr-8">
+                                                Communicate ideas clearly to generate inputs. Explain the "Why" behind the output.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* 01 */}
+                                    <div className="border border-white/10 p-4 rounded-b-2xl bg-black/20 hover:border-stone-400 transition-colors flex items-center gap-4">
+                                        <div className="text-stone-400 font-bold text-xl min-w-[3rem]">01</div>
+                                        <div>
+                                            <h3 className="text-stone-300 font-bold text-lg">Curate & Question</h3>
+                                            <p className="text-gray-500 text-sm">
+                                                Select the right tools. Question the source. Don't just recall facts—recall where to find them.
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
