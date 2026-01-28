@@ -150,8 +150,24 @@
   <div id="root"></div>
 
   <script type="text/babel">
-    const { useState } = React;
+    const { useState, useEffect } = React;
     const { motion, AnimatePresence } = Motion;
+
+    // SCROLL FIX: Handle hash navigation after React mount
+    function useHashScroll() {
+      useEffect(() => {
+        const hash = window.location.hash;
+        if (hash) {
+          // Small delay to ensure DOM is ready
+          setTimeout(() => {
+            const element = document.querySelector(hash);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 500);
+        }
+      }, []);
+    }
 
     // SOAR Data
     const soarData = [
@@ -656,6 +672,8 @@
 
     // Main App Component
     function App() {
+      useHashScroll(); // Activate hash scrolling fix
+
       const [selectedSOAR, setSelectedSOAR] = useState(null);
 
       const typeColors = {
