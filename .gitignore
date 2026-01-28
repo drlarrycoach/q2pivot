@@ -1,0 +1,7 @@
+node_modules/
+deploy/
+*.log
+.DS_Store
+q2pivot-react-complete.html
+move_to_gdrive.sh
+assets/
