@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             instrument: "The Backward Designers • Violin I"
         },
         {
-            text: '"...organizations where people continually expand their capacity to create the <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>results they truly desire</span>, where new and expansive patterns of thinking are nurtured, where <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>collective aspiration is set free</span>, and where people are continually <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>learning how to learn together</span>."',
+            text: '"...organizations where people continually expand their capacity to create the <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>results they truly desire</span>, where new and expansive patterns of thinking are nurtured, where <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>collective aspiration is set free</span>, and where people are continually <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>learning how to learn together</span>."',
             author: "Dr Peter Senge",
             instrument: "The Systems Thinker • Conductor"
         }
@@ -91,6 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('hero-quotes');
     if (!container) return; // Exit if no container found
 
+    // Shuffle quotes array
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    shuffleArray(quotes);
     let index = 0;
 
     function renderQuote() {
