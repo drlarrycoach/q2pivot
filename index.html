@@ -3,71 +3,344 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Q2 Pivot | Governing the AI Transition</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-dark': '#0A0A12',
+                        'q2-cyan': '#0FF0FC',
+                        'q2-gold': '#C5A059',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
-<body>
-
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <img src="assets/images/logo.png" alt="Q2 Pivot Logo">
+<body class="bg-[#0A0A0C] text-zinc-400 font-sans selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div id="root">
+        <div class="min-h-screen relative overflow-hidden flex flex-col">
+            <div class="fixed inset-0 z-0 op-10 pointer-events-none overflow-hidden select-none opacity-20"
+                aria-hidden="true">
+                <div
+                    class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent">
                 </div>
-                <div class="nav-links">
-                    <a href="index.html" class="active">Home</a>
-                    <a href="manifesto.html">Manifesto</a>
-                    <a href="ancestors.html">Ancestors</a>
-                    <a href="radar.html">The Radar</a>
-                    <a href="vault.html">The Vault</a>
-                    <a href="newsletter.html">Contact</a>
+                <div
+                    class="grid grid-cols-[repeat(20,minmax(0,1fr))] gap-4 p-4 text-[8px] font-mono leading-none break-all text-cyan-500/40">
+                    01001010 11010011 10101110 01010100 10110101 01010101 01010101 01010010 11010101 01001010 10101010
+                    10100101 01010101 01010101 00101010 10101010 10101010 10101010 10101010 01010101 01010100 10010010
+                    10100101 01010101 01001001 01010010 01001010 10101010 10101010 10101010 10101010
+                    01001010 11010011 10101110 01010100 10110101 01010101 01010101 01010010 11010101 01001010 10101010
+                    10100101 01010101 01010101 00101010 10101010 10101010 10101010 10101010 01010101 01010100 10010010
+                    10100101 01010101 01001001 01010010 01001010 10101010 10101010 10101010 10101010
+                    01001010 11010011 10101110 01010100 10110101 01010101 01010101 01010010 11010101 01001010 10101010
+                    10100101 01010101 01010101 00101010 10101010 10101010 10101010 10101010 01010101 01010100 10010010
+                    10100101 01010101 01001001 01010010 01001010 10101010 10101010 10101010 10101010
+                    01001010 11010011 10101110 01010100 10110101 01010101 01010101 01010010 11010101 01001010 10101010
+                    10100101 01010101 01010101 00101010 10101010 10101010 10101010 10101010 01010101 01010100 10010010
+                    10100101 01010101 01001001 01010010 01001010 10101010 10101010 10101010 10101010
                 </div>
-            </nav>
-        </div>
-    </header>
-
-    <section class="hero container">
-        <div class="hero-content">
-            <h1>Governing the<br><span class="text-gold">AI Transition</span></h1>
-            <p class="subtitle">
-                Strategic oversight for organizations navigating the shift from legacy systems to autonomous
-                intelligence.
-            </p>
-            <a href="vault.html" class="btn">Access The Vault</a>
-        </div>
-        <div class="hero-image">
-            <img src="assets/images/gear.png" alt="Strategic Gear Mechanism" class="gear-img">
-        </div>
-    </section>
-
-    <!-- Content Placeholder for context -->
-    <section class="container" style="padding: 80px 0; text-align: center;">
-        <h2>Context Engineering</h2>
-        <p style="max-width: 600px; margin: 20px auto; color: #aaa;">
-            We build the governance frameworks that ensure your AI systems remain aligned with human intent.
-        </p>
-    </section>
-
-    <footer>
-        <div class="container footer-grid">
-            <div class="footer-brand">
-                <img src="assets/images/logo.png" style="height: 30px; margin-bottom: 20px;">
-                <p>&copy; 2026 Q2 Pivot.</p>
             </div>
 
-            <div class="footer-subscribe">
-                <h3>Stay Updated</h3>
-                <form class="subscribe-form">
-                    <input type="email" placeholder="Enter your email">
-                    <button type="submit" class="btn-small">Subscribe</button>
-                </form>
+            <header class="relative z-10 border-b border-white/5 bg-black/40 backdrop-blur-xl">
+                <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 border border-cyan-500/30 rounded flex items-center justify-center bg-cyan-500/5 group">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-shield text-cyan-400 group-hover:scale-110 transition-transform">
+                                <path
+                                    d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                                Q2 PIVOT <span
+                                    class="text-cyan-500 text-xs font-mono px-2 py-0.5 border border-cyan-500/20 rounded-full bg-cyan-500/5">v4.0.2</span>
+                            </h1>
+                            <p class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mt-0.5">Autonomous
+                                Governance Protocol</p>
+                        </div>
+                    </div>
+                    <nav class="hidden md:flex items-center gap-8">
+                        <a href="#radar"
+                            class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors py-2 relative group italic">
+                            The Radar
+                            <span
+                                class="absolute bottom-0 left-0 w-full h-px bg-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+                        </a>
+                        <a href="#manifesto"
+                            class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors py-2 relative group italic">
+                            The Manifesto
+                            <span
+                                class="absolute bottom-0 left-0 w-full h-px bg-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+                        </a>
+                        <a href="#vault"
+                            class="bg-cyan-900/20 text-cyan-400 px-4 py-2 border border-cyan-500/30 rounded text-sm hover:bg-cyan-500/20 transition-all font-mono">
+                            SECURE ARCHIVE
+                        </a>
+                    </nav>
+                </div>
+            </header>
+
+            <main class="relative z-10 flex-grow">
+                <section class="py-24 px-6">
+                    <div class="max-w-7xl mx-auto">
+                        <div class="grid lg:grid-cols-2 gap-16 items-center">
+                            <div class="space-y-8">
+                                <div
+                                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono">
+                                    <span class="relative flex h-2 w-2">
+                                        <span
+                                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                                    </span>
+                                    SYSTEM STATUS: OPTIMAL
+                                </div>
+                                <h2 class="text-6xl lg:text-8xl font-black text-white leading-tight tracking-tighter">
+                                    Governing the <span
+                                        class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">AI
+                                        Transition.</span>
+                                </h2>
+                                <p class="text-xl text-zinc-400 max-w-xl leading-relaxed">
+                                    We provide the strategic framework for institutions to pivot their core functions as
+                                    intelligence becomes the primary commodity.
+                                </p>
+                                <div class="flex items-center gap-4 pt-4">
+                                    <button
+                                        class="bg-white text-black px-8 py-4 rounded font-bold hover:bg-zinc-200 transition-colors flex items-center gap-2">
+                                        INITIATE PIVOT
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-arrow-right w-4 h-4">
+                                            <path d="M5 12h14" />
+                                            <path d="m12 5 7 7-7 7" />
+                                        </svg>
+                                    </button>
+                                    <button
+                                        class="px-8 py-4 rounded font-bold text-white border border-white/10 hover:bg-white/5 transition-colors">
+                                        READ BRIEFING
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Radar Cards (recreated from live site visual reference) -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div onclick="openModal('strengths')"
+                                    class="bg-black/40 backdrop-blur border border-white/10 p-6 rounded-xl hover:border-cyan-500/50 transition-colors group cursor-pointer hover:bg-white/5">
+                                    <div class="text-green-400 mb-4 bg-green-400/10 w-fit p-2 rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-activity">
+                                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-white font-bold mb-1">Strengths</h3>
+                                    <p class="text-zinc-500 text-sm">Current Capabilities</p>
+                                </div>
+                                <div onclick="openModal('opportunities')"
+                                    class="bg-black/40 backdrop-blur border border-white/10 p-6 rounded-xl hover:border-blue-500/50 transition-colors group cursor-pointer hover:bg-white/5">
+                                    <div class="text-blue-400 mb-4 bg-blue-400/10 w-fit p-2 rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-crosshair">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <line x1="22" y1="12" x2="18" y2="12" />
+                                            <line x1="6" y1="12" x2="2" y2="12" />
+                                            <line x1="12" y1="6" x2="12" y2="2" />
+                                            <line x1="12" y1="22" x2="12" y2="18" />
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-white font-bold mb-1">Opportunities</h3>
+                                    <p class="text-zinc-500 text-sm">Future Potential</p>
+                                </div>
+                                <div onclick="openModal('aspirations')"
+                                    class="bg-black/40 backdrop-blur border border-white/10 p-6 rounded-xl hover:border-purple-500/50 transition-colors group cursor-pointer hover:bg-white/5">
+                                    <div class="text-purple-400 mb-4 bg-purple-400/10 w-fit p-2 rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-compass">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-white font-bold mb-1">Aspirations</h3>
+                                    <p class="text-zinc-500 text-sm">Strategic Vision</p>
+                                </div>
+                                <div onclick="openModal('results')"
+                                    class="bg-black/40 backdrop-blur border border-white/10 p-6 rounded-xl hover:border-red-500/50 transition-colors group cursor-pointer hover:bg-white/5">
+                                    <div class="text-red-400 mb-4 bg-red-400/10 w-fit p-2 rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <circle cx="12" cy="12" r="6" />
+                                            <circle cx="12" cy="12" r="2" />
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-white font-bold mb-1">Results</h3>
+                                    <p class="text-zinc-500 text-sm">Measurable Impact</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Dynamic Modal Overlay -->
+    <div id="soar-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        <div class="relative w-full max-w-2xl transform overflow-hidden rounded-2xl bg-zinc-900 border border-white/10 p-6 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
+            id="modal-content-box">
+            <div class="absolute right-4 top-4">
+                <button type="button" class="text-zinc-400 hover:text-white transition-colors" onclick="closeModal()">
+                    <svg title="Close" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="mt-2">
+                <div id="modal-icon-container"
+                    class="mb-4 inline-flex items-center justify-center rounded-full bg-cyan-500/10 p-3 ring-1 ring-cyan-500/20">
+                    <!-- Icon injected here -->
+                </div>
+                <h3 class="text-2xl font-bold leading-6 text-white mb-2" id="modal-title">Title</h3>
+                <p class="text-sm text-cyan-500 font-mono mb-4" id="modal-category">CATEGORY</p>
+                <div class="mt-2">
+                    <p class="text-zinc-400 text-lg leading-relaxed mb-6" id="modal-description">Description</p>
+
+                    <div class="border-t border-white/10 pt-4 mt-4">
+                        <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-2">Proposed Solution</h4>
+                        <p class="text-zinc-300 font-mono text-sm bg-white/5 p-3 rounded border border-white/10"
+                            id="modal-solution">Solution</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                <button type="button"
+                    class="inline-flex w-full justify-center rounded-md border border-transparent bg-cyan-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-cyan-700 focus:outline-none sm:col-start-2 sm:text-sm transition-colors">
+                    Initialize Protocol
+                </button>
+                <button type="button"
+                    class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-700 bg-white/5 px-4 py-2 text-base font-medium text-gray-300 shadow-sm hover:bg-white/10 focus:outline-none sm:col-start-1 sm:mt-0 sm:text-sm transition-colors"
+                    onclick="closeModal()">
+                    Dismiss
+                </button>
             </div>
         </div>
-    </footer>
+    </div>
 
+    <!-- Vanilla JS for Modal Logic -->
+    <script>
+        // Modal Data Extracted from Live Site
+        const modalData = {
+            'strengths': {
+                category: 'STRENGTHS',
+                title: 'The Renaissance of the Socratic Method',
+                description: "In an age of infinite information, 'delivery' is cheap. The true value of a university is now human synthesis. We treat Faculty not as content dispensers, but as 'Cognitive Architects'.",
+                solution: 'Faculty Development: The "Synthesis Sprint" Workshop.',
+                color: 'text-green-400',
+                bg: 'bg-green-400/10',
+                icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity text-green-400"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>'
+            },
+            'opportunities': {
+                category: 'OPPORTUNITIES',
+                title: 'Sovereign AI Infrastructure',
+                description: "Why rent intelligence from OpenAI? We help universities deploy local, private inference models (like DeepSeek-V4) on-premise. Secure, uncensored, and zero subscription fees.",
+                solution: 'Infrastructure: Private Campus LLM Deployment.',
+                color: 'text-blue-400',
+                bg: 'bg-blue-400/10',
+                icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-crosshair text-blue-400"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>'
+            },
+            'aspirations': {
+                category: 'ASPIRATIONS',
+                title: 'Time-Block Restructuring',
+                description: "Student burnout is systemic. By offloading rote lectures to AI avatars, we condense contact hours into high-intensity 'Synthesis Days'. 4 days for deep work, 3 days for rest and research.",
+                solution: 'Strategy: The "Async-First" Timetable Audit.',
+                color: 'text-purple-400',
+                bg: 'bg-purple-400/10',
+                icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass text-purple-400"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>'
+            },
+            'results': {
+                category: 'RESULTS',
+                title: 'The Governance Portfolio',
+                description: "Employers don't just want coders; they want governors. We help you launch a 'Certified AI Governor' track, giving your arts & humanities graduates a lethal edge in the market.",
+                solution: 'Curriculum: The "AI Governance" Micro-Credential.',
+                color: 'text-red-400',
+                bg: 'bg-red-400/10',
+                icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target text-red-400"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>'
+            }
+        };
+
+        const modal = document.getElementById('soar-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-description');
+        const modalSolution = document.getElementById('modal-solution');
+        const modalCategory = document.getElementById('modal-category');
+        const modalIconContainer = document.getElementById('modal-icon-container');
+        const modalContentBox = document.getElementById('modal-content-box');
+
+        function openModal(type) {
+            const data = modalData[type];
+            if (!data) return;
+
+            // Update Content
+            modalTitle.textContent = data.title;
+            modalDesc.textContent = data.description;
+            modalSolution.textContent = data.solution;
+            modalCategory.textContent = data.category;
+
+            // Allow HTML for icon
+            modalIconContainer.innerHTML = data.icon;
+
+            // Dynamic Coloring
+            modalCategory.className = `text-sm font-mono mb-4 ${data.color}`;
+            modalIconContainer.className = `mb-4 inline-flex items-center justify-center rounded-full p-3 ring-1 ring-white/10 ${data.bg}`;
+
+            // Show Modal
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            // Animate in
+            setTimeout(() => {
+                modalContentBox.classList.remove('scale-95', 'opacity-0');
+                modalContentBox.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalContentBox.classList.remove('scale-100', 'opacity-100');
+            modalContentBox.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 200);
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 
 </html>

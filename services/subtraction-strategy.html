@@ -54,8 +54,12 @@
     <!-- Nav -->
     <nav
         class="border-b border-white/10 p-6 flex justify-between items-center bg-black/50 backdrop-blur-md sticky top-0 z-50">
-        <a href="../q2pivot.html" class="text-xl font-bold tracking-widest hover:text-q2-purple transition-colors">←
-            RETURN TO RADAR</a>
+        <a href="../q2pivot.html#radar"
+            class="flex items-center gap-3 hover:bg-white/5 p-2 rounded-lg transition-all group">
+            <img src="../assets/images/logo.png" alt="Q2 Pivot" class="h-8 w-auto">
+            <span class="text-xs font-mono tracking-widest text-gray-400 group-hover:text-q2-purple transition-colors">←
+                RETURN TO RADAR</span>
+        </a>
         <div class="font-mono text-xs text-q2-purple border border-q2-purple/30 px-3 py-1 rounded">SKU: SOAR-03-RETREAT
         </div>
     </nav>
@@ -76,6 +80,10 @@
                 <span class="text-white font-bold">Subtraction</span>.
                 We use AI to buy back time for Deep Work.
             </p>
+        </div>
+        <!-- Rotating Quotes Container -->
+        <div id="hero-quotes"
+            class="absolute bottom-0 left-0 w-full bg-black/50 backdrop-blur-md border-t border-white/10 py-6 z-20">
         </div>
     </header>
 
@@ -116,9 +124,9 @@
                     <div class="text-right text-xs text-gray-600 mb-0">+ Travel Expenses</div>
                 </div>
 
-                <a href="#"
+                <a href="https://forms.gle/ZVGcoYSeqa4uA4Ss5"
                     class="inline-block bg-q2-purple text-black font-bold px-12 py-4 rounded hover:bg-white transition-colors">
-                    BOOK STRATEGY SESSION
+                    APPLY FOR STRATEGY SESSION
                 </a>
             </div>
         </div>
@@ -128,6 +136,7 @@
         &copy; 2026 Q2 Pivot. <br>
     </footer>
 
+    <script src="../assets/assets/js/rotating-quotes.js"></script>
 </body>
 
 </html>
