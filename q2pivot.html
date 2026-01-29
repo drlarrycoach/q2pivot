@@ -311,6 +311,7 @@
       {
         name: "Maria Montessori",
         archetype: "The Architect",
+        image: "assets/images/montessori_architect_1769586306280.png",
         bio: "Pioneered the 'prepared environment' where children discover through interaction. She rejected factory-model classrooms with children in rows, championing child-centered learning spaces.",
         color: "text-rose-400",
         strokeColor: "#fb7185",
@@ -640,10 +641,18 @@
           transition={{ delay: index * 0.05 }}
           className="ancestor-card border border-white/10 rounded-xl p-6 bg-gray-900/40 backdrop-blur-sm transition-all duration-300 hover:border-q2-cyan/50"
         >
-          {/* Large background icon - very subtle */}
-          <div className="ancestor-icon-bg">
-            {LineIcons[member.icon](member.strokeColor, "line-icon-large")}
-          </div>
+          {/* Background Image */}
+          {member.image ? (
+            <div className="absolute inset-0 z-0">
+              <img src={member.image} alt={member.name} className="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent"></div>
+            </div>
+          ) : (
+            /* Large background icon - very subtle */
+            <div className="ancestor-icon-bg">
+              {LineIcons[member.icon](member.strokeColor, "line-icon-large")}
+            </div>
+          )}
 
           {/* Content that moves up on hover */}
           <div className="ancestor-content">
