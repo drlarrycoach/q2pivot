@@ -158,13 +158,16 @@
       useEffect(() => {
         const hash = window.location.hash;
         if (hash) {
-          // Small delay to ensure DOM is ready
-          setTimeout(() => {
+          let retries = 0;
+          const interval = setInterval(() => {
             const element = document.querySelector(hash);
             if (element) {
-              element.scrollIntoView({ behavior: 'smooth' });
+              element.scrollIntoView({ behavior: 'auto', block: 'start' });
+              clearInterval(interval);
             }
-          }, 500);
+            retries++;
+            if (retries > 20) clearInterval(interval); // Stop after 2 seconds
+          }, 100);
         }
       }, []);
     }
