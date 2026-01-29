@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Govern the AI Transition | Q2 Pivot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/framer-motion@10/dist/framer-motion.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'q2-cyan': '#0ff0fc',
+            'q2-gold': '#c5a059',
+            'q2-dark': '#0a0a12',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0a0a12;
+      color: white;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Grid background */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(15, 240, 252, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 240, 252, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .grid-bg-gold {
+      background-image:
+        linear-gradient(rgba(197, 160, 89, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(197, 160, 89, 0.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #1a1a2e;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #0ff0fc;
+      border-radius: 4px;
+    }
+
+    /* Ancestor card - FIXED: NO card movement, name moves UP, text drops down */
+    .ancestor-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .ancestor-icon-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.08;
+      width: 160px;
+      height: 160px;
+      transition: opacity 0.4s ease;
+    }
+
+    .ancestor-card:hover .ancestor-icon-bg {
+      opacity: 0.15;
+    }
+
+    .ancestor-content {
+      position: relative;
+      z-index: 10;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .ancestor-card:hover .ancestor-content {
+      transform: translateY(-50px);
+    }
+
+    .ancestor-bio {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .ancestor-card:hover .ancestor-bio {
+      max-height: 200px;
+      opacity: 1;
+      margin-top: 0.75rem;
+    }
+
+    .ancestor-card:hover .hover-hide {
+      opacity: 0;
+      max-height: 0;
+      margin: 0;
+    }
+
+    /* Document icon hover - turn CYAN */
+    .doc-row:hover .doc-icon {
+      stroke: #0ff0fc;
+    }
+
+    /* Simple line icons */
+    .line-icon {
+      width: 80px;
+      height: 80px;
+      stroke-width: 1.5;
+    }
+
+    .line-icon-large {
+      width: 160px;
+      height: 160px;
+      stroke-width: 1.5;
+    }
+
+    .line-icon-small {
+      width: 40px;
+      height: 40px;
+      stroke-width: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+    const { motion, AnimatePresence } = Motion;
+
+    // SCROLL FIX: Handle hash navigation after React mount
+    function useHashScroll() {
+      useEffect(() => {
+        const hash = window.location.hash;
+        if (hash) {
+          // Small delay to ensure DOM is ready
+          setTimeout(() => {
+            const element = document.querySelector(hash);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 500);
+        }
+      }, []);
+    }
+
+    // SOAR Data
+    const soarData = [
+      {
+        id: 1,
+        type: "STRENGTH",
+        title: "Human-Centric Faculty",
+        fullTitle: "The Renaissance of the Socratic Method",
+        desc: "Our professors excel at seminar-style synthesis, a skill AI cannot replicate.",
+        content: "In an age of infinite information, 'delivery' is cheap. The true value of a university is now human synthesis. We treat Faculty not as content dispensers, but as 'Cognitive Architects'.",
+        service: 'Faculty Development: The "Synthesis Sprint" Workshop.',
+        impact: "HIGH"
+      },
+      {
+        id: 2,
+        type: "OPPORTUNITY",
+        title: "DeepSeek-V4 Integration",
+        fullTitle: "Sovereign AI Infrastructure",
+        desc: "Open source models allow us to build a private, walled-garden tutor for every student.",
+        content: "Why rent intelligence from OpenAI? We help universities deploy local, private inference models (like DeepSeek-V4) on-premise. Secure, uncensored, and zero subscription fees.",
+        service: "Infrastructure: Private Campus LLM Deployment.",
+        impact: "CRITICAL"
+      },
+      {
+        id: 3,
+        type: "ASPIRATION",
+        title: "The 4-Day Campus",
+        fullTitle: "Time-Block Restructuring",
+        desc: "Moving lecture delivery to async AI allows for a high-intensity 4-day synthesis week.",
+        content: "Student burnout is systemic. By offloading rote lectures to AI avatars, we condense contact hours into high-intensity 'Synthesis Days'. 4 days for deep work, 3 days for rest and research.",
+        service: 'Strategy: The "Async-First" Timetable Audit.',
+        impact: "VISIONARY"
+      },
+      {
+        id: 4,
+        type: "RESULT",
+        title: "Alumni Impact 2.0",
+        fullTitle: "The Governance Portfolio",
+        desc: "Graduates using AI-governance tools are securing 30% higher starting roles.",
+        content: "Employers don't just want coders; they want governors. We help you launch a 'Certified AI Governor' track, giving your arts & humanities graduates a lethal edge in the market.",
+        service: 'Curriculum: The "AI Governance" Micro-Credential.',
+        impact: "PROVEN"
+      }
+    ];
+
+    // Simple Line Icons as SVG components
+    const LineIcons = {
+      puzzle: (color, className = "line-icon") => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+          <path d="M3 8V6a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2zM3 16v2a2 2 0 002 2h4a2 2 0 002-2v-2a2 2 0 00-2-2H5a2 2 0 00-2 2zM13 8V6a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2h-4a2 2 0 01-2-2zM13 18v-2a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2h-4a2 2 0 01-2-2z" />
+        </svg>
+      ),
+      network: (color, className = "line-icon") => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+          <circle cx="12" cy="5" r="2" />
+          <circle cx="5" cy="19" r="2" />
+          <circle cx="19" cy="19" r="2" />
+          <path d="M12 7v4M7 17l3-6M17 17l-3-6" />
+        </svg>
+      ),
+      chip: (color, className = "line-icon") => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+          <rect x="6" y="6" width="12" height="12" rx="2" />
+          <path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" />
+        </svg>
+      ),
+      graduation: (color, className = "line-icon") => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+          <path d="M22 10l-10-5-10 5 10 5 10-5z" />
+          <path d="M6 12v5c0 2 4 3 6 3s6-1 6-3v-5" />
+        </svg>
+      ),
+      brain: (color, className = "line-icon") => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+          <path d="M12 2a3 3 0 00-3 3v2a3 3 0 003 3 3 3 0 003-3V5a3 3 0 00-3-3zM9 12a3 3 0 100 6 3 3 0 000-6zM15 12a3 3 0 100 6 3 3 0 000-6z" />
+          <path d="M12 10v2M9 15H7a2 2 0 01-2-2v-1M15 15h2a2 2 0 002-2v-1" />
+        </svg>
+      ),
+      star: (color, className = "line-icon") => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+      ),
+      plant: (color, className = "line-icon") => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+          <path d="M12 22v-8M8 14c-2.5 0-4-2-4-4 0-3 2-5 5-5h6c3 0 5 2 5 5 0 2-1.5 4-4 4" />
+          <path d="M12 14c0-3-2-5-5-5M12 14c0-3 2-5 5-5" />
+        </svg>
+      ),
+      mountain: (color, className = "line-icon") => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+          <path d="M3 20h18L12 4 3 20z" />
+          <path d="M8 20l4-8 4 8" />
+        </svg>
+      ),
+      globe: (color, className = "line-icon") => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+        </svg>
+      ),
+      layers: (color, className = "line-icon") => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+          <polygon points="12 2 2 7 12 12 22 7 12 2" />
+          <polyline points="2 17 12 22 22 17" />
+          <polyline points="2 12 12 17 22 12" />
+        </svg>
+      ),
+      radar: (color, className = "line-icon") => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="6" />
+          <circle cx="12" cy="12" r="2" />
+          <path d="M12 2v4M12 18v4M2 12h4M18 12h4" />
+        </svg>
+      ),
+      document: (color, className = "line-icon") => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+          <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+        </svg>
+      ),
+      file: (color, className = "line-icon-small doc-icon") => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" style={{ transition: 'stroke 0.3s ease' }}>
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+          <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+        </svg>
+      ),
+    };
+
+    // Orchestra Data - The Full Orchestra (Chronological by Birth)
+    const orchestraData = [
+      {
+        name: "John Dewey",
+        archetype: "The Pragmatist",
+        bio: "Champion of 'learning by doing' and democratic education. He rejected passive learning, seeing AI simulations as laboratories for experimentation where students test ideas in consequence engines.",
+        color: "text-blue-400",
+        strokeColor: "#60a5fa",
+        icon: "plant"
+      },
+      {
+        name: "Maria Montessori",
+        archetype: "The Architect",
+        bio: "Pioneered the 'prepared environment' where children discover through interaction. She rejected factory-model classrooms with children in rows, championing child-centered learning spaces.",
+        color: "text-rose-400",
+        strokeColor: "#fb7185",
+        icon: "puzzle"
+      },
+      {
+        name: "Lev Vygotsky",
+        archetype: "The Networker",
+        bio: "Father of the 'Zone of Proximal Development' and social constructivism. He rejected individual learning divorced from social context, viewing AI as the ultimate 'More Knowledgeable Other'.",
+        color: "text-cyan-400",
+        strokeColor: "#22d3ee",
+        icon: "network"
+      },
+      {
+        name: "Caleb Gattegno",
+        archetype: "The Encoder",
+        bio: "Believed only awareness is educable, demanding we subordinate teaching to learning. He rejected learning without awareness, treating AI as a feedback mirror for conscious cognition.",
+        color: "text-amber-400",
+        strokeColor: "#fbbf24",
+        icon: "chip"
+      },
+      {
+        name: "Benjamin Bloom",
+        archetype: "The Optimizer",
+        bio: "Identified the '2 Sigma Problem' and created Bloom's Taxonomy. He rejected time-based progression, seeing AI tutors as the scalable path to personalized mastery learning.",
+        color: "text-indigo-400",
+        strokeColor: "#818cf8",
+        icon: "layers"
+      },
+      {
+        name: "Malcolm Knowles",
+        archetype: "The Andragogue",
+        bio: "Pioneer of adult learning theory and self-directed learning. He rejected pedagogical paternalism, demanding AI respect learner autonomy rather than algorithmic control.",
+        color: "text-yellow-400",
+        strokeColor: "#facc15",
+        icon: "graduation"
+      },
+      {
+        name: "Edward T. Hall",
+        archetype: "The Context Decoder",
+        bio: "Mapped high/low context communication and proxemics. He rejected universal communication assumptions, demanding AI honor cultural context over algorithmic universalism.",
+        color: "text-violet-400",
+        strokeColor: "#a78bfa",
+        icon: "globe"
+      },
+      {
+        name: "Jerome Bruner",
+        archetype: "The Scaffolder",
+        bio: "Theorist of 'discovery learning' and the spiral curriculum. He rejected rote memorization, treating AI as dynamic scaffolding that adjusts complexity as learners construct understanding.",
+        color: "text-green-400",
+        strokeColor: "#4ade80",
+        icon: "mountain"
+      },
+      {
+        name: "Paulo Freire",
+        archetype: "The Liberator",
+        bio: "Fought the 'banking model' of education through critical pedagogy. He rejected teachers as authorities filling empty vessels, weaponizing AI literacy to dismantle epistemic privilege.",
+        color: "text-emerald-400",
+        strokeColor: "#34d399",
+        icon: "graduation"
+      },
+      {
+        name: "Kurt Vonnegut Jr.",
+        archetype: "The Unicorn",
+        bio: "Championed human creativity and kindness over efficiency. He rejected dehumanizing systems and technological determinism, insisting AI serve human values, not replace them.",
+        color: "text-pink-400",
+        strokeColor: "#f472b6",
+        icon: "star"
+      },
+      {
+        name: "Albert Bandura",
+        archetype: "The Observer",
+        bio: "Architect of 'social learning theory' and self-efficacy. He rejected behaviorist determinism, seeing AI role models as vicarious learning tools while warning against crushing human agency.",
+        color: "text-pink-400",
+        strokeColor: "#f472b6",
+        icon: "brain"
+      },
+      {
+        name: "Ivan Illich",
+        archetype: "The Disestablisher",
+        bio: "Author of 'Deschooling Society' who challenged institutional monopolies. He rejected credentialing cartels, weaponizing AI to create learning webs that bypass gatekeeping entirely.",
+        color: "text-slate-400",
+        strokeColor: "#94a3b8",
+        icon: "globe"
+      },
+      {
+        name: "Seymour Papert",
+        archetype: "The Maker",
+        bio: "Creator of Constructionism and Logo programming. He rejected passive consumption of knowledge, handing students the keys to build their own cognitive tools with AI.",
+        color: "text-purple-400",
+        strokeColor: "#c084fc",
+        icon: "brain"
+      },
+      {
+        name: "Geert Hofstede",
+        archetype: "The Cultural Cartographer",
+        bio: "Mapped cultural dimensions across societies. He rejected one-size-fits-all Western educational models, demanding AI personalization honor cultural diversity at its core.",
+        color: "text-blue-400",
+        strokeColor: "#60a5fa",
+        icon: "globe"
+      },
+      {
+        name: "Nel Noddings",
+        archetype: "The Caregiver",
+        bio: "Theorist of 'ethics of care' in education. She rejected cold efficiency, insisting AI cannot replace the irreducible moral encounter between teacher and student—technology must serve care.",
+        color: "text-rose-400",
+        strokeColor: "#fb7185",
+        icon: "plant"
+      },
+      {
+        name: "Mihaly Csikszentmihalyi",
+        archetype: "The Flow Master",
+        bio: "Defined 'flow states' as optimal experience. He rejected boredom and anxiety as acceptable learning states, seeing AI as the dynamic difficulty engine for perpetual engagement.",
+        color: "text-sky-400",
+        strokeColor: "#38bdf8",
+        icon: "mountain"
+      },
+      {
+        name: "David Kolb",
+        archetype: "The Cycler",
+        bio: "Designer of the 'experiential learning cycle'. He rejected abstract theory divorced from practice, insisting AI guide learners through experience, reflection, conceptualization, and experimentation.",
+        color: "text-red-400",
+        strokeColor: "#f87171",
+        icon: "layers"
+      },
+      {
+        name: "Milton & Janet Bennett",
+        archetype: "The Intercultural Bridge",
+        bio: "Created the Developmental Model of Intercultural Sensitivity. They rejected ethnocentrism in education, using AI to bridge cultural divides through adaptive understanding.",
+        color: "text-teal-400",
+        strokeColor: "#2dd4bf",
+        icon: "network"
+      },
+      {
+        name: "Lave & Wenger",
+        archetype: "The Connectors",
+        bio: "Pioneers of 'Communities of Practice' and situated learning. They rejected isolated skill acquisition, viewing AI as infrastructure connecting novices to global networks of legitimate peripheral participation.",
+        color: "text-indigo-400",
+        strokeColor: "#818cf8",
+        icon: "network"
+      },
+      {
+        name: "Robert Marzano",
+        archetype: "The Systematizer",
+        bio: "Researcher of 'high-yield instructional strategies' backed by meta-analysis. He rejected intuition over evidence, mining AI analytics to identify which moves generate largest effect sizes.",
+        color: "text-cyan-400",
+        strokeColor: "#22d3ee",
+        icon: "chip"
+      },
+      {
+        name: "Howard Gardner",
+        archetype: "The Pluralist",
+        bio: "Father of 'multiple intelligences' theory. He rejected narrow definitions of intelligence, insisting AI personalization honor all intelligences, not just linguistic and logical-mathematical.",
+        color: "text-fuchsia-400",
+        strokeColor: "#e879f9",
+        icon: "star"
+      },
+      {
+        name: "Carol Dweck",
+        archetype: "The Gardener",
+        bio: "Mother of 'growth mindset' vs. fixed mindset. She rejected intelligence as innate, framing AI hallucinations as 'not yet' moments—invitations to grow the mind's neural network.",
+        color: "text-lime-400",
+        strokeColor: "#a3e635",
+        icon: "plant"
+      },
+      {
+        name: "Peter Senge",
+        archetype: "The Systems Architect",
+        bio: "Pioneer of learning organizations and systems thinking. He rejected hierarchical command-and-control, viewing AI as a lever for systemic transformation, not incremental fixes.",
+        color: "text-slate-400",
+        strokeColor: "#94a3b8",
+        icon: "layers"
+      },
+      {
+        name: "John Kotter",
+        archetype: "The Change Conductor",
+        bio: "Designed the 8-step change management process. He rejected top-down mandates without cultural buy-in, orchestrating AI adoption as strategic transformation, not tech deployment.",
+        color: "text-yellow-400",
+        strokeColor: "#facc15",
+        icon: "star"
+      },
+      {
+        name: "Ken Robinson",
+        archetype: "The Alchemist",
+        bio: "Argued schools kill creativity through standardization. He rejected the factory model, demanding AI personalize expression and turn every student into a singular creative force.",
+        color: "text-orange-400",
+        strokeColor: "#fb923c",
+        icon: "star"
+      },
+      {
+        name: "Grant Wiggins",
+        archetype: "The Cartographer",
+        bio: "Co-creator of Understanding by Design and backward design. He rejected content coverage over understanding, treating AI prompts as backward-designed learning architectures.",
+        color: "text-fuchsia-400",
+        strokeColor: "#e879f9",
+        icon: "puzzle"
+      },
+      {
+        name: "Jay McTighe",
+        archetype: "The Cartographer",
+        bio: "Co-architect of the UbD framework. He rejected teaching to the test, insisting AI assessment honor deep understanding over surface-level performance metrics.",
+        color: "text-violet-400",
+        strokeColor: "#a78bfa",
+        icon: "puzzle"
+      },
+      {
+        name: "bell hooks",
+        archetype: "The Liberatory",
+        bio: "Champion of 'engaged pedagogy' centering marginalized voices. She rejected neutral objectivity, demanding AI tools serve the margins first and confront algorithmic bias head-on.",
+        color: "text-amber-400",
+        strokeColor: "#fbbf24",
+        icon: "star"
+      },
+      {
+        name: "Sugata Mitra",
+        archetype: "The Disruptor",
+        bio: "Creator of the 'Hole in the Wall' self-organized learning experiment. He rejected teachers as necessary intermediaries, viewing AI as the ultimate 'Grandmother Cloud'.",
+        color: "text-sky-400",
+        strokeColor: "#38bdf8",
+        icon: "globe"
+      },
+      {
+        name: "Dylan Wiliam",
+        archetype: "The Formative Voice",
+        bio: "Champion of assessment for learning, not of learning. He rejected summative testing as the primary driver, using AI to deliver real-time formative feedback at scale.",
+        color: "text-green-400",
+        strokeColor: "#4ade80",
+        icon: "chip"
+      },
+      {
+        name: "Michael Schrage",
+        archetype: "The Collaboration Architect",
+        bio: "Theorist of shared spaces and serious play. He rejected isolation as optimal learning, seeing AI as collaborative infrastructure for co-creation, not solo consumption.",
+        color: "text-cyan-400",
+        strokeColor: "#22d3ee",
+        icon: "network"
+      },
+      {
+        name: "Angela Duckworth",
+        archetype: "The Stoic",
+        bio: "Champion of grit, perseverance, and character development. She rejected talent as the primary success factor, viewing AI as a high-friction sparring partner demanding mastery.",
+        color: "text-stone-400",
+        strokeColor: "#a8a29e",
+        icon: "mountain"
+      },
+      {
+        name: "Simon Sinek",
+        archetype: "The Purpose Prophet",
+        bio: "Creator of 'Start with Why' and the golden circle. He rejected feature-first thinking, demanding AI adoption begin with purpose—why before how or what.",
+        color: "text-amber-400",
+        strokeColor: "#fbbf24",
+        icon: "star"
+      }
+    ];
+
+    // SOAR Modal Component
+    function SOARModal({ item, onClose }) {
+      if (!item) return null;
+
+      const typeColors = {
+        STRENGTH: "bg-blue-500/20 text-blue-400 border-blue-900",
+        OPPORTUNITY: "bg-green-500/20 text-green-400 border-yellow-900",
+        ASPIRATION: "bg-purple-500/20 text-purple-400 border-red-900/30",
+        RESULT: "bg-yellow-500/20 text-yellow-400 border-yellow-900"
+      };
+
+      return (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ scale: 0.9, y: 20 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0.9, y: 20 }}
+            className="bg-gray-900 border border-q2-cyan/30 rounded-lg max-w-2xl w-full shadow-2xl relative overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-8 border-b border-white/10 relative">
+              <button
+                onClick={onClose}
+                className="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl"
+              >
+                ×
+              </button>
+              <div className="flex items-center gap-3 mb-4">
+                <span className={`text-xs font-mono px-2 py-1 rounded ${typeColors[item.type]}`}>
+                  {item.type} // INTELLIGENCE
+                </span>
+              </div>
+              <h3 className="text-3xl font-bold text-white mb-2">
+                {item.fullTitle}
+              </h3>
+              <p className="text-gray-400 text-lg">
+                {item.content}
+              </p>
+            </div>
+
+            <div className="p-8 bg-black/30">
+              <h4 className="text-q2-gold font-bold uppercase tracking-widest text-xs mb-3 flex items-center gap-2">
+                <span>⚡</span> Proposed Solution
+              </h4>
+              <div className="p-4 border border-q2-gold/30 bg-q2-gold/5 rounded mb-6">
+                <p className="text-q2-gold font-bold text-lg">
+                  {item.service}
+                </p>
+              </div>
+              <button className="w-full bg-q2-cyan text-black font-bold py-4 rounded hover:bg-white transition-colors flex items-center justify-center gap-2">
+                BOOK BRIEFING →
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      );
+    }
+
+    // Orchestra Card Component - NAME MOVES UP, text drops down, NO card movement
+    function OrchestraCard({ member, index }) {
+      return (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: index * 0.05 }}
+          className="ancestor-card border border-white/10 rounded-xl p-6 bg-gray-900/40 backdrop-blur-sm transition-all duration-300 hover:border-q2-cyan/50"
+        >
+          {/* Large background icon - very subtle */}
+          <div className="ancestor-icon-bg">
+            {LineIcons[member.icon](member.strokeColor, "line-icon-large")}
+          </div>
+
+          {/* Content that moves up on hover */}
+          <div className="ancestor-content">
+            <p className={`${member.color} text-xs tracking-widest mb-2 uppercase`}>
+              {member.archetype}
+            </p>
+            <h3 className="font-bold text-sm mb-1">
+              {member.name}
+            </h3>
+
+            {/* Hover to decrypt - fades out */}
+            <p className="hover-hide text-gray-500 text-xs mt-2 transition-all duration-300">
+              [HOVER TO DECRYPT]
+            </p>
+
+            {/* Text that drops down */}
+            <div className="ancestor-bio">
+              <p className="text-gray-400 text-sm leading-relaxed">
+                {member.bio}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      );
+    }
+
+    // Main App Component
+    function App() {
+      useHashScroll(); // Activate hash scrolling fix
+
+      const [selectedSOAR, setSelectedSOAR] = useState(null);
+
+      const typeColors = {
+        STRENGTH: "bg-blue-500/20 text-blue-400",
+        OPPORTUNITY: "bg-green-500/20 text-green-400",
+        ASPIRATION: "bg-purple-500/20 text-purple-400",
+        RESULT: "bg-yellow-500/20 text-yellow-400"
+      };
+
+      return (
+        <>
+          {/* Hero Section */}
+          <section className="min-h-screen relative overflow-hidden grid-bg py-24 px-8">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                {/* Left Content */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="space-y-8"
+                >
+                  <p className="text-q2-gold text-sm tracking-widest uppercase">THE AI REVOLUTION IS HERE</p>
+
+                  <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+                    Govern the<br />
+                    <span className="text-q2-cyan">AI Transition.</span>
+                  </h1>
+
+                  <p className="text-gray-300 text-lg leading-relaxed max-w-xl">
+                    Q2 Pivot navigates the collision between Steampunk education and the AI future. Govern the Strategy. Orchestrate the Pivot.
+                  </p>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* The Radar - with line icon */}
+                    <a href="#radar" className="group relative p-1 rounded-2xl bg-gradient-to-br from-q2-gold/20 to-transparent hover:from-q2-cyan/50 transition-all duration-300 block">
+                      <div className="border border-q2-gold/30 rounded-xl p-6 bg-black/40 backdrop-blur-sm">
+                        <div className="text-q2-gold mb-3 group-hover:text-q2-cyan transition-colors flex justify-center">
+                          {LineIcons.radar("#c5a059", "w-10 h-10 mx-auto group-hover:stroke-q2-cyan transition-colors")}
+                        </div>
+                        <h3 className="text-xl font-bold mb-2">The Radar</h3>
+                        <p className="text-gray-400 text-sm">Weekly governance intelligence.</p>
+                      </div>
+                    </a>
+
+                    {/* The Collision - with line icon */}
+                    <a href="#collision" className="group relative p-1 rounded-2xl bg-gradient-to-br from-q2-cyan/20 to-transparent hover:from-q2-gold/50 transition-all duration-300 block">
+                      <div className="border border-q2-cyan/30 rounded-xl p-6 bg-black/40 backdrop-blur-sm">
+                        <div className="text-q2-cyan mb-3 group-hover:text-q2-gold transition-colors flex justify-center">
+                          {LineIcons.document("#0ff0fc", "w-10 h-10 mx-auto group-hover:stroke-q2-gold transition-colors")}
+                        </div>
+                        <h3 className="text-xl font-bold mb-2">The Collision</h3>
+                        <p className="text-gray-400 text-sm">Steampunk meets AI.</p>
+                      </div>
+                    </a>
+
+                    {/* The Orchestra - with line icon */}
+                    <a href="#orchestra" className="group relative p-1 rounded-2xl bg-gradient-to-br from-purple-500/20 to-transparent hover:from-q2-cyan/50 transition-all duration-300 block">
+                      <div className="border border-purple-500/30 rounded-xl p-6 bg-black/40 backdrop-blur-sm">
+                        <div className="text-purple-400 mb-3 group-hover:text-q2-cyan transition-colors flex justify-center">
+                          {LineIcons.star("#a78bfa", "w-10 h-10 mx-auto group-hover:stroke-q2-cyan transition-colors")}
+                        </div>
+                        <h3 className="text-xl font-bold mb-2">The Orchestra</h3>
+                        <p className="text-gray-400 text-sm">Giants with cybernetic upgrades.</p>
+                      </div>
+                    </a>
+                  </div>
+                </motion.div>
+
+                {/* Right Content - ORIGINAL LOGO */}
+                <div className="relative h-[600px] flex items-center justify-center">
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3, duration: 0.8 }}
+                    className="absolute -right-20 top-10 font-mono text-q2-cyan text-xs opacity-60"
+                  >
+                    <motion.div
+                      animate={{ y: [0, -10, 0] }}
+                      transition={{ duration: 4, repeat: Infinity }}
+                    >
+                      01001010<br />
+                      11010011<br />
+                      PIVOT_COMPLETE
+                    </motion.div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 1 }}
+                    className="relative w-[500px] h-[500px]"
+                  >
+                    <motion.img
+                      src="https://0b252e7e.q2pivot-web.pages.dev/logo.png"
+                      alt="Q2 Pivot Logo"
+                      className="absolute inset-0 m-auto w-[400px] h-[400px] object-contain z-10"
+                      animate={{
+                        y: [0, -15, 0],
+                        rotate: [0, 2, 0]
+                      }}
+                      transition={{
+                        duration: 6,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+
+                    <motion.div
+                      animate={{ opacity: [0.2, 0.5, 0.2] }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                      className="absolute inset-0 bg-gradient-to-tr from-transparent via-q2-cyan/10 to-q2-cyan/30 blur-xl"
+                    />
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute right-0 top-1/4 text-[12rem] font-mono font-bold opacity-5 select-none pointer-events-none hidden md:block">
+              HOW
+            </div>
+          </section>
+
+          {/* The Collision Section */}
+          <section className="py-24 px-8 bg-black/50" id="collision">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="border-l-4 border-q2-gold pl-6 mb-16 relative"
+              >
+                <div className="absolute -ml-20 mt-2 text-q2-gold text-6xl opacity-10 font-bold">1880</div>
+                <h2 className="text-5xl md:text-6xl font-bold mb-4">The Collision</h2>
+                <p className="text-gray-400 text-2xl italic">
+                  "We are entering Q2 of the 21st Century using the Operating systems of 1885."
+                </p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 gap-12 mt-12">
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                  className="space-y-6"
+                >
+                  <h3 className="text-q2-gold font-bold mb-4 uppercase tracking-widest text-base flex items-center gap-2">
+                    <span className="w-2 h-2 bg-q2-gold rounded-full"></span>
+                    Steampunk Education
+                  </h3>
+
+                  <p className="text-gray-300 leading-relaxed text-lg">
+                    Behind us lies a model forged in the <span className="text-white font-semibold">Prussian reforms</span> and solidified in the <span className="text-white font-semibold">1880s</span>.
+                  </p>
+
+                  <p className="text-gray-300 leading-relaxed text-lg">
+                    It was built for the industrial age—standardized testing, rigid hierarchies, and the scarcity of information. It is a machine of brass gears: heavy, reliable, but grinding to a halt.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                  className="space-y-6"
+                >
+                  <h3 className="text-q2-cyan font-bold mb-4 uppercase tracking-widest text-base flex items-center gap-2">
+                    <span className="w-2 h-2 bg-q2-cyan rounded-full"></span>
+                    The AI Future
+                  </h3>
+
+                  <p className="text-gray-300 leading-relaxed text-lg">
+                    Ahead lies a fluid, hyper-accelerated reality where intelligence is abundant, and the old metrics of "knowledge retention" are obsolete.
+                  </p>
+
+                  <p className="text-gray-300 leading-relaxed text-lg">
+                    This mismatch is not just inefficient; it is dangerous. Using steam-engine policies to govern generative AI results in catastrophic friction.
+                  </p>
+                </motion.div>
+              </div>
+            </div>
+          </section>
+
+          {/* The Q2 Pivot Section */}
+          <section className="py-24 px-8" id="pivot">
+            <div className="max-w-4xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="border border-white/10 rounded-2xl p-8 md:p-12 bg-black/30 backdrop-blur-sm space-y-8"
+              >
+                <h2 className="text-4xl md:text-5xl font-bold mb-8">The Q2 Pivot</h2>
+
+                <div className="space-y-8">
+                  {[
+                    { num: "01", title: "From Bans to Guardrails", desc: "Comply with the Ministry. Govern the Architecture.", link: "guardrails.html" },
+                    { num: "02", title: "From Assessment to Authenticity", desc: "If a robot can pass your test, your test is broken. Verify the Process.", link: "authenticity.html" },
+                    { num: "03", title: "From Administration to Architecture", desc: "Leaders must stop managing the status quo and start architecting the new ecosystem.", link: "architecture.html" }
+                  ].map((item, i) => (
+                    <a href={item.link} key={i} className="block group">
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.3, duration: 0.6 }}
+                        className="flex gap-4 p-4 -ml-4 rounded-xl hover:bg-white/5 transition-colors cursor-pointer"
+                      >
+                        <span className="text-q2-cyan text-3xl font-bold group-hover:text-q2-gold transition-colors">{item.num}</span>
+                        <div>
+                          <h3 className="text-xl font-bold mb-2 group-hover:text-q2-cyan transition-colors">{item.title} →</h3>
+                          <p className="text-gray-400 group-hover:text-gray-300 transition-colors">{item.desc}</p>
+                        </div>
+                      </motion.div>
+                    </a>
+                  ))}
+                </div>
+
+                {/* Tagline - ONE LINE */}
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 1.2, duration: 1 }}
+                  className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-q2-gold via-white to-q2-cyan pt-6 mt-6 border-t border-white/10"
+                >
+                  The first quarter of the 21st Century is over. It's time for the Q2 Pivot.
+                </motion.p>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* The Orchestra Section */}
+          <section className="py-24 px-8 bg-black/50" id="orchestra">
+            <div className="max-w-7xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-16"
+              >
+                <h2 className="text-4xl md:text-5xl font-bold mb-4">The Orchestra</h2>
+                <p className="text-gray-400 text-xl">
+                  32 virtuosos spanning a century of educational innovation. Each one reimagined for the AI era.
+                </p>
+              </motion.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                {orchestraData.map((member, i) => (
+                  <OrchestraCard key={i} member={member} index={i} />
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* The Radar (SOAR) Section - WITH ARROW ANIMATION */}
+          <section className="py-24 px-8 bg-gray-900 relative overflow-hidden" id="radar">
+            <div className="absolute inset-0 grid-bg-gold opacity-20"></div>
+
+            <div className="max-w-7xl mx-auto relative z-10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 border-b border-white/10 pb-6"
+              >
+                <div>
+                  <div className="flex items-center gap-3 text-q2-gold mb-2">
+                    <div className="relative w-6 h-6 flex items-center justify-center">
+                      <span className="absolute w-full h-full border border-q2-gold/50 rounded-full animate-ping opacity-20"></span>
+                      <span className="text-xl">📡</span>
+                    </div>
+                    <span className="font-mono text-xs tracking-widest uppercase">Strategic Intelligence</span>
+                  </div>
+                  <h2 className="text-4xl md:text-5xl font-bold">The Radar (SOAR)</h2>
+                  <p className="text-gray-400 mt-2">Week 4, 2026: Strengths, Opportunities, Aspirations, Results.</p>
+                </div>
+                <div className="mt-4 md:mt-0 font-mono text-right text-xs text-q2-cyan">
+                  <div>FRAMEWORK: SOAR</div>
+                  <div className="text-green-400">STATUS: OPTIMISTIC</div>
+                </div>
+              </motion.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {soarData.map((item, i) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    onClick={() => setSelectedSOAR(item)}
+                    className="bg-black/40 border border-white/10 p-6 rounded-sm relative group hover:border-q2-cyan/50 transition-colors cursor-pointer"
+                  >
+                    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/30"></div>
+                    <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/30"></div>
+                    <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/30"></div>
+                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/30"></div>
+
+                    <div className="flex justify-between items-start mb-4">
+                      <span className={`text-xs font-mono px-2 py-1 rounded ${typeColors[item.type]}`}>
+                        {item.type}
+                      </span>
+                      {/* ARROW WITH ROTATION ANIMATION */}
+                      <span className="text-gray-600 group-hover:text-q2-cyan group-hover:rotate-90 transition-all inline-block">
+                        →
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl font-bold mb-3 group-hover:text-q2-cyan transition-colors">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-sm text-gray-400 mb-4">
+                      {item.desc}
+                    </p>
+
+                    <div className="flex items-center justify-between border-t border-white/5 pt-4">
+                      <span className="text-xs text-gray-500 font-mono">
+                        IMPACT: <span className="text-white">{item.impact}</span>
+                      </span>
+                      <div className="flex items-center gap-2 text-q2-cyan text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                        VIEW INTEL →
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mt-12 bg-gradient-to-r from-q2-cyan/10 to-transparent border-l-4 border-q2-cyan p-8 flex flex-col md:flex-row items-center justify-between gap-6"
+              >
+                <div>
+                  <h3 className="text-2xl font-bold text-white flex items-center gap-2">
+                    <span className="text-q2-cyan">⚡</span> Intercept the Full Briefing
+                  </h3>
+                  <p className="text-gray-400 mt-1 max-w-xl">
+                    Join 2,500+ Education Leaders getting the weekly strategic breakdown.
+                  </p>
+                </div>
+                <div className="flex gap-2 w-full md:w-auto">
+                  <input
+                    type="email"
+                    placeholder="Deans@university.edu"
+                    className="bg-black/50 border border-white/20 px-4 py-3 rounded text-white focus:outline-none focus:border-q2-cyan min-w-[250px]"
+                  />
+                  <button className="bg-q2-cyan text-black font-bold px-6 py-3 rounded hover:bg-white transition-colors">
+                    SUBSCRIBE
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* Secure Archives Section - LINE ICONS */}
+          <section className="py-24 px-8 bg-black/50">
+            <div className="max-w-7xl mx-auto">
+              <div className="border border-red-900/30 rounded-2xl p-8 md:p-12 bg-black/40 backdrop-blur-sm">
+                <div className="flex items-center gap-3 mb-12">
+                  <span className="text-red-500 text-3xl">🛡️</span>
+                  <h2 className="text-3xl md:text-4xl font-bold text-red-500 tracking-widest">SECURE ARCHIVES</h2>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="grid grid-cols-[1fr_auto_auto] gap-4 pb-4 border-b border-white/10 text-gray-500 text-xs uppercase tracking-wider">
+                    <div>DOCUMENT TITLE</div>
+                    <div>CLASSIFICATION</div>
+                    <div>ACTION</div>
+                  </div>
+
+                  {[
+                    { title: "Framework: From Oracle to Orchestrator", classification: "AVAILABLE: CONTACT US", color: "bg-blue-500/20 border-blue-900 text-blue-400" },
+                    { title: "Oasis International School Proposal", classification: "RESTRICTED", color: "bg-yellow-500/20 border-yellow-900 text-yellow-400" },
+                    { title: "UIC Executive Summary", classification: "RESTRICTED", color: "bg-yellow-500/20 border-yellow-900 text-yellow-400" },
+                    { title: "UIC Year 1 Budget", classification: "CONFIDENTIAL", color: "bg-q2-gold/20 border-q2-gold/50 text-q2-gold" },
+                    { title: "Revised Project Proposal", classification: "RESTRICTED", color: "bg-yellow-500/20 border-yellow-900 text-yellow-400" },
+                    { title: "Funder Database & Strategy", classification: "TOP SECRET", color: "bg-red-500/20 border-red-900/30 text-red-500" }
+                  ].map((doc, i) => (
+                    <div key={i} className="doc-row grid grid-cols-[1fr_auto_auto] gap-4 items-center py-4 border-b border-white/5 hover:bg-white/5 transition cursor-pointer">
+                      <div className="flex items-center gap-3">
+                        {LineIcons.file("#6b7280", "line-icon-small doc-icon")}
+                        <span className={doc.classification === "TOP SECRET" ? "text-gray-500 opacity-60" : "text-gray-300"}>
+                          {doc.title}
+                        </span>
+                      </div>
+                      <span className={`px-3 py-1 ${doc.color} text-xs rounded border`}>
+                        {doc.classification}
+                      </span>
+                      <span className="text-gray-600">🔒</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-white/10 text-center text-sm text-gray-500">
+                  SYSTEM NOTICE: Access to restricted files requires Level 4 clearance (Project Lead).
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Footer */}
+          <footer className="py-12 px-8 border-t border-white/10">
+            <div className="max-w-7xl mx-auto text-center">
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold mb-2">
+                  <span className="text-q2-gold">Q2</span> <span className="text-q2-cyan">PIVOT</span>
+                </h3>
+                <p className="text-gray-500 text-sm">Governing the AI Transition</p>
+              </div>
+              <p className="text-gray-600 text-xs">
+                © 2026 Q2 Pivot. All rights reserved. | Educational Leadership • AI Governance • Strategic Foresight
+              </p>
+            </div>
+          </footer>
+
+          <AnimatePresence>
+            {selectedSOAR && (
+              <SOARModal
+                item={selectedSOAR}
+                onClose={() => setSelectedSOAR(null)}
+              />
+            )}
+          </AnimatePresence>
+        </>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+
+</html>

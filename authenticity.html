@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Assessment to Authenticity | Q2 Pivot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10/dist/framer-motion.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-cyan': '#0ff0fc',
+                        'q2-gold': '#c5a059',
+                        'q2-dark': '#0a0a12',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0a0a12;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(15, 240, 252, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 240, 252, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { motion } = Motion;
+
+        function App() {
+            return (
+                <div className="min-h-screen grid-bg relative overflow-hidden pb-24">
+
+                    <nav className="p-8">
+                        <a href="index.html#pivot" className="text-gray-400 hover:text-q2-cyan transition-colors flex items-center gap-2 text-sm uppercase tracking-widest">
+                            ← Return to Q2 Pivot
+                        </a>
+                    </nav>
+
+                    <main className="max-w-4xl mx-auto px-8 mt-12">
+
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="border-l-4 border-q2-gold pl-8 mb-16 relative"
+                        >
+                            <span className="text-q2-gold text-sm font-mono tracking-widest uppercase mb-2 block">Pedagogical Strategy</span>
+                            <h1 className="text-5xl md:text-6xl font-bold mb-4">From Assessment to Authenticity</h1>
+                            <p className="text-2xl text-gray-300 italic">Assess the Process. Verify the Human.</p>
+                        </motion.div>
+
+                        <motion.section
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                            className="space-y-12 text-lg text-gray-300 leading-relaxed"
+                        >
+                            <div className="bg-white/5 border border-white/10 rounded-2xl p-8 md:p-12">
+                                <h2 className="text-3xl font-bold text-white mb-6">Reframing Bloom's for the AI Era</h2>
+                                <p className="mb-6">
+                                    We must shift from fear to framework. The <strong className="text-white">Clark (2025) Framework</strong> introduces a new cognitive layer and redefines the classic levels for an AI-augmented world.
+                                </p>
+                                <p>
+                                    The goal is no longer just "Creation"—it is <strong className="text-q2-gold">Transformation</strong>.
+                                </p>
+                            </div>
+
+                            <div className="space-y-4 max-w-3xl mx-auto">
+                                <h2 className="text-3xl font-bold text-white mb-8 text-center pt-8">The 7 Levels of AI Cognition</h2>
+
+                                {/* LEVEL 7: TOP (Crown) */}
+                                <div className="group border border-q2-cyan/50 p-6 rounded-t-2xl bg-q2-cyan/5 hover:bg-q2-cyan/10 transition-colors relative overflow-hidden text-center">
+                                    <div className="absolute top-0 right-0 bg-q2-cyan text-black text-xs font-bold px-3 py-1 uppercase tracking-widest hidden md:block">
+                                        Top Level
+                                    </div>
+                                    <div className="mb-2">
+                                        <h3 className="text-q2-cyan font-bold text-2xl">07. TRANSFORM</h3>
+                                        <p className="text-xs text-q2-cyan/70 uppercase tracking-widest mb-1">DRIVE SOCIAL IMPACT</p>
+                                    </div>
+                                    <p className="text-gray-300 max-w-xl mx-auto">
+                                        Apply knowledge and tools to drive real-world change. Don't just make an artifact—influence the system.
+                                    </p>
+                                </div>
+
+                                {/* LEVELS 4, 5, 6: RIM (Horizontal) */}
+                                <div className="grid md:grid-cols-3 gap-4">
+                                    {/* 06 */}
+                                    <div className="border border-q2-gold/30 p-4 bg-black/40 hover:border-q2-gold transition-colors text-center">
+                                        <h3 className="text-q2-gold font-bold text-lg mb-1">06. Co-Create</h3>
+                                        <p className="text-xs text-stone-500 uppercase mb-2">Was: Create</p>
+                                        <p className="text-gray-400 text-sm">
+                                            Orchestrate the AI output. Iterative design.
+                                        </p>
+                                    </div>
+
+                                    {/* 05 */}
+                                    <div className="border border-q2-gold/30 p-4 bg-black/40 hover:border-q2-gold transition-colors text-center">
+                                        <h3 className="text-q2-gold font-bold text-lg mb-1">05. Challenge</h3>
+                                        <p className="text-xs text-stone-500 uppercase mb-2">Was: Evaluate</p>
+                                        <p className="text-gray-400 text-sm">
+                                            Make ethical judgments. Argue for/against usage.
+                                        </p>
+                                    </div>
+
+                                    {/* 04 */}
+                                    <div className="border border-q2-gold/30 p-4 bg-black/40 hover:border-q2-gold transition-colors text-center">
+                                        <h3 className="text-q2-gold font-bold text-lg mb-1">04. Compare</h3>
+                                        <p className="text-xs text-stone-500 uppercase mb-2">Was: Analyze</p>
+                                        <p className="text-gray-400 text-sm">
+                                            Audit the machine. Check for hallucinations.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* LEVELS 3, 2, 1: BASE (Stacked Vertical) */}
+                                <div className="space-y-4 max-w-2xl mx-auto">
+                                    {/* 03 */}
+                                    <div className="border border-white/10 p-4 rounded-lg bg-black/20 hover:border-stone-400 transition-colors flex items-center gap-4">
+                                        <div className="text-stone-400 font-bold text-xl min-w-[3rem]">03</div>
+                                        <div>
+                                            <h3 className="text-stone-300 font-bold text-lg">Adapt & Apply</h3>
+                                            <p className="text-gray-500 text-sm">
+                                                Contextualize the output. Modify general answers for specific local constraints.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* 02 */}
+                                    <div className="border border-white/10 p-4 rounded-lg bg-black/20 hover:border-stone-400 transition-colors flex items-center gap-4">
+                                        <div className="text-stone-400 font-bold text-xl min-w-[3rem]">02</div>
+                                        <div>
+                                            <h3 className="text-stone-300 font-bold text-lg">Prompt & Explain</h3>
+                                            <p className="text-gray-500 text-sm md:pr-8">
+                                                Communicate ideas clearly to generate inputs. Explain the "Why" behind the output.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* 01 */}
+                                    <div className="border border-white/10 p-4 rounded-b-2xl bg-black/20 hover:border-stone-400 transition-colors flex items-center gap-4">
+                                        <div className="text-stone-400 font-bold text-xl min-w-[3rem]">01</div>
+                                        <div>
+                                            <h3 className="text-stone-300 font-bold text-lg">Curate & Question</h3>
+                                            <p className="text-gray-500 text-sm">
+                                                Select the right tools. Question the source. Don't just recall facts—recall where to find them.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-gradient-to-r from-q2-gold/10 to-transparent border border-q2-gold/30 rounded-2xl p-8 mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
+                                <div>
+                                    <h3 className="text-2xl font-bold text-white">Upgrade Your Taxonomy</h3>
+                                    <p className="text-gray-400">Download our "AI-Proofing" Bloom's Framework.</p>
+                                </div>
+                                <button className="bg-q2-gold text-black font-bold py-3 px-8 rounded hover:bg-white transition-colors">
+                                    GET THE FRAMEWORK
+                                </button>
+                            </div>
+
+                        </motion.section>
+                    </main>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
