@@ -174,41 +174,45 @@
       {
         id: 1,
         type: "STRENGTH",
-        title: "Human-Centric Faculty",
-        fullTitle: "The Renaissance of the Socratic Method",
-        desc: "Our professors excel at seminar-style synthesis, a skill AI cannot replicate.",
-        content: "In an age of infinite information, 'delivery' is cheap. The true value of a university is now human synthesis. We treat Faculty not as content dispensers, but as 'Cognitive Architects'.",
-        service: 'Faculty Development: The "Synthesis Sprint" Workshop.',
+        title: "Faculty Fellows",
+        fullTitle: "The Q2 Faculty Fellows Program",
+        desc: "Train your faculty to become 'Cognitive Architects' not content dispensers.",
+        content: "In an age of infinite information, 'delivery' is cheap. The true value of a university is mentorship. We train a cohort of 10 high-potential faculty to rewrite their courses for the AI age.",
+        service: "6-Week Train-the-Trainer Cohort",
+        url: "/services/faculty-fellows",
         impact: "HIGH"
       },
       {
         id: 2,
         type: "OPPORTUNITY",
-        title: "DeepSeek-V4 Integration",
-        fullTitle: "Sovereign AI Infrastructure",
-        desc: "Open source models allow us to build a private, walled-garden tutor for every student.",
-        content: "Why rent intelligence from OpenAI? We help universities deploy local, private inference models (like DeepSeek-V4) on-premise. Secure, uncensored, and zero subscription fees.",
-        service: "Infrastructure: Private Campus LLM Deployment.",
+        title: "Sovereign Cloud",
+        fullTitle: "The Sovereign Campus Cloud",
+        desc: "Stop renting intelligence. Deploy private, local AI models on-premise.",
+        content: "Universities should not 'rent' intelligence from OpenAI, creating dependency and privacy risks. We help you deploy open-source models (like DeepSeek) on your own servers.",
+        service: "Local DeepSeek Infra + Architecture Spec",
+        url: "/services/sovereign-cloud",
         impact: "CRITICAL"
       },
       {
         id: 3,
         type: "ASPIRATION",
-        title: "The 4-Day Campus",
-        fullTitle: "Time-Block Restructuring",
-        desc: "Moving lecture delivery to async AI allows for a high-intensity 4-day synthesis week.",
-        content: "Student burnout is systemic. By offloading rote lectures to AI avatars, we condense contact hours into high-intensity 'Synthesis Days'. 4 days for deep work, 3 days for rest and research.",
-        service: 'Strategy: The "Async-First" Timetable Audit.',
+        title: "Subtraction Strategy",
+        fullTitle: "The Subtraction Strategy Retreat",
+        desc: "Use AI to subtract work, not add it. Buy back time for deep work.",
+        content: "Faculty burnout is systemic. Adding AI on top of existing workloads is a disaster. We audit your calendar and administrative bloat to design a 'Deep Work' timetable.",
+        service: "2-Day Executive 'Async-First' Offsite",
+        url: "/services/subtraction-strategy",
         impact: "VISIONARY"
       },
       {
         id: 4,
         type: "RESULT",
-        title: "Alumni Impact 2.0",
-        fullTitle: "The Governance Portfolio",
-        desc: "Graduates using AI-governance tools are securing 30% higher starting roles.",
-        content: "Employers don't just want coders; they want governors. We help you launch a 'Certified AI Governor' track, giving your arts & humanities graduates a lethal edge in the market.",
-        service: 'Curriculum: The "AI Governance" Micro-Credential.',
+        title: "AI Governance",
+        fullTitle: "The AI Governance Credential",
+        desc: "Launch a 'Certified AI Governor' track for students to secure jobs.",
+        content: "Employers don't just want coders; they want governors who can audit and manage AI systems. We provide the curriculum to launch this high-demand minor/certificate.",
+        service: "Curriculum Package & Employer Framework",
+        url: "/services/governance-credential",
         impact: "PROVEN"
       }
     ];
@@ -645,9 +649,12 @@
                   {item.service}
                 </p>
               </div>
-              <button className="w-full bg-q2-cyan text-black font-bold py-4 rounded hover:bg-white transition-colors flex items-center justify-center gap-2">
+              <a
+                href={item.url}
+                className="w-full bg-q2-cyan text-black font-bold py-4 rounded hover:bg-white transition-colors flex items-center justify-center gap-2"
+              >
                 BOOK BRIEFING →
-              </button>
+              </a>
             </div>
           </motion.div>
         </motion.div>
