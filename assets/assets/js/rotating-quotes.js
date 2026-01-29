@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
             wrapper.innerHTML = `
                 <p class="text-lg md:text-xl italic text-gray-300 mb-2 font-serif">${q.text}</p>
                 <div class="flex items-center justify-center gap-2 text-sm">
-                    <span class="font-bold text-q2-gold">${q.author}</span>
+                    <span class="font-bold text-q2-cyan">${q.author}</span>
                     <span class="text-gray-600">•</span>
                     <span class="text-gray-500 font-mono text-xs uppercase">${q.instrument}</span>
                 </div>
