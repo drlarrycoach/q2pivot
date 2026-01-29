@@ -1,0 +1,194 @@
+:root {
+    --color-bg: #0a0a0a;
+    --color-surface: #1a1a1a;
+    --color-primary: #D4AF37;
+    /* Gold */
+    --color-text: #ffffff;
+    --color-text-dim: #888;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    line-height: 1.6;
+    overflow-x: hidden;
+    /* Fix Horizontal Overflow */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background: var(--color-surface);
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.nav-links a {
+    color: var(--color-text);
+    text-decoration: none;
+    margin-left: 30px;
+    font-weight: 500;
+}
+
+/* Hero Section */
+.hero {
+    padding: 100px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+    /* Important for mobile wrap */
+}
+
+.hero-content {
+    flex: 1;
+    min-width: 300px;
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    line-height: 1.1;
+}
+
+.text-gold {
+    color: var(--color-primary);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #aaa;
+    margin-bottom: 30px;
+    max-width: 500px;
+}
+
+.btn {
+    display: inline-block;
+    background: var(--color-primary);
+    color: #000;
+    padding: 12px 30px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+/* Gear Image */
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.gear-img {
+    max-width: 100%;
+    height: auto;
+    width: 500px;
+    /* Desktop Default */
+}
+
+/* Footer & Form */
+footer {
+    background: var(--color-surface);
+    padding: 60px 0;
+    margin-top: 50px;
+}
+
+.footer-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.subscribe-form {
+    display: flex;
+    gap: 10px;
+}
+
+input[type="email"] {
+    padding: 10px;
+    border: 1px solid #333;
+    background: #000;
+    color: #fff;
+    border-radius: 4px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.btn-small {
+    background: var(--color-primary);
+    border: none;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* MOBILE FIXES vs Mobile Layout */
+@media (max-width: 768px) {
+
+    /* 1. Hero Title Fix - Padding & Sizing */
+    .hero {
+        padding-top: 3rem;
+        /* Extra padding */
+        flex-direction: column-reverse;
+        /* Gear on top or bottom? Walkthrough said hero title cutoff, implied top. */
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        /* Smaller font prevents cutoff */
+    }
+
+    /* 2. Gear Image Sizing Fix */
+    .gear-img {
+        width: 250px !important;
+        height: 250px !important;
+    }
+
+    /* 3. Footer Form Stacking Fix */
+    .footer-grid {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .subscribe-form {
+        flex-direction: column;
+        /* Stack input and button */
+        width: 100%;
+    }
+
+    input[type="email"],
+    .btn-small {
+        width: 100%;
+        min-height: 44px !important;
+        /* Touch target fix */
+    }
+
+    /* 4. Touch Targets */
+    .btn,
+    a,
+    button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
