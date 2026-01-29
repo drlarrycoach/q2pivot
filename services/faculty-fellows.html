@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q2 Faculty Fellows | The Renaissance of the Socratic Method</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-gold': '#ffd700',
+                        'q2-cyan': '#00ffff',
+                        'q2-dark': '#0a0a0a',
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                        'mono': ['Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&family=Fira+Code:wght@300;400&display=swap');
+
+        body {
+            background-color: #050505;
+            color: #e5e5e5;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .steam-gradient {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(0, 255, 255, 0.05) 100%);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-text {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .glow-gold {
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- Nav -->
+    <nav
+        class="border-b border-white/10 p-6 flex justify-between items-center bg-black/50 backdrop-blur-md sticky top-0 z-50">
+        <a href="../q2pivot.html" class="text-xl font-bold tracking-widest hover:text-q2-gold transition-colors">←
+            RETURN TO RADAR</a>
+        <div class="font-mono text-xs text-q2-cyan border border-q2-cyan/30 px-3 py-1 rounded">SKU: SOAR-01-FELLOWS
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="relative py-24 px-8 overflow-hidden">
+        <div class="absolute inset-0 steam-gradient opacity-50"></div>
+        <div class="max-w-4xl mx-auto relative z-10 text-center">
+            <div
+                class="inline-block border border-blue-500/50 text-blue-400 px-4 py-1 rounded-full text-xs font-mono mb-6 tracking-widest uppercase">
+                Quadrant: Strength (Human Capital)
+            </div>
+            <h1 class="hero-text text-5xl md:text-7xl font-bold mb-6 text-white leading-tight">
+                Turn Faculty from <span class="italic text-blue-400">Resistors</span> into <span
+                    class="text-q2-gold glow-gold">Architects</span>.
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                In an age of infinite information, "content delivery" is a commodity. The true value of a university is
+                mentorship.
+                We don't just "train" your faculty; we certify them as the <span class="text-white font-bold">Cognitive
+                    Architects</span> of the AI age.
+            </p>
+        </div>
+    </header>
+
+    <!-- The Problem/Solution -->
+    <section class="py-20 px-8 bg-black">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="glass-panel p-10 rounded-xl relative">
+                <div class="absolute -top-4 -left-4 text-6xl opacity-20">⚙️</div>
+                <h3 class="text-2xl font-bold mb-4 text-red-400">The Friction</h3>
+                <p class="text-gray-400 mb-6">
+                    Faculty feel obsolete. They are fighting a losing battle against ChatGPT, trying to police
+                    plagiarism on rote assignments.
+                    Morale is low. Cynicism is high. They see AI as the enemy of rigor.
+                </p>
+            </div>
+            <div class="glass-panel p-10 rounded-xl border-blue-500/30">
+                <h3 class="text-2xl font-bold mb-4 text-q2-cyan">The Pivot</h3>
+                <p class="text-gray-300 mb-6">
+                    We flip the script. We show them that AI handles the "Knowledge Transfer" (Lecture), liberating them
+                    to handle the "Wisdom Transfer" (Seminar).
+                    This isn't just a workshop; it's an identity shift.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logistics -->
+    <section class="py-24 px-8 bg-gray-900 border-y border-white/5">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center hero-text">The 6-Week Cohort Model</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-16">
+                <!-- Step 1 -->
+                <div class="p-6 border-l-2 border-q2-gold/50 bg-white/5">
+                    <div class="text-xs font-mono text-q2-gold mb-2">WEEK 1</div>
+                    <h4 class="font-bold mb-2">The Positive Core</h4>
+                    <p class="text-sm text-gray-400">Auditing where human connection matters most in the syllabus.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="p-6 border-l-2 border-q2-gold/50 bg-white/5">
+                    <div class="text-xs font-mono text-q2-gold mb-2">WEEK 2-3</div>
+                    <h4 class="font-bold mb-2">Un-Cheatable Design</h4>
+                    <p class="text-sm text-gray-400">Designing "Oral Defense" assessments and AI-integrated projects.
+                    </p>
+                </div>
+                <!-- Step 3 -->
+                <div class="p-6 border-l-2 border-q2-gold/50 bg-white/5">
+                    <div class="text-xs font-mono text-q2-gold mb-2">WEEK 4-5</div>
+                    <h4 class="font-bold mb-2">AI Sparring</h4>
+                    <p class="text-sm text-gray-400">Using LLMs as debate partners, critics, and tutors.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="p-6 border-l-2 border-q2-gold/50 bg-white/5">
+                    <div class="text-xs font-mono text-q2-gold mb-2">WEEK 6</div>
+                    <h4 class="font-bold mb-2">Certification</h4>
+                    <p class="text-sm text-gray-400">Fellows present their new courses and receive digital credentials.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Pricing Box -->
+            <div
+                class="glass-panel max-w-2xl mx-auto p-12 text-center rounded-2xl border-q2-gold/30 shadow-2xl shadow-q2-gold/5">
+                <div class="text-sm font-mono text-gray-500 mb-2">ACADEMIC PRICING (2026)</div>
+                <div class="text-5xl font-bold text-white mb-2">$15,000</div>
+                <div class="text-blue-300 mb-8">Per Cohort of 10 Faculty (~$1.5k/person)</div>
+
+                <ul class="text-left max-w-xs mx-auto space-y-3 mb-10 text-gray-400 text-sm">
+                    <li class="flex items-center gap-2">✓ 6-Week Hybrid Program</li>
+                    <li class="flex items-center gap-2">✓ Teaching Materials & Templates</li>
+                    <li class="flex items-center gap-2">✓ "Q2 Fellow" Badge Certification</li>
+                    <li class="flex items-center gap-2">✓ Post-Cohort Mentorship Strategy</li>
+                </ul>
+
+                <a href="#"
+                    class="block w-full bg-q2-gold text-black font-bold py-4 rounded hover:bg-white transition-colors">
+                    RESERVE A COHORT START DATE
+                </a>
+                <p class="mt-4 text-xs text-gray-600">Secure booking via Stripe Invoice. 50% Deposit.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center text-gray-600 text-sm">
+        &copy; 2026 Q2 Pivot. Dr. Larry Davies. <br>
+        <span class="font-mono text-xs opacity-50">Authorized by Antigravity & Claude.</span>
+    </footer>
+
+</body>
+
+</html>

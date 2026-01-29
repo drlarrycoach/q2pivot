@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Subtraction Strategy | Strategic Retreat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-gold': '#ffd700',
+                        'q2-purple': '#c084fc',
+                        'q2-dark': '#0a0a0a',
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                        'mono': ['Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&family=Fira+Code:wght@300;400&display=swap');
+
+        body {
+            background-color: #050505;
+            color: #e5e5e5;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .vision-gradient {
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(0, 0, 0, 1) 100%);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-text {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- Nav -->
+    <nav
+        class="border-b border-white/10 p-6 flex justify-between items-center bg-black/50 backdrop-blur-md sticky top-0 z-50">
+        <a href="../q2pivot.html" class="text-xl font-bold tracking-widest hover:text-q2-purple transition-colors">←
+            RETURN TO RADAR</a>
+        <div class="font-mono text-xs text-q2-purple border border-q2-purple/30 px-3 py-1 rounded">SKU: SOAR-03-RETREAT
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="relative py-24 px-8 overflow-hidden">
+        <div class="absolute inset-0 vision-gradient opacity-60"></div>
+        <div class="max-w-4xl mx-auto relative z-10 text-center">
+            <div
+                class="inline-block border border-purple-500/50 text-purple-400 px-4 py-1 rounded-full text-xs font-mono mb-6 tracking-widest uppercase">
+                Quadrant: Aspiration (Strategy)
+            </div>
+            <h1 class="hero-text text-5xl md:text-7xl font-bold mb-6 text-white leading-tight">
+                Do Less, <span class="italic text-q2-purple">Better</span>.
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                Adding "AI initiatives" to a burnt-out campus is a recipe for disaster. The only winning strategy is
+                <span class="text-white font-bold">Subtraction</span>.
+                We use AI to buy back time for Deep Work.
+            </p>
+        </div>
+    </header>
+
+    <!-- The Offer -->
+    <section class="py-24 px-8 bg-black">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass-panel p-12 rounded-2xl border-q2-purple/30 text-center">
+                <h2 class="text-3xl font-bold mb-8 hero-text text-white">The Subtraction Strategy Retreat</h2>
+                <div class="text-sm font-mono text-gray-500 mb-8 uppercase tracking-widest">2-Day Executive Offsite
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left mb-12">
+                    <div>
+                        <div class="text-q2-purple text-4xl mb-2">01</div>
+                        <h4 class="font-bold mb-2">The Bloat Audit</h4>
+                        <p class="text-sm text-gray-500">We analyze your admin overhead and meeting culture before we
+                            arrive.</p>
+                    </div>
+                    <div>
+                        <div class="text-q2-purple text-4xl mb-2">02</div>
+                        <h4 class="font-bold mb-2">The Redesign</h4>
+                        <p class="text-sm text-gray-500">A facilitated workshops to build the "Async-First" academic
+                            calendar.</p>
+                    </div>
+                    <div>
+                        <div class="text-q2-purple text-4xl mb-2">03</div>
+                        <h4 class="font-bold mb-2">The 4-Day Roadmap</h4>
+                        <p class="text-sm text-gray-500">A 3-year plan to reach the "4-Day Campus" operational model.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white/5 p-8 rounded-lg max-w-lg mx-auto mb-8">
+                    <div class="flex justify-between items-end mb-2">
+                        <span class="text-gray-400">Executive Package</span>
+                        <span class="text-3xl font-bold text-white">$12,500</span>
+                    </div>
+                    <div class="text-right text-xs text-gray-600 mb-0">+ Travel Expenses</div>
+                </div>
+
+                <a href="#"
+                    class="inline-block bg-q2-purple text-black font-bold px-12 py-4 rounded hover:bg-white transition-colors">
+                    BOOK STRATEGY SESSION
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center text-gray-600 text-sm">
+        &copy; 2026 Q2 Pivot. <br>
+    </footer>
+
+</body>
+
+</html>
