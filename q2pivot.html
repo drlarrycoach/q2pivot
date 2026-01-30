@@ -847,7 +847,7 @@
       useEffect(() => {
         const interval = setInterval(() => {
           setIndex((prev) => (prev + 1) % activeMembers.length);
-        }, 10000); // 10 seconds per person
+        }, 11000); // 11 seconds per person
         return () => clearInterval(interval);
       }, [activeMembers.length]);
 
@@ -932,7 +932,7 @@
                     </a>
 
                     {/* The Orchestra - with line icon */}
-                    <a href="#orchestra" className="group relative p-1 rounded-2xl bg-gradient-to-br from-purple-500/20 to-transparent hover:from-q2-cyan/50 transition-all duration-300 block" target="_blank">
+                    <a href="ancestors.html" className="group relative p-1 rounded-2xl bg-gradient-to-br from-purple-500/20 to-transparent hover:from-q2-cyan/50 transition-all duration-300 block">
                       <div className="border border-purple-500/30 rounded-xl p-6 bg-black/40 backdrop-blur-sm">
                         <div className="text-purple-400 mb-3 group-hover:text-q2-cyan transition-colors flex justify-center">
                           {LineIcons.star("#a78bfa", "w-10 h-10 mx-auto group-hover:stroke-q2-cyan transition-colors")}
@@ -1074,11 +1074,11 @@
 
                 <div className="space-y-8">
                   {[
-                    { num: "01", title: "From Bans to Guardrails", desc: "Comply with the Ministry. Govern the Architecture.", link: "guardrails.html" },
-                    { num: "02", title: "From Testing to Authentic Assessment", desc: "If a robot can pass your test, your test is broken. Verify the Process.", link: "authenticity.html" },
-                    { num: "03", title: "From Administration to Architecting with AI", desc: "Stop managing the status quo. Start architecting the new ecosystem.", link: "architecture.html" }
+                    { num: "01", from: "From Bans", to: "Guardrails", desc: "Comply with the Ministry. Govern the Architecture.", link: "guardrails.html" },
+                    { num: "02", from: "From Testing", to: "Authentic Assessment", desc: "If a robot can pass your test, your test is broken. Verify the Process.", link: "authenticity.html" },
+                    { num: "03", from: "From Administration", to: "Architecting with AI", desc: "Stop managing the status quo. Start architecting the new ecosystem.", link: "architecture.html" }
                   ].map((item, i) => (
-                    <a href={item.link} key={i} target="_blank" className="block group">
+                    <a href={item.link} key={i} className="block group">
                       <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -1088,7 +1088,9 @@
                       >
                         <span className="text-q2-cyan text-3xl font-bold group-hover:text-q2-gold transition-colors">{item.num}</span>
                         <div>
-                          <h3 className="text-xl font-bold mb-2 text-q2-cyan transition-colors">{item.title} →</h3>
+                          <h3 className="text-xl font-bold mb-2 transition-colors">
+                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-q2-gold to-white/80">{item.from}</span> <span className="text-gray-500 text-sm mx-1">to</span> <span className="text-q2-cyan">{item.to}</span> →
+                          </h3>
                           <p className="text-gray-400 group-hover:text-gray-300 transition-colors">{item.desc}</p>
                         </div>
                       </motion.div>
