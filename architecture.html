@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q2 Ecosystem Architecture | The Structural Pivot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-gold': '#ffd700',
+                        'q2-cyan': '#00ffff',
+                        'q2-dark': '#0a0a0a',
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                        'mono': ['Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&family=Fira+Code:wght@300;400&display=swap');
+
+        body {
+            background-color: #050505;
+            color: #e5e5e5;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .steam-gradient {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(0, 255, 255, 0.05) 100%);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-text {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .glow-gold {
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- Nav -->
+    <nav
+        class="border-b border-white/10 p-6 flex justify-between items-center bg-black/50 backdrop-blur-md sticky top-0 z-50">
+        <a href="q2pivot.html#radar"
+            class="flex items-center gap-3 hover:bg-white/5 p-2 rounded-lg transition-all group">
+            <img src="assets/images/logo.png" alt="Q2 Pivot" class="h-8 w-auto">
+            <span class="text-xs font-mono tracking-widest text-gray-400 group-hover:text-q2-gold transition-colors">←
+                RETURN TO RADAR</span>
+        </a>
+        <div class="font-mono text-xs text-q2-cyan border border-q2-cyan/30 px-3 py-1 rounded">SKU: Q2-ARCH-01
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="relative py-24 px-8 overflow-hidden">
+        <div class="absolute inset-0 steam-gradient opacity-50"></div>
+        <div class="max-w-4xl mx-auto relative z-10 text-center">
+            <div
+                class="inline-block border border-blue-500/50 text-blue-400 px-4 py-1 rounded-full text-xs font-mono mb-6 tracking-widest uppercase">
+                Product: The Ecosystem Blueprint
+            </div>
+            <h1 class="hero-text text-5xl md:text-7xl font-bold mb-6 text-white leading-tight">
+                Don't <span class="italic text-q2-gold">Manage</span>. <br>
+                <span class="text-blue-400 drop-shadow-[0_0_15px_rgba(96,165,250,0.5)]">Architect</span>.
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                The Dean of 2026 is not an administrator. They are the <span class="text-white font-bold">Chief
+                    Architect</span> of a human-AI ecosystem.
+            </p>
+        </div>
+        <!-- Rotating Quotes Box -->
+        <div class="max-w-4xl mx-auto px-6 mt-16 relative z-20">
+            <div id="hero-quotes"
+                class="glass-panel rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl py-8 px-6 shadow-2xl min-h-[140px] flex items-center justify-center">
+            </div>
+        </div>
+    </header>
+
+    <!-- The Problem/Solution -->
+    <section class="py-20 px-8 bg-black">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="glass-panel p-10 rounded-xl relative">
+                <div class="absolute -top-4 -left-4 text-6xl opacity-20">🏗️</div>
+                <h3 class="text-2xl font-bold mb-4 text-q2-gold">The Legacy Trap</h3>
+                <p class="text-gray-400 mb-6 font-serif italic">
+                    Institutions are trying to bolt AI onto 19th-century silos. Departments are fragmented, data is
+                    trapped, and leadership is paralyzed by the speed of change.
+                </p>
+            </div>
+            <div class="glass-panel p-10 rounded-xl border-blue-500/30">
+                <h3 class="text-2xl font-bold mb-4 text-blue-400">The New Architecture</h3>
+                <p class="text-gray-300 mb-6">
+                    We design the "Sovereign Campus" stack. From local AI infrastructure (Sovereign Cloud) to
+                    cross-disciplinary Faculty Cohorts. We build the skeleton of the AI University.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logistics -->
+    <section class="py-24 px-8 bg-gray-900 border-y border-white/5">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center hero-text">The Blueprint Phase</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">
+                <!-- Step 1 -->
+                <div class="p-6 border-l-2 border-blue-500/50 bg-white/5">
+                    <div class="text-xs font-mono text-blue-400 mb-2">PHASE 1</div>
+                    <h4 class="font-bold mb-2">Infrastructure Audit</h4>
+                    <p class="text-sm text-gray-400">Assessing your GPU compute, data sovereignty, and reliance on Big
+                        Tech rentals.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="p-6 border-l-2 border-blue-500/50 bg-white/5">
+                    <div class="text-xs font-mono text-blue-400 mb-2">PHASE 2</div>
+                    <h4 class="font-bold mb-2">Human Capital Map</h4>
+                    <p class="text-sm text-gray-400">Identifying the "Resistors" and the "Architects" within your
+                        faculty.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="p-6 border-l-2 border-blue-500/50 bg-white/5">
+                    <div class="text-xs font-mono text-blue-400 mb-2">PHASE 3</div>
+                    <h4 class="font-bold mb-2">The Pivot Roadmap</h4>
+                    <p class="text-sm text-gray-400">A 3-year strategic plan to transition from legacy systems to a
+                        sovereign AI model.</p>
+                </div>
+            </div>
+
+            <!-- Pricing Box -->
+            <div
+                class="glass-panel max-w-2xl mx-auto p-12 text-center rounded-2xl border-blue-500/30 shadow-2xl shadow-blue-500/5">
+                <div class="text-sm font-mono text-gray-500 mb-2">STRATEGIC CONSULTING</div>
+                <div class="text-5xl font-bold text-white mb-2">$25,000</div>
+                <div class="text-blue-300 mb-8">Quarterly Retainer</div>
+
+                <ul class="text-left max-w-xs mx-auto space-y-3 mb-10 text-gray-400 text-sm">
+                    <li class="flex items-center gap-2">✓ Monthly Executive Strategy Sessions</li>
+                    <li class="flex items-center gap-2">✓ Sovereign Infrastructure Design</li>
+                    <li class="flex items-center gap-2">✓ Faculty Cohort Oversight</li>
+                    <li class="flex items-center gap-2">✓ Direct Access to Dr. Larry Davies</li>
+                </ul>
+
+                <a href="https://forms.gle/ZVGcoYSeqa4uA4Ss5"
+                    class="block w-full bg-blue-600 text-white font-bold py-4 rounded hover:bg-white hover:text-blue-600 transition-colors">
+                    RETAIN CHIEF ARCHITECT
+                </a>
+                <p class="mt-4 text-xs text-gray-600">Secure booking via Stripe Invoice.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center text-gray-600 text-sm">
+        &copy; 2026 Q2 Pivot. Dr. Larry Davies. <br>
+        <span class="font-mono text-xs opacity-50">Authorized by Antigravity & Claude.</span>
+    </footer>
+
+    <script src="assets/assets/js/rotating-quotes.js"></script>
+</body>
+
+</html>
