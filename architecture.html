@@ -4,172 +4,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Q2 Ecosystem Architecture | The Structural Pivot</title>
+    <title>Sovereign Campus Cloud | Q2 Pivot</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'q2-gold': '#ffd700',
-                        'q2-cyan': '#00ffff',
-                        'q2-dark': '#0a0a0a',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                        'sans': ['Inter', 'sans-serif'],
-                        'mono': ['Fira Code', 'monospace'],
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&family=Fira+Code:wght@300;400&display=swap');
-
         body {
-            background-color: #050505;
-            color: #e5e5e5;
+            background-color: #0a0a12;
+            color: white;
             font-family: 'Inter', sans-serif;
         }
 
-        .steam-gradient {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(0, 255, 255, 0.05) 100%);
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(15, 240, 252, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 240, 252, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .hero-text {
-            font-family: 'Playfair Display', serif;
-        }
-
-        .glow-gold {
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(10, 10, 18, 0.8);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col">
-
-    <!-- Nav -->
-    <nav
-        class="border-b border-white/10 p-6 flex justify-between items-center bg-black/50 backdrop-blur-md sticky top-0 z-50">
-        <a href="q2pivot.html#pivot"
-            class="text-gray-400 hover:text-q2-cyan transition-colors flex items-center gap-2 text-sm font-mono uppercase tracking-widest">
-            &larr; Return to Pivot Pillars
-        </a>
-        <div class="font-mono text-xs text-q2-cyan border border-q2-cyan/30 px-3 py-1 rounded">SKU: Q2-ARCH-01
-        </div>
-    </nav>
-
-    <!-- Hero -->
-    <header class="relative py-24 px-8 overflow-hidden">
-        <div class="absolute inset-0 steam-gradient opacity-50"></div>
-        <div class="max-w-4xl mx-auto relative z-10 text-center">
-            <div
-                class="inline-block border border-blue-500/50 text-blue-400 px-4 py-1 rounded-full text-xs font-mono mb-6 tracking-widest uppercase">
-                Product: The Ecosystem Blueprint
-            </div>
-            <h1 class="hero-text text-5xl md:text-7xl font-bold mb-6 text-white leading-tight">
-                Don't <span class="italic text-q2-gold">Manage</span>. <br>
-                <span class="text-blue-400 drop-shadow-[0_0_15px_rgba(96,165,250,0.5)]">Architect</span>.
-            </h1>
-            <p class="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-                The Dean of 2026 is not an administrator. They are the <span class="text-white font-bold">Chief
-                    Architect</span> of a human-AI ecosystem.
-            </p>
-        </div>
-        <!-- Rotating Quotes Box -->
-        <div class="max-w-4xl mx-auto px-6 mt-16 relative z-20">
-            <div id="hero-quotes"
-                class="glass-panel rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl py-8 px-6 shadow-2xl min-h-[140px] flex items-center justify-center">
-            </div>
+<body class="grid-bg">
+    <header class="sticky-header py-4 px-8">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold">
+                <span class="text-q2-gold">Q2</span> <span class="text-q2-cyan">PIVOT</span>
+            </a>
+            <nav class="flex gap-8 text-xs font-mono uppercase tracking-widest text-gray-400">
+                <a href="index.html" class="hover:text-q2-cyan transition-colors">Base</a>
+                <a href="orchestra.html" class="hover:text-q2-cyan transition-colors">Orchestra</a>
+                <a href="authenticity.html" class="hover:text-q2-cyan transition-colors">Fellows</a>
+                <a href="product_strategy.html" class="hover:text-q2-cyan transition-colors">Strategy</a>
+            </nav>
         </div>
     </header>
 
-    <!-- The Problem/Solution -->
-    <section class="py-20 px-8 bg-black">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div class="glass-panel p-10 rounded-xl relative">
-                <div class="absolute -top-4 -left-4 text-6xl opacity-20">🏗️</div>
-                <h3 class="text-2xl font-bold mb-4 text-q2-gold">The Legacy Trap</h3>
-                <p class="text-gray-400 mb-6 font-serif italic">
-                    Institutions are trying to bolt AI onto 19th-century silos. Departments are fragmented, data is
-                    trapped, and leadership is paralyzed by the speed of change.
-                </p>
-            </div>
-            <div class="glass-panel p-10 rounded-xl border-blue-500/30">
-                <h3 class="text-2xl font-bold mb-4 text-blue-400">The New Architecture</h3>
-                <p class="text-gray-300 mb-6">
-                    We design the "Sovereign Campus" stack. From local AI infrastructure (Sovereign Cloud) to
-                    cross-disciplinary Faculty Cohorts. We build the skeleton of the AI University.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Logistics -->
-    <section class="py-24 px-8 bg-gray-900 border-y border-white/5">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl font-bold mb-12 text-center hero-text">The Blueprint Phase</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">
-                <!-- Step 1 -->
-                <div class="p-6 border-l-2 border-blue-500/50 bg-white/5">
-                    <div class="text-xs font-mono text-blue-400 mb-2">PHASE 1</div>
-                    <h4 class="font-bold mb-2">Infrastructure Audit</h4>
-                    <p class="text-sm text-gray-400">Assessing your GPU compute, data sovereignty, and reliance on Big
-                        Tech rentals.</p>
-                </div>
-                <!-- Step 2 -->
-                <div class="p-6 border-l-2 border-blue-500/50 bg-white/5">
-                    <div class="text-xs font-mono text-blue-400 mb-2">PHASE 2</div>
-                    <h4 class="font-bold mb-2">Human Capital Map</h4>
-                    <p class="text-sm text-gray-400">Identifying the "Resistors" and the "Architects" within your
-                        faculty.</p>
-                </div>
-                <!-- Step 3 -->
-                <div class="p-6 border-l-2 border-blue-500/50 bg-white/5">
-                    <div class="text-xs font-mono text-blue-400 mb-2">PHASE 3</div>
-                    <h4 class="font-bold mb-2">The Pivot Roadmap</h4>
-                    <p class="text-sm text-gray-400">A 3-year strategic plan to transition from legacy systems to a
-                        sovereign AI model.</p>
-                </div>
-            </div>
-
-            <!-- Pricing Box -->
+    <main class="max-w-7xl mx-auto py-24 px-8 space-y-32">
+        <!-- Hero -->
+        <section class="space-y-8 text-center max-w-4xl mx-auto">
             <div
-                class="glass-panel max-w-2xl mx-auto p-12 text-center rounded-2xl border-blue-500/30 shadow-2xl shadow-blue-500/5">
-                <div class="text-sm font-mono text-gray-500 mb-2">STRATEGIC CONSULTING</div>
-                <div class="text-5xl font-bold text-white mb-2">$25,000</div>
-                <div class="text-blue-300 mb-8">Quarterly Retainer</div>
-
-                <ul class="text-left max-w-xs mx-auto space-y-3 mb-10 text-gray-400 text-sm">
-                    <li class="flex items-center gap-2">✓ Monthly Executive Strategy Sessions</li>
-                    <li class="flex items-center gap-2">✓ Sovereign Infrastructure Design</li>
-                    <li class="flex items-center gap-2">✓ Faculty Cohort Oversight</li>
-                    <li class="flex items-center gap-2">✓ Direct Access to dedicated senior staff</li>
-                </ul>
-
-                <a href="https://forms.gle/ZVGcoYSeqa4uA4Ss5"
-                    class="block w-full bg-blue-600 text-white font-bold py-4 rounded hover:bg-white hover:text-blue-600 transition-colors"
-                    target="_blank">
-                    RETAIN CHIEF ARCHITECT
-                </a>
-                <p class="mt-4 text-xs text-gray-600">Secure booking via Stripe Invoice.</p>
+                class="inline-block px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-mono uppercase tracking-widest">
+                OPPORTUNITY // ARCHITECTURE PROTOCOL
             </div>
+            <h1 class="text-5xl md:text-7xl font-black leading-tight">
+                OWN YOUR <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">INSTITUTION'S
+                    BRAIN.</span>
+            </h1>
+            <p class="text-gray-400 text-xl leading-relaxed italic">
+                Signing a six-figure contract for Big Tech AI isn't strategy—it's a surrender of sovereignty.
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center pt-8">
+                <a href="https://buy.stripe.com/test_5kAcOIeNpen38us8wx"
+                    class="bg-q2-cyan text-black px-12 py-5 rounded font-bold text-lg hover:bg-white transition-all transform hover:scale-105">
+                    DOWNLOAD THE BLUEPRINT ($5K) →
+                </a>
+                <a href="https://calendly.com/drlarry/q2-strategy-session"
+                    class="border border-white/20 px-12 py-5 rounded font-bold text-lg hover:bg-white/5 transition-all">
+                    BOOK STRATEGY SESSION →
+                </a>
+            </div>
+        </section>
+
+        <!-- Rent vs Own -->
+        <section class="space-y-12">
+            <h2 class="text-3xl font-bold text-center">Infrastructure Checkmate.</h2>
+            <div class="grid md:grid-cols-2 gap-px bg-white/10 border border-white/10 rounded-xl overflow-hidden">
+                <div class="bg-black/40 p-12 space-y-8">
+                    <h3 class="text-2xl font-bold text-red-500">Renting AI (SaaS)</h3>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <span class="text-red-500 font-bold">×</span>
+                            <div>
+                                <h4 class="font-bold">Privacy At Risk</h4>
+                                <p class="text-sm text-gray-500">Your institutional data is used to train someone else's
+                                    model.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="text-red-500 font-bold">×</span>
+                            <div>
+                                <h4 class="font-bold">Algorithmic Censorship</h4>
+                                <p class="text-sm text-gray-500">Big Tech decides what is "appropriate" for your
+                                    research.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="text-red-500 font-bold">×</span>
+                            <div>
+                                <h4 class="font-bold">Subscription Death Spiral</h4>
+                                <p class="text-sm text-gray-500">Per-seat licensing that grows every year with no exit
+                                    path.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white/5 p-12 space-y-8">
+                    <h3 class="text-2xl font-bold text-q2-cyan">Owning AI (Sovereign)</h3>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <span class="text-q2-cyan font-bold">✓</span>
+                            <div>
+                                <h4 class="font-bold">Total Data Privacy</h4>
+                                <p class="text-sm text-gray-500">Inference happens on-premise. No data ever leaves your
+                                    firewall.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="text-q2-cyan font-bold">✓</span>
+                            <div>
+                                <h4 class="font-bold">Uncensored Research</h4>
+                                <p class="text-sm text-gray-500">Deploy open-weight models optimized for your specific
+                                    fields.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="text-q2-cyan font-bold">✓</span>
+                            <div>
+                                <h4 class="font-bold">Fixed Asset ROI</h4>
+                                <p class="text-sm text-gray-500">Compute is an asset, not an expense. Marginal cost of
+                                    use is electricity.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact -->
+        <section class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8">
+                <div class="p-8 border-l-4 border-q2-gold bg-q2-gold/5">
+                    <p class="text-xl italic text-gray-300">
+                        "If you don't own the weights, you don't own the future. The university that relies on external
+                        APIs for its cognitive work is effectively an intellectual colony."
+                    </p>
+                </div>
+                <div class="space-y-4">
+                    <h2 class="text-3xl font-bold">Financial Sovereignty.</h2>
+                    <p class="text-gray-400">
+                        A typical mid-sized university spends $240k/year on AI API calls. A sovereign cluster costs $85k
+                        once. ROI is achieved in month four.
+                    </p>
+                </div>
+            </div>
+            <div class="bg-gray-900 border border-white/10 p-12 rounded-xl relative overflow-hidden group">
+                <div class="absolute inset-0 grid-bg opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                <div class="relative z-10 space-y-8">
+                    <div class="flex justify-between items-end">
+                        <div class="text-5xl font-black">6.4x</div>
+                        <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest">Efficiency Multiplier
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm italic">
+                        Compared to cloud-based inference for large-scale student cohorts.
+                    </p>
+                    <div class="pt-8 space-y-2">
+                        <div class="h-1 bg-gray-800 rounded-full w-full">
+                            <div class="h-full bg-q2-cyan w-[85%]"></div>
+                        </div>
+                        <div class="flex justify-between text-[10px] font-mono text-zinc-600">
+                            <span>SOVEREIGN CLOUD</span>
+                            <span>AZURE/AWS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 px-8 border-t border-white/10 mt-24">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-gray-600 text-xs font-mono uppercase tracking-[0.5em]">
+                Q2 PIVOT // OWN THE FUTURE
+            </p>
         </div>
-    </section>
-
-    <footer class="py-12 text-center text-gray-600 text-sm">
-        &copy; 2026 Q2 Pivot, a product of Coaching with Dr Larry, LLC. Incorporated in Delaware, USA.
     </footer>
-
-    <script src="assets/assets/js/rotating-quotes.js"></script>
 </body>
 
 </html>

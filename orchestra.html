@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Orchestra | Q2 Pivot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10/dist/framer-motion.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-cyan': '#0ff0fc',
+                        'q2-gold': '#c5a059',
+                        'q2-dark': '#0a0a12',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0a0a12;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(15, 240, 252, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 240, 252, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .ancestor-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background: rgba(17, 24, 39, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .ancestor-card:hover {
+            border-color: #0ff0fc;
+        }
+
+        .ancestor-content {
+            position: relative;
+            z-index: 10;
+            padding: 1.5rem;
+            transition: transform 0.4s ease;
+        }
+
+        .ancestor-card:hover .ancestor-content {
+            transform: translateY(-20px);
+        }
+
+        .ancestor-bio {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .ancestor-card:hover .ancestor-bio {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+        .line-icon {
+            width: 120px;
+            height: 120px;
+            stroke-width: 1;
+            opacity: 0.1;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+
+<body class="grid-bg min-h-screen">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+        const { motion, AnimatePresence } = Motion;
+
+        const LineIcon = ({ name, color }) => {
+            const icons = {
+                puzzle: <path d="M3 8V6a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2zM3 16v2a2 2 0 002 2h4a2 2 0 002-2v-2a2 2 0 00-2-2H5a2 2 0 00-2 2zM13 8V6a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2h-4a2 2 0 01-2-2zM13 18v-2a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2h-4a2 2 0 01-2-2z" />,
+                network: <><circle cx="12" cy="5" r="2" /><circle cx="5" cy="19" r="2" /><circle cx="19" cy="19" r="2" /><path d="M12 7v4M7 17l3-6M17 17l-3-6" /></>,
+                chip: <><rect x="6" y="6" width="12" height="12" rx="2" /><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" /></>,
+                graduation: <><path d="M22 10l-10-5-10 5 10 5 10-5z" /><path d="M6 12v5c0 2 4 3 6 3s6-1 6-3v-5" /></>,
+                brain: <><path d="M12 2a3 3 0 00-3 3v2a3 3 0 003 3 3 3 0 003-3V5a3 3 0 00-3-3zM9 12a3 3 0 100 6 3 3 0 000-6zM15 12a3 3 0 100 6 3 3 0 000-6z" /><path d="M12 10v2M9 15H7a2 2 0 01-2-2v-1M15 15h2a2 2 0 002-2v-1" /></>,
+                star: <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />,
+                plant: <><path d="M12 22v-8M8 14c-2.5 0-4-2-4-4 0-3 2-5 5-5h6c3 0 5 2 5 5 0 2-1.5 4-4 4" /><path d="M12 14c0-3-2-5-5-5M12 14c0-3 2-5 5-5" /></>,
+                mountain: <><path d="M3 20h18L12 4 3 20z" /><path d="M8 20l4-8 4 8" /></>,
+                globe: <><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" /></>,
+                layers: <><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" /></>,
+                radar: <><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /><path d="M12 2v4M12 18v4M2 12h4M18 12h4" /></>
+            };
+            return (
+                <svg className="line-icon" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1">
+                    {icons[name]}
+                </svg>
+            );
+        };
+
+        const orchestraData = [
+            {
+                name: "John Dewey",
+                archetype: "The Pragmatist",
+                image: "assets/images/dewey_pragmatist_v2_1769706455998.png",
+                bio: "Champion of 'learning by doing' and democratic education. He rejected passive learning, seeing AI simulations as laboratories for experimentation where students test ideas in consequence engines.",
+                quote: "Education is not preparation for life; education is life itself.",
+                color: "text-blue-400",
+                strokeColor: "#60a5fa",
+                icon: "plant",
+                section: "Woodwinds"
+            },
+            {
+                name: "Maria Montessori",
+                archetype: "The Architect",
+                image: "assets/images/montessori_architect_1769586306280.png",
+                bio: "Pioneered the 'prepared environment' where children discover through interaction. She rejected factory-model classrooms with children in rows, championing child-centered learning spaces.",
+                quote: "The greatest sign of success for a teacher is to be able to say, 'The children are now working as if I did not exist.'",
+                color: "text-rose-400",
+                strokeColor: "#fb7185",
+                icon: "puzzle",
+                section: "Woodwinds"
+            },
+            {
+                name: "Lev Vygotsky",
+                archetype: "The Networker",
+                image: "assets/images/vygotsky_networker_1769586449324.png",
+                bio: "Father of the 'Zone of Proximal Development' and social constructivism. He rejected individual learning divorced from social context, viewing AI as the ultimate 'More Knowledgeable Other'.",
+                quote: "What a child can do in cooperation today, he can do alone tomorrow.",
+                color: "text-cyan-400",
+                strokeColor: "#22d3ee",
+                icon: "network",
+                section: "Woodwinds"
+            },
+            {
+                name: "Caleb Gattegno",
+                archetype: "The Encoder",
+                image: "assets/images/gattegno_encoder_1769586618987.png",
+                bio: "Believed only awareness is educable, demanding we subordinate teaching to learning. He rejected learning without awareness, treating AI as a feedback mirror for conscious cognition.",
+                quote: "Only awareness is educable.",
+                color: "text-amber-400",
+                strokeColor: "#fbbf24",
+                icon: "chip",
+                section: "Woodwinds"
+            },
+            {
+                name: "Benjamin Bloom",
+                archetype: "The Optimizer",
+                image: "assets/images/bloom_optimizer_1769587725495.png",
+                bio: "Identified the '2 Sigma Problem' and created Bloom's Taxonomy. He rejected time-based progression, seeing AI tutors as the scalable path to personalized mastery learning.",
+                quote: "After forty years of intensive research... my major conclusion is: What any person in the world can learn, almost all persons can learn if provided with appropriate prior and current conditions of learning.",
+                color: "text-indigo-400",
+                strokeColor: "#818cf8",
+                icon: "layers",
+                section: "Woodwinds"
+            },
+            {
+                name: "Malcolm Knowles",
+                archetype: "The Andragogue",
+                bio: "Pioneer of adult learning theory and self-directed learning. He rejected pedagogical paternalism, demanding AI respect learner autonomy rather than algorithmic control.",
+                quote: "Adult learning is best achieved through self-directed inquiry.",
+                color: "text-yellow-400",
+                strokeColor: "#facc15",
+                icon: "graduation",
+                section: "Woodwinds"
+            },
+            {
+                name: "Edward T. Hall",
+                archetype: "The Context Decoder",
+                bio: "Mapped high/low context communication and proxemics. He rejected universal communication assumptions, demanding AI honor cultural context over algorithmic universalism.",
+                quote: "The silent language of culture speaks louder than words.",
+                color: "text-violet-400",
+                strokeColor: "#a78bfa",
+                icon: "globe",
+                section: "Woodwinds"
+            },
+            {
+                name: "Jerome Bruner",
+                archetype: "The Scaffolder",
+                bio: "Theorist of 'discovery learning' and the spiral curriculum. He rejected rote memorization, treating AI as dynamic scaffolding that adjusts complexity as learners construct understanding.",
+                quote: "Any subject can be taught effectively in some intellectually honest form to any child at any stage of development.",
+                color: "text-green-400",
+                strokeColor: "#4ade80",
+                icon: "mountain",
+                section: "Woodwinds"
+            },
+            {
+                name: "Paulo Freire",
+                archetype: "The Liberator",
+                image: "assets/images/freire_liberator_1769586700518.png",
+                bio: "Fought the 'banking model' of education through critical pedagogy. He rejected teachers as authorities filling empty vessels, weaponizing AI literacy to dismantle epistemic privilege.",
+                quote: "Education either functions as an instrument which is used to facilitate integration of the younger generation into the logic of the present system... or it becomes the practice of freedom.",
+                color: "text-emerald-400",
+                strokeColor: "#34d399",
+                icon: "graduation",
+                section: "Woodwinds"
+            },
+            {
+                name: "Kurt Vonnegut Jr.",
+                archetype: "The Unicorn",
+                bio: "Championed human creativity and kindness over efficiency. He rejected dehumanizing systems and technological determinism, insisting AI serve human values, not replace them.",
+                quote: "We are what we pretend to be, so we must be careful about what we pretend to be.",
+                color: "text-pink-400",
+                strokeColor: "#f472b6",
+                icon: "star",
+                section: "Woodwinds"
+            },
+            {
+                name: "Albert Bandura",
+                archetype: "The Observer",
+                bio: "Architect of 'social learning theory' and self-efficacy. He rejected behaviorist determinism, seeing AI role models as vicarious learning tools while warning against crushing human agency.",
+                quote: "Self-belief does not necessarily ensure success, but self-disbelief assuredly spawns failure.",
+                color: "text-pink-400",
+                strokeColor: "#f472b6",
+                icon: "brain",
+                section: "Woodwinds"
+            },
+            {
+                name: "Ivan Illich",
+                archetype: "The Disestablisher",
+                bio: "Author of 'Deschooling Society' who challenged institutional monopolies. He rejected credentialing cartels, weaponizing AI to create learning webs that bypass gatekeeping entirely.",
+                quote: "The current search for new educational funnels must be reversed into the search for educational webs which heighten the opportunity for each one to transform each moment of his living into a moment of learning.",
+                color: "text-slate-400",
+                strokeColor: "#94a3b8",
+                icon: "globe",
+                section: "Percussion"
+            },
+            {
+                name: "Seymour Papert",
+                archetype: "The Maker",
+                image: "assets/images/papert_maker_1769586888969.png",
+                bio: "Creator of Constructionism and Logo programming. He rejected passive consumption of knowledge, handing students the keys to build their own cognitive tools with AI.",
+                quote: "The role of the teacher is to create the conditions for invention rather than to provide ready-made knowledge.",
+                color: "text-purple-400",
+                strokeColor: "#c084fc",
+                icon: "brain",
+                section: "Percussion"
+            },
+            {
+                name: "Geert Hofstede",
+                archetype: "The Cultural Cartographer",
+                bio: "Mapped cultural dimensions across societies. He rejected one-size-fits-all Western educational models, demanding AI personalization honor cultural diversity at its core.",
+                quote: "Culture is more often a source of conflict than of synergy.",
+                color: "text-blue-400",
+                strokeColor: "#60a5fa",
+                icon: "globe",
+                section: "Percussion"
+            },
+            {
+                name: "Nel Noddings",
+                archetype: "The Caregiver",
+                bio: "Theorist of 'ethics of care' in education. She rejected cold efficiency, insisting AI cannot replace the irreducible moral encounter between teacher and student—technology must serve care.",
+                quote: "The primary aim of every educational institution and every effort must be the maintenance and enhancement of caring.",
+                color: "text-rose-400",
+                strokeColor: "#fb7185",
+                icon: "plant",
+                section: "Percussion"
+            },
+            {
+                name: "Mihaly Csikszentmihalyi",
+                archetype: "The Flow Master",
+                image: "assets/images/csikszentmihalyi_flow_master_v2_1769705704416.png",
+                bio: "Defined 'flow states' as optimal experience. He rejected boredom and anxiety as acceptable learning states, seeing AI as the dynamic difficulty engine for perpetual engagement.",
+                quote: "Flow is the state in which people are so involved in an activity that nothing else seems to matter.",
+                color: "text-sky-400",
+                strokeColor: "#38bdf8",
+                icon: "mountain",
+                section: "Percussion"
+            },
+            {
+                name: "Christopher Alexander",
+                archetype: "The Pattern Weaver",
+                image: "assets/images/alexander_weaver_1769587002061.png",
+                bio: "Architect and theorist of 'pattern languages'. He rejected dead, soul-less structures, using AI to generate living architectures that support human wholeness and organic growth.",
+                quote: "The quality of without-a-name is the root of all life and beauty in the world.",
+                color: "text-q2-gold",
+                strokeColor: "#c5a059",
+                icon: "puzzle",
+                section: "Percussion"
+            },
+            {
+                name: "David Kolb",
+                archetype: "The Cycler",
+                bio: "Designer of the 'experiential learning cycle'. He rejected abstract theory divorced from practice, insisting AI guide learners through experience, reflection, conceptualization, and experimentation.",
+                quote: "Learning is the process whereby knowledge is created through the transformation of experience.",
+                color: "text-red-400",
+                strokeColor: "#f87171",
+                icon: "layers",
+                section: "Percussion"
+            },
+            {
+                name: "Dr. Milton Bennett",
+                archetype: "The Intercultural Bridge",
+                bio: "Co-creator of the Developmental Model of Intercultural Sensitivity (DMIS). He rejected the idea that exposure alone creates competence, insisting on a structured journey from ethnocentrism to ethnorelativism.",
+                quote: "Intercultural competence is the ability to shift perspective and behavior effectively.",
+                color: "text-teal-400",
+                strokeColor: "#2dd4bf",
+                icon: "network",
+                section: "Percussion"
+            },
+            {
+                name: "Dr. Janet Bennett",
+                archetype: "The Intercultural Bridge",
+                bio: "Executive director of the Intercultural Communication Institute. She rejected 'surface-level' diversity training, championing the deep, transformative mindset shifts required for true global connection.",
+                quote: "To reach the intercultural, one must move beyond the safety of the self.",
+                color: "text-teal-400",
+                strokeColor: "#2dd4bf",
+                icon: "network",
+                section: "Percussion"
+            },
+            {
+                name: "Dr. Jean Lave",
+                archetype: "The Connector",
+                bio: "Anthropologist who pioneered the theory of situated learning. She rejected the 'Prussian classroom' model, proving that learning is always an aspect of all human activity within communities of practice.",
+                quote: "Learning is a process that takes place in a participation framework, not in an individual mind.",
+                color: "text-indigo-400",
+                strokeColor: "#818cf8",
+                icon: "network",
+                section: "Strings"
+            },
+            {
+                name: "Etienne Wenger",
+                archetype: "The Connector",
+                bio: "Computer scientist and educational theorist who defined 'Communities of Practice'. He rejected isolated skill acquisition, viewing AI as infrastructure connecting novices to global networks of participation.",
+                quote: "Communities of practice are groups of people who share a concern or a passion for something they do and learn how to do it better as they interact regularly.",
+                color: "text-indigo-400",
+                strokeColor: "#818cf8",
+                icon: "network",
+                section: "Strings"
+            },
+            {
+                name: "Robert Marzano",
+                archetype: "The Systematizer",
+                bio: "Researcher of 'high-yield instructional strategies' backed by meta-analysis. He rejected intuition over evidence, mining AI analytics to identify which moves generate largest effect sizes.",
+                quote: "To improve student achievement, we must focus on the instructional strategies that work.",
+                color: "text-cyan-400",
+                strokeColor: "#22d3ee",
+                icon: "chip",
+                section: "Strings"
+            },
+            {
+                name: "Howard Gardner",
+                archetype: "The Pluralist",
+                image: "assets/images/gardner_pluralist_v2_1769706473952.png",
+                bio: "Father of 'multiple intelligences' theory. He rejected narrow definitions of intelligence, insisting AI personalization honor all intelligences, not just linguistic and logical-mathematical.",
+                quote: "It's not how smart you are, it's how you are smart.",
+                color: "text-fuchsia-400",
+                strokeColor: "#e879f9",
+                icon: "star",
+                section: "Strings"
+            },
+            {
+                name: "Carol Dweck",
+                archetype: "The Gardener",
+                image: "assets/images/dweck_gardener_1769587410617.png",
+                bio: "Mother of 'growth mindset' vs. fixed mindset. She rejected intelligence as innate, framing AI hallucinations as 'not yet' moments—invitations to grow the mind's neural network.",
+                quote: "Love challenges, be intrigued by mistakes, enjoy effort, and keep on learning.",
+                color: "text-lime-400",
+                strokeColor: "#a3e635",
+                icon: "plant",
+                section: "Strings"
+            },
+            {
+                name: "Peter Senge",
+                archetype: "The Systems Architect",
+                image: "assets/images/senge_systems_architect_1769704996290.png",
+                bio: "Pioneer of learning organizations and systems thinking. He rejected hierarchical command-and-control, viewing AI as a lever for systemic transformation, not incremental fixes.",
+                quote: "The only sustainable competitive advantage is an organization's ability to learn faster than the competition.",
+                color: "text-slate-400",
+                strokeColor: "#94a3b8",
+                icon: "layers",
+                section: "Strings"
+            },
+            {
+                name: "John Kotter",
+                archetype: "The Change Conductor",
+                bio: "Designed the 8-step change management process. He rejected top-down mandates without cultural buy-in, orchestrating AI adoption as strategic transformation, not tech deployment.",
+                quote: "Change is the only constant, and management is the art of navigating it.",
+                color: "text-yellow-400",
+                strokeColor: "#facc15",
+                icon: "star",
+                section: "Strings"
+            },
+            {
+                name: "Ken Robinson",
+                archetype: "The Alchemist",
+                image: "assets/images/robinson_alchemist_1769587197450.png",
+                bio: "Argued schools kill creativity through standardization. He rejected the factory model, demanding AI personalize expression and turn every student into a singular creative force.",
+                quote: "Creativity is as important now in education as literacy, and we should treat it with the same status.",
+                color: "text-orange-400",
+                strokeColor: "#fb923c",
+                icon: "star",
+                section: "Strings"
+            },
+            {
+                name: "Grant Wiggins",
+                archetype: "The Cartographer",
+                bio: "Co-creator of Understanding by Design and backward design. He rejected content coverage over understanding, treating AI prompts as backward-designed learning architectures.",
+                quote: "To understand is to be able to wisely and effectively use knowledge and skill in a variety of contexts.",
+                color: "text-fuchsia-400",
+                strokeColor: "#e879f9",
+                icon: "puzzle",
+                section: "Strings"
+            },
+            {
+                name: "Jay McTighe",
+                archetype: "The Cartographer",
+                bio: "Co-architect of the UbD framework. He rejected teaching to the test, insisting AI assessment honor deep understanding over surface-level performance metrics.",
+                quote: "Thinking is the foundation of all learning.",
+                color: "text-violet-400",
+                strokeColor: "#a78bfa",
+                icon: "puzzle",
+                section: "Strings"
+            },
+            {
+                name: "bell hooks",
+                archetype: "The Liberatory",
+                image: "assets/images/hooks_liberatory_v2_1769705932261.png",
+                bio: "Champion of 'engaged pedagogy' centering marginalized voices. She rejected neutral objectivity, demanding AI tools serve the margins first and confront algorithmic bias head-on.",
+                quote: "The classroom remains the most radical space of possibility in the academy.",
+                color: "text-amber-400",
+                strokeColor: "#fbbf24",
+                icon: "star",
+                section: "Brass"
+            },
+            {
+                name: "Sugata Mitra",
+                archetype: "The Disruptor",
+                image: "assets/images/mitra_disruptor_1769587562405.png",
+                bio: "Creator of the 'Hole in the Wall' self-organized learning experiment. He rejected teachers as necessary intermediaries, viewing AI as the ultimate 'Grandmother Cloud'.",
+                quote: "It's not about what you're taught, it's about what you learn when you're not being taught.",
+                color: "text-sky-400",
+                strokeColor: "#38bdf8",
+                icon: "globe",
+                section: "Brass"
+            },
+            {
+                name: "Dylan Wiliam",
+                archetype: "The Formative Voice",
+                bio: "Champion of assessment for learning, not of learning. He rejected summative testing as the primary driver, using AI to deliver real-time formative feedback at scale.",
+                quote: "Assessment is the bridge between teaching and learning.",
+                color: "text-green-400",
+                strokeColor: "#4ade80",
+                icon: "chip",
+                section: "Brass"
+            },
+            {
+                name: "Michael Schrage",
+                archetype: "The Collaboration Architect",
+                bio: "Theorist of shared spaces and serious play. He rejected isolation as optimal learning, seeing AI as collaborative infrastructure for co-creation, not solo consumption.",
+                quote: "Collaborative tools are not for talking to people, they are for working with people.",
+                color: "text-cyan-400",
+                strokeColor: "#22d3ee",
+                icon: "network",
+                section: "Brass"
+            },
+            {
+                name: "Pink & Duckworth",
+                archetype: "The Grit & Drive Duo",
+                bio: "Researchers of intrinsic motivation and grit. They rejected 'carrots and sticks' approach to learning, viewing AI as the high-friction sparring partner that develops character and sustained passion.",
+                quote: "Internal drive is more powerful than external rewards.",
+                color: "text-stone-400",
+                strokeColor: "#a8a29e",
+                icon: "mountain",
+                section: "Brass"
+            },
+            {
+                name: "Yong Zhao",
+                archetype: "The Globalization Scholar",
+                bio: "Champion of entrepreneurial mindsets and globalization. He rejected standardized testing and forced homogenization, fostering world-class learners who create their own paths.",
+                quote: "Education should be about finding your own path, not following someone else's.",
+                color: "text-blue-400",
+                strokeColor: "#60a5fa",
+                icon: "graduation",
+                section: "Brass"
+            },
+            {
+                name: "Paul Tough",
+                archetype: "The Character Developer",
+                bio: "Explorer of how children succeed through non-cognitive skills. He rejected purely academic metrics, highlighting grit and self-control as the foundational traits for resilience.",
+                quote: "Character is more important than intelligence for long-term success.",
+                color: "text-stone-400",
+                strokeColor: "#a8a29e",
+                icon: "mountain",
+                section: "Brass"
+            },
+            {
+                name: "Angela Duckworth",
+                archetype: "The Stoic",
+                image: "assets/images/duckworth_stoic_1769587502372.png",
+                bio: "Champion of grit, perseverance, and character development. She rejected talent as the primary success factor, viewing AI as a high-friction sparring partner demanding mastery.",
+                quote: "Grit is passion and perseverance for very long-term goals.",
+                color: "text-stone-400",
+                strokeColor: "#a8a29e",
+                icon: "mountain",
+                section: "Brass"
+            },
+            {
+                name: "Simon Sinek",
+                archetype: "The Purpose Prophet",
+                bio: "Creator of 'Start with Why' and the golden circle. He rejected feature-first thinking, demanding AI adoption begin with purpose—why before how or what.",
+                quote: "People don't buy what you do; they buy why you do it.",
+                color: "text-amber-400",
+                strokeColor: "#fbbf24",
+                icon: "star",
+                section: "Brass"
+            },
+            {
+                name: "Tony Wagner",
+                archetype: "The Innovation Expert",
+                bio: "Pioneer of 'Survival Skills' for the 21st century. He rejected knowledge consumption, advocating for play, passion, and purpose as the drivers of innovation.",
+                quote: "Innovation is the ability to see things differently and act on it.",
+                color: "text-orange-400",
+                strokeColor: "#fb923c",
+                icon: "star",
+                section: "Brass"
+            },
+            {
+                name: "David Cooperrider",
+                archetype: "The Appreciative Inquirer",
+                image: "assets/images/cooperrider_appreciative_inquirer_v2_1769705685828.png",
+                bio: "Founder of Appreciative Inquiry. He rejected the deficit paradigm of 'fixing what's wrong', proving organizations change faster by amplifying their 'positive core' and envisioning aspirational futures.",
+                quote: "We live in the world our questions create.",
+                color: "text-yellow-400",
+                strokeColor: "#facc15",
+                icon: "star",
+                section: "Brass"
+            },
+            {
+                name: "Salman Khan",
+                archetype: "The Mastery Advocate",
+                bio: "Founder of Khan Academy. He rejected time-based progression, using AI to provide scalable, self-paced mastery learning for the world.",
+                quote: "Mastery learning is the only way to ensure success for every student.",
+                color: "text-cyan-400",
+                strokeColor: "#22d3ee",
+                icon: "chip",
+                section: "Brass"
+            }
+        ];
+
+        const sections = [
+            { id: "Woodwinds", label: "Woodwinds", desc: "Foundational Theories of Learning & Development" },
+            { id: "Percussion", label: "Percussion", desc: "Systems, Scales, & Context Mapping" },
+            { id: "Strings", label: "Strings", desc: "Communities of Practice & Mindset Shifts" },
+            { id: "Brass", label: "Brass", desc: "Critical Pedagogy & Disruption" }
+        ];
+
+        function App() {
+            return (
+                <div className="max-w-7xl mx-auto py-16 px-8 space-y-24">
+                    {/* Header */}
+                    <header className="space-y-4 text-center">
+                        <a href="index.html" className="text-q2-cyan font-mono text-xs hover:underline inline-block mb-4">← RETURN TO BASE</a>
+                        <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase italic">The Orchestra.</h1>
+                        <p className="text-xl text-gray-400 max-w-3xl mx-auto italic">
+                            43 Virtuosos across 4 sections. The collective intelligence base of the Q2 Pivot.
+                        </p>
+                    </header>
+
+                    {/* All Sections */}
+                    {sections.map(section => (
+                        <section key={section.id} id={section.id} className="space-y-12">
+                            <div className="border-l-4 border-q2-gold pl-6 space-y-2">
+                                <h2 className="text-4xl font-bold uppercase tracking-tight">{section.label}</h2>
+                                <p className="text-gray-500 font-mono text-sm uppercase tracking-widest">{section.desc}</p>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                {orchestraData.filter(m => m.section === section.id).map((member, i) => (
+                                    <div key={i} className="ancestor-card group">
+                                        <LineIcon name={member.icon} color={member.strokeColor} />
+
+                                        {member.image && (
+                                            <div className="absolute inset-0 z-0">
+                                                <img src={member.image} alt={member.name} className="w-full h-full object-cover opacity-100 saturate-125 transition-all duration-700 group-hover:opacity-40" />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent"></div>
+                                            </div>
+                                        )}
+
+                                        <div className="ancestor-content">
+                                            <p className={`${member.color} text-xs tracking-widest mb-1 uppercase font-mono`}>{member.archetype}</p>
+                                            <h3 className="text-2xl font-bold leading-none mb-4">{member.name}</h3>
+
+                                            <div className="ancestor-bio">
+                                                <p className="text-gray-300 text-sm leading-relaxed mb-4 italic">"{member.quote}"</p>
+                                                <p className="text-gray-400 text-sm leading-relaxed">{member.bio}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+                    ))}
+
+                    {/* Footer */}
+                    <footer className="text-center py-24 border-t border-white/10 opacity-50">
+                        <p className="text-xs font-mono uppercase tracking-[0.5em] mb-4">Finalizing Transition</p>
+                        <h3 className="text-2xl font-bold">Q2 PIVOT // 2026</h3>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

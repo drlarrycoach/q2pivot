@@ -5,68 +5,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Vault | Q2 Pivot</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0a0a12;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(197, 160, 89, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(197, 160, 89, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
 </head>
 
-<body>
+<body class="grid-bg min-h-screen">
+    <div class="max-w-5xl mx-auto py-24 px-8 space-y-16">
+        <header class="space-y-4">
+            <a href="index.html" class="text-q2-gold font-mono text-xs hover:underline inline-block mb-4">← RETURN TO
+                BASE</a>
+            <h1 class="text-6xl font-black tracking-tighter uppercase italic">The Vault.</h1>
+            <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
+                Privileged intelligence, strategy briefs, and architectural blueprints for education leadership.
+            </p>
+        </header>
 
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <a href="index.html">
-                        <img src="assets/images/logo.png" alt="Q2 Pivot Logo">
-                    </a>
+        <div class="grid md:grid-cols-2 gap-8">
+            {[
+            { title: "Sovereign Cloud Blueprint", type: "BLUEPRINT", status: "ENCRYPTED", price: "$5,000", link:
+            "architecture.html" },
+            { title: "Cognitive Architecture Guide", type: "GUIDE", status: "AVAILABLE", price: "FREE", link: "#" },
+            { title: "Subtraction Audit Template", type: "TEMPLATE", status: "ENCRYPTED", price: "$1,200", link:
+            "product_strategy.html" },
+            { title: "The 7-Day Policy Sprint", type: "FRAMEWORK", status: "AVAILABLE", price: "FREE", link: "#" }
+            ].map((item, i) => (
+            <a href={item.link} key={i}
+                class="group p-8 border border-white/10 bg-gray-900/40 rounded-xl hover:border-q2-gold transition-all">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">{item.type} //
+                        {item.status}</span>
+                    <span class="text-q2-gold font-bold">{item.price}</span>
                 </div>
-                <div class="nav-links">
-                    <a href="index.html">Home</a>
-                    <a href="#">Services</a>
-                    <a href="vault.html" class="active">The Vault</a>
-                    <a href="#">Contact</a>
-                </div>
-            </nav>
+                <h3 class="text-2xl font-bold group-hover:text-q2-gold transition-colors mb-2">{item.title}</h3>
+                <div class="text-white/20 text-xs font-mono uppercase tracking-[0.2em] group-hover:text-white/40">
+                    INITIALIZE DECRYPTION →</div>
+            </a>
+            ))}
         </div>
-    </header>
 
-    <section class="container" style="padding: 60px 0;">
-        <h1 style="text-align: center;">Strategic Intelligence <span class="text-gold">Vault</span></h1>
-        <p style="text-align: center; color: #888;">Restricted access proprietary frameworks and governance models.</p>
-
-        <div class="vault-grid">
-
-            <!-- Item 1 -->
-            <div class="vault-item">
-                <span class="status-badge status-available">AVAILABLE: CONTACT US</span>
-                <h3>Enterprise AI Governance Framework</h3>
-                <p style="color: #888; margin-top: 10px;">
-                    A comprehensive 50-page guide on establishing ethical and effective AI oversight boards within
-                    Fortune 500 companies.
+        <section class="bg-q2-gold/5 border border-q2-gold/20 p-12 rounded-2xl space-y-8">
+            <div class="max-w-2xl">
+                <h2 class="text-3xl font-bold text-q2-gold mb-4">Institutional Access.</h2>
+                <p class="text-gray-400">
+                    Unlock the complete Conductor's Toolkit for your entire cabinet. Sovereign infrastructure, faculty
+                    certification, and strategic subtraction—integrated into a singular governance model.
                 </p>
             </div>
-
-            <!-- Item 2 -->
-            <div class="vault-item">
-                <span class="status-badge status-available">AVAILABLE: CONTACT US</span>
-                <h3>Context Engineering Playbook</h3>
-                <p style="color: #888; margin-top: 10px;">
-                    Technical architecture for building context-aware RAG systems that respect data privacy and
-                    organizational hierarchy.
-                </p>
-            </div>
-
-            <!-- Item 3 -->
-            <div class="vault-item" style="opacity: 0.5;">
-                <span class="status-badge"
-                    style="background: #333; color: #888; border: 1px solid #444;">RESTRICTED</span>
-                <h3>Sector Analysis: EdTech 2027</h3>
-                <p style="color: #888; margin-top: 10px;">
-                    Predictive modeling on the shift from LMS to AI-driven personalized learning environments.
-                </p>
-            </div>
-
-        </div>
-    </section>
-
+            <a href="https://calendly.com/drlarry/q2-strategy-session"
+                class="bg-q2-gold text-black px-8 py-4 rounded font-bold hover:bg-white transition-colors inline-block">
+                REQUEST INSTITUTIONAL ACCESS →
+            </a>
+        </section>
+    </div>
 </body>
 
 </html>
