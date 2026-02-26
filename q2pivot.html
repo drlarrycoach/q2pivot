@@ -1182,32 +1182,32 @@
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
                 {[
                   {
-                    title: "Fidelity",
-                    icon: "plant",
-                    desc: "Preserving the irreducible moral encounter between teacher and student.",
-                    detail: "Technology must serve care. We architect for the unique soul of the student, ensuring AI amplifies rather than replaces human presence.",
-                    theorists: "Hooks, Noddings, Montessori, Freire"
-                  },
-                  {
-                    title: "Agency",
-                    icon: "chip",
-                    desc: "Putting the steering wheel back in the learner's hands.",
-                    detail: "AI as a scaffold, not a shortcut. We design for intentionality, self-efficacy, and the 'Serious Play' that drives deep cognitive growth.",
-                    theorists: "Vygotsky, Papert, Dweck, Bandura"
+                    title: "Friction Tolerance",
+                    icon: "puzzle",
+                    desc: "Which pedagogical struggles should we preserve, and which should we remove?",
+                    detail: "Calibrate productive struggle (Socratic dialogue) vs. administrative friction (grading mechanics).",
+                    theorists: "Freire, Gattegno, Papert, Montessori"
                   },
                   {
                     title: "Lateral Bandwidth",
                     icon: "network",
-                    desc: "Synchronizing disparate intelligence nodes into a single cognitive unit.",
-                    detail: "Moving from content coverage to architectural flow. Reclaiming the seventy-percent administrative trap for high-value human contribution.",
-                    theorists: "Bloom, Senge, Alexander, Illich"
+                    desc: "How do we assess more while reducing faculty workload?",
+                    detail: "AI-enabled continuous formative feedback loops and multimodal assessment at scale.",
+                    theorists: "Bloom, Wiliam, Vygotsky, Mitra"
                   },
                   {
                     title: "Incentive Layer",
                     icon: "star",
-                    desc: "Intrinsic motivation over top-down mandate.",
-                    detail: "Aligning AI adoption with professional purpose, peer belonging, and creative agency to overcome resistance.",
+                    desc: "How do we make faculty adoption intrinsically motivated?",
+                    detail: "Aligning AI adoption with professional purpose, peer belonging, and creative agency.",
                     theorists: "Kotter, Senge, Sinek, Lave & Wenger"
+                  },
+                  {
+                    title: "Moral Fidelity",
+                    icon: "plant",
+                    desc: "Preserving the irreducible moral encounter between teacher and student.",
+                    detail: "Technology must serve care. We architect for the unique soul of the student, ensuring AI amplifies rather than replaces human presence.",
+                    theorists: "Hooks, Noddings, Montessori, Alexander"
                   }
                 ].map((pillar, i) => (
                   <motion.div
@@ -1222,8 +1222,8 @@
                       {LineIcons[pillar.icon]("#0ff0fc", "w-16 h-16")}
                     </div>
                     <h3 className="text-2xl font-bold mb-4 text-center">{pillar.title}</h3>
-                    <p className="text-gray-300 font-bold mb-4 text-center italic">{pillar.desc}</p>
-                    <p className="text-gray-400 text-sm mb-6 text-center">{pillar.detail}</p>
+                    <p className="text-gray-300 font-bold mb-4 text-center italic text-sm">{pillar.desc}</p>
+                    <p className="text-gray-400 text-xs mb-6 text-center">{pillar.detail}</p>
                     <div className="pt-6 border-t border-white/5">
                       <p className="text-[10px] font-mono text-gray-500 uppercase tracking-widest text-center">Intellectual Foundation</p>
                       <p className="text-xs text-q2-gold text-center mt-1">{pillar.theorists}</p>
