@@ -151,7 +151,8 @@
 
   <script type="text/babel">
     const { useState, useEffect } = React;
-    const { motion, AnimatePresence } = Motion;
+    const motion = window.Motion.motion;
+    const AnimatePresence = window.Motion.AnimatePresence;
 
     // SCROLL FIX: Handle hash navigation after React mount
     function useHashScroll() {
@@ -949,7 +950,7 @@
                   </h1>
 
                   <p className="text-gray-300 text-lg leading-relaxed max-w-xl">
-                    Your institution has an AI policy. Your faculty aren't using it. The problem isn't resistance—it's architecture. The 3 Pillars framework gives provosts the institutional infrastructure that makes AI adoption inevitable.
+                    Most institutions acknowledge the need for change, but few are implementing what they are supposed to. Q2 Pivot bridges the gap between acknowledgment and orchestration.
                   </p>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1056,7 +1057,7 @@
                 <div className="absolute -ml-20 mt-2 text-q2-gold text-6xl opacity-10 font-bold">1885</div>
                 <h2 className="text-5xl md:text-6xl font-bold mb-4">The Collision</h2>
                 <p className="text-gray-400 text-2xl italic">
-                  "We are entering Q2 of the 21st Century using the Operating systems of 1885."
+                  "We are entering Q2 of the 21st Century using the <span className="text-q2-gold font-bold">Operating systems of 1885</span>."
                 </p>
               </motion.div>
 
@@ -1097,73 +1098,9 @@
                   </p>
 
                   <p className="text-gray-300 leading-relaxed text-lg">
-                    This mismatch is not just inefficient; it is dangerous. Using <span className="text-q2-gold font-semibold">steam-engine policies</span> to <span className="text-q2-cyan font-semibold">govern generative AI results</span> in catastrophic friction.
+                    This mismatch is not just inefficient; it is dangerous. Using <span className="text-q2-gold font-semibold underline decoration-q2-gold/30">steam-engine policies</span> to <span className="text-q2-cyan font-semibold">govern generative AI results</span> in <span className="text-red-500 font-bold">catastrophic friction.</span>
                   </p>
                 </motion.div>
-              </div>
-            </div>
-          </section>
-
-          {/* The 3 Pillars Section */}
-          <section className="py-24 px-8 bg-black/30 border-y border-white/5" id="pillars">
-            <div className="max-w-7xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold mb-4">The 3 Pillars Framework</h2>
-                <p className="text-gray-400 text-xl max-w-3xl mx-auto">
-                  Architectural decisions that shape faculty behavior for years. Sustainable transformation through infrastructure, not mandating.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-8">
-                {[
-                  {
-                    title: "Friction Tolerance",
-                    icon: "puzzle",
-                    desc: "Which pedagogical struggles should we preserve, and which should we remove?",
-                    detail: "Calibrate productive struggle (Socratic dialouge) vs. administrative friction (grading mechanics).",
-                    theorists: "Freire, Gattegno, Papert, Montessori"
-                  },
-                  {
-                    title: "Lateral Bandwidth",
-                    icon: "network",
-                    desc: "How do we assess more while reducing faculty workload?",
-                    detail: "AI-enabled continuous formative feedback loops and multimodal assessment at scale.",
-                    theorists: "Bloom, Wiliam, Vygotsky, Mitra"
-                  },
-                  {
-                    title: "Incentive Layer",
-                    icon: "star",
-                    desc: "How do we make faculty adoption intrinsically motivated?",
-                    detail: "Aligning AI adoption with professional purpose, peer belonging, and creative agency.",
-                    theorists: "Kotter, Senge, Sinek, Lave & Wenger"
-                  }
-                ].map((pillar, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.2 }}
-                    className="p-8 border border-white/10 rounded-2xl bg-gray-900/50 hover:border-q2-cyan/30 transition-all group"
-                  >
-                    <div className="text-q2-cyan mb-6 group-hover:scale-110 transition-transform flex justify-center">
-                      {LineIcons[pillar.icon]("#0ff0fc", "w-16 h-16")}
-                    </div>
-                    <h3 className="text-2xl font-bold mb-4 text-center">{pillar.title}</h3>
-                    <p className="text-gray-300 font-bold mb-4 text-center italic">{pillar.desc}</p>
-                    <p className="text-gray-400 text-sm mb-6 text-center">{pillar.detail}</p>
-                    <div className="pt-6 border-t border-white/5">
-                      <p className="text-[10px] font-mono text-gray-500 uppercase tracking-widest text-center">Intellectual Foundation</p>
-                      <p className="text-xs text-q2-gold text-center mt-1">{pillar.theorists}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              <div className="text-center mt-12">
-                <a href="pillars.html" className="inline-block bg-white text-black px-8 py-4 rounded font-bold hover:bg-zinc-200 transition-colors">
-                  EXPLORE THE FULL FRAMEWORK
-                </a>
               </div>
             </div>
           </section>
@@ -1178,7 +1115,7 @@
                 transition={{ duration: 0.6 }}
                 className="border border-white/10 rounded-2xl p-8 md:p-12 bg-black/30 backdrop-blur-sm space-y-8"
               >
-                <h2 className="text-4xl md:text-5xl font-bold mb-8">The Q2 Pivot</h2>
+                <h2 className="text-4xl md:text-5xl font-bold mb-8">The Four Pillars of the Pivot</h2>
 
                 <div className="space-y-8">
                   {[
@@ -1232,6 +1169,70 @@
             </div>
           </section>
 
+          {/* The Three Constants Section */}
+          <section className="py-24 px-8 bg-black/30 border-y border-white/5" id="pillars">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-bold mb-4">The Three Constants</h2>
+                <p className="text-gray-400 text-xl max-w-3xl mx-auto">
+                  Architectural decisions that shape faculty behavior for years. Sustainable transformation through infrastructure, not mandating.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                {[
+                  {
+                    title: "Fidelity",
+                    icon: "plant",
+                    desc: "Preserving the irreducible moral encounter between teacher and student.",
+                    detail: "Technology must serve care. We architect for the unique soul of the student, ensuring AI amplifies rather than replaces human presence.",
+                    theorists: "Hooks, Noddings, Montessori, Freire"
+                  },
+                  {
+                    title: "Agency",
+                    icon: "chip",
+                    desc: "Putting the steering wheel back in the learner's hands.",
+                    detail: "AI as a scaffold, not a shortcut. We design for intentionality, self-efficacy, and the 'Serious Play' that drives deep cognitive growth.",
+                    theorists: "Vygotsky, Papert, Dweck, Bandura"
+                  },
+                  {
+                    title: "Lateral Bandwidth",
+                    icon: "network",
+                    desc: "Synchronizing disparate intelligence nodes into a single cognitive unit.",
+                    detail: "Moving from content coverage to architectural flow. Reclaiming the seventy-percent administrative trap for high-value human contribution.",
+                    theorists: "Bloom, Senge, Alexander, Illich"
+                  }
+                ].map((pillar, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.2 }}
+                    className="p-8 border border-white/10 rounded-2xl bg-gray-900/50 hover:border-q2-cyan/30 transition-all group"
+                  >
+                    <div className="text-q2-cyan mb-6 group-hover:scale-110 transition-transform flex justify-center">
+                      {LineIcons[pillar.icon]("#0ff0fc", "w-16 h-16")}
+                    </div>
+                    <h3 className="text-2xl font-bold mb-4 text-center">{pillar.title}</h3>
+                    <p className="text-gray-300 font-bold mb-4 text-center italic">{pillar.desc}</p>
+                    <p className="text-gray-400 text-sm mb-6 text-center">{pillar.detail}</p>
+                    <div className="pt-6 border-t border-white/5">
+                      <p className="text-[10px] font-mono text-gray-500 uppercase tracking-widest text-center">Intellectual Foundation</p>
+                      <p className="text-xs text-q2-gold text-center mt-1">{pillar.theorists}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="text-center mt-12">
+                <a href="pillars.html" className="inline-block bg-white text-black px-8 py-4 rounded font-bold hover:bg-zinc-200 transition-colors">
+                  EXPLORE THE FULL FRAMEWORK
+                </a>
+              </div>
+            </div>
+          </section>
+
           {/* The Orchestra Section */}
           <section className="py-24 px-8 bg-black/50" id="orchestra">
             <div className="max-w-7xl mx-auto">
@@ -1243,7 +1244,7 @@
               >
                 <h2 className="text-4xl md:text-5xl font-bold mb-4">The Orchestra</h2>
                 <p className="text-gray-400 text-xl">
-                  d foundational learning theorists. Each one reimagined for the AI era.
+                  44 foundational learning theorists. Each one reimagined for the AI era.
                 </p>
 
                 {/* Rotating Quotes */}
@@ -1351,7 +1352,7 @@
                     <span className="text-q2-cyan">⚡</span> Intercept the Full Briefing
                   </h3>
                   <p className="text-gray-400 mt-1 max-w-xl">
-                    Join 7,500+ Education Leaders getting the weekly strategic breakdown.
+                    Join 18,000+ Education Leaders getting the weekly strategic breakdown.
                   </p>
                 </div>
                 <form action="https://forms.gle/q2pivot-radar-check" method="GET" target="_blank" className="flex gap-2 w-full md:w-auto">
@@ -1430,7 +1431,7 @@
                 <p className="text-gray-500 text-sm">Governing the AI Transition</p>
               </div>
               <p className="text-gray-600 text-xs mb-2">
-                Q2 Pivot is a division of Q2 Education (Pty) Ltd, incorporated in South Africa.
+                Q2 Pivot is an initiative of the Elmwood Fields Leadership Alliance (EFLA) and Coaching with Dr. Larry, LLC.
               </p>
               <p className="text-gray-600 text-xs">
                 © 2026 Q2 Pivot. All rights reserved. | Educational Leadership • AI Governance • Strategic Foresight
@@ -1455,4 +1456,4 @@
   </script>
 </body>
 
-</html>
+</html><!-- FORCE_DEPLOY_1772127265 -->
