@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMB Prototype: FLUID STEAMPUNK | Q2 Pivot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10/dist/framer-motion.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=JetBrains+Mono:wght@500;800&family=Outfit:wght@300;400;700;900&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'watery-deep': '#001a2c',
+                        'watery-blue': '#004a7c',
+                        'watery-cyan': '#00e5ff',
+                        'fluid-brass': '#d4af37',
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Outfit', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: #001a2c;
+            color: #e0f2fe;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Fluid Background Animation */
+        .fluid-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #004a7c 0%, #001a2c 100%);
+            overflow: hidden;
+        }
+
+        .fluid-blob {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            animation: drift 20s infinite alternate;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translate(-10%, -10%) scale(1);
+            }
+
+            100% {
+                transform: translate(10%, 10%) scale(1.1);
+            }
+        }
+
+        /* Steampunk Mechanical Overlays */
+        .mechanical-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+            background-size: 100px 100px;
+            z-index: 1;
+        }
+
+        /* Ornate Steampunk Borders */
+        .steampunk-card {
+            background: rgba(0, 74, 124, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.05);
+        }
+
+        .steampunk-card::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            pointer-events: none;
+        }
+
+        .brass-text {
+            background: linear-gradient(135deg, #d4af37, #fef08a, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .authority-title {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -0.02em;
+        }
+
+        /* Scanlines for AI Fluent feel */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .gear-spin {
+            animation: spin 60s infinite linear;
+            opacity: 0.05;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fluid-canvas">
+        <div class="fluid-blob bg-watery-cyan" style="top: -10%; left: -10%;"></div>
+        <div class="fluid-blob bg-watery-blue" style="bottom: -10%; right: -10%;"></div>
+    </div>
+    <div class="mechanical-grid"></div>
+    <div class="scanlines"></div>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { motion } = window.Motion;
+
+        function App() {
+            return (
+                <div className="relative z-10 min-h-screen p-8 md:p-24 overflow-hidden">
+                    {/* Background Gears */}
+                    <div className="fixed -top-20 -right-20 w-96 h-96 gear-spin pointer-events-none">
+                        <svg viewBox="0 0 100 100" className="w-full h-full fill-fluid-brass">
+                            <path d="M50 0 L55 15 A35 35 0 0 1 65 18 L80 10 L90 20 L82 35 A35 35 0 0 1 85 45 L100 50 L100 60 L85 65 A35 35 0 0 1 82 75 L90 90 L80 100 L65 92 A35 35 0 0 1 55 95 L50 110 L40 110 L35 95 A35 35 0 0 1 25 92 L10 100 L0 90 L8 75 A35 35 0 0 1 5 65 L-10 60 L-10 50 L5 45 A35 35 0 0 1 8 35 L0 20 L10 10 L25 18 A35 35 0 0 1 35 15 L40 0 Z M50 30 A20 20 0 1 0 50 70 A20 20 0 1 0 50 30 Z" />
+                        </svg>
+                    </div>
+
+                    {/* Header */}
+                    <header className="mb-32 flex flex-col md:flex-row justify-between items-start gap-8">
+                        <div className="max-w-2xl">
+                            <div className="flex items-center gap-4 mb-4">
+                                <span className="h-px w-12 bg-fluid-brass/40" />
+                                <span className="text-xs font-mono uppercase tracking-[0.5em] text-fluid-brass">Initial Protocol // AI_FLUENT</span>
+                            </div>
+                            <h1 className="text-6xl md:text-8xl font-black authority-title italic leading-none mb-8">
+                                <span className="brass-text">Fluid</span><br />
+                                Authority_
+                            </h1>
+                        </div>
+                        <div className="text-right font-mono text-[0.65rem] text-watery-cyan/40 border-l border-fluid-brass/20 pl-8 leading-relaxed">
+                            SYS_VERSION: 4.0.0 <br />
+                            AESTHETIC: WATERY_BLUE_STEAMPUNK <br />
+                            GEO_DOMAIN: NEUTRAL_ISLAND_LOGIC
+                        </div>
+                    </header>
+
+                    {/* Main Content */}
+                    <main className="max-w-7xl mx-auto grid md:grid-cols-12 gap-16">
+                        {/* Left Side: The Narrative */}
+                        <div className="md:col-span-8 space-y-24">
+                            <section>
+                                <h2 className="text-3xl md:text-5xl font-black authority-title italic mb-8 leading-tight">
+                                    The <span className="text-fluid-brass">Golden Treadmill</span> is a structural failure.
+                                </h2>
+                                <p className="text-xl md:text-2xl font-light text-cyan-50/70 leading-relaxed mb-12">
+                                    Why is 70% of your expert's bandwidth lost to administrative rot? In remote operations, friction isn't just a cost—it's a system crash.
+                                </p>
+                                <div className="grid md:grid-cols-2 gap-8">
+                                    <div className="steampunk-card p-8">
+                                        <h3 className="text-xs font-mono text-fluid-brass mb-4 uppercase tracking-widest">Finding 01: Admin Trap</h3>
+                                        <p className="text-sm text-gray-400 leading-relaxed italic">"Intake, policy, and rote coordination are hollowing out your professional yield."</p>
+                                    </div>
+                                    <div className="steampunk-card p-8 border-watery-cyan/20">
+                                        <h3 className="text-xs font-mono text-watery-cyan mb-4 uppercase tracking-widest">Logic 02: Island Sync</h3>
+                                        <p className="text-sm text-gray-400 leading-relaxed italic">"Synchronizing medical and hospitality nodes requires a lateral mesh, not a hierarchy."</p>
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* Contribution to Yield */}
+                            <section className="steampunk-card p-12 md:p-20 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 p-4 font-mono text-[0.5rem] opacity-20">DATA_SYNC_ACTIVE</div>
+                                <h2 className="text-4xl font-black authority-title italic mb-8 brass-text">Contribution to Yield.</h2>
+                                <div className="h-px w-full bg-gradient-to-r from-fluid-brass via-transparent to-transparent mb-12 opacity-30" />
+                                <p className="text-lg font-light text-gray-300 leading-relaxed mb-12 italic">
+                                    "We build for sovereignty. We do not apologize for high-efficiency architectures that recover the human core."
+                                </p>
+                                <div className="flex flex-wrap gap-12">
+                                    {[
+                                        { val: "15m", label: "Protocol Habit" },
+                                        { val: "70%", label: "Friction Loss" },
+                                        { val: "100%", label: "Yield Reset" }
+                                    ].map((stat, i) => (
+                                        <div key={i} className="flex flex-col">
+                                            <span className="text-4xl font-black text-watery-cyan">{stat.val}</span>
+                                            <span className="text-[0.6rem] font-mono uppercase tracking-widest text-fluid-brass">{stat.label}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+                        </div>
+
+                        {/* Right Side: Navigation/Status Tube */}
+                        <aside className="md:col-span-4">
+                            <div className="sticky top-24 space-y-12">
+                                <div className="border border-fluid-brass/30 p-8 bg-watery-deep/40 backdrop-blur-3xl">
+                                    <h4 className="text-[0.6rem] font-mono text-fluid-brass mb-8 uppercase tracking-[0.4em]">Strategic Navigation</h4>
+                                    <nav className="flex flex-col gap-6 text-sm authority-title italic font-bold">
+                                        <a href="#" className="hover:text-fluid-brass transition-all flex items-center gap-4 group">
+                                            <span className="w-0 group-hover:w-4 h-[1px] bg-fluid-brass transition-all" />
+                                            01_THE_DIAGNOSTIC
+                                        </a>
+                                        <a href="#" className="hover:text-fluid-brass transition-all flex items-center gap-4 group">
+                                            <span className="w-0 group-hover:w-4 h-[1px] bg-fluid-brass transition-all" />
+                                            02_ISLAND_LOGIC
+                                        </a>
+                                        <a href="#" className="hover:text-fluid-brass transition-all flex items-center gap-4 group">
+                                            <span className="w-0 group-hover:w-4 h-[1px] bg-fluid-brass transition-all" />
+                                            03_VALUE_SENSE
+                                        </a>
+                                    </nav>
+                                    <div className="mt-12 pt-12 border-t border-fluid-brass/10">
+                                        <a href="mailto:larry@q2pivot.com" className="block text-center bg-fluid-brass text-watery-deep py-4 font-black text-xs uppercase tracking-widest hover:bg-white transition-all">
+                                            Enter the Pivot
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div className="p-4 font-mono text-[0.6rem] text-gray-600 italic">
+                                    "Note: The fluid background adapts to real-time cognitive load indicators. High-authority governance is never static."
+                                </div>
+                            </div>
+                        </aside>
+                    </main>
+
+                    {/* Footer */}
+                    <footer className="mt-56 py-12 border-t border-fluid-brass/10 flex flex-col md:flex-row justify-between items-end gap-8">
+                        <div className="text-[0.6rem] font-mono text-gray-600 uppercase tracking-widest">
+                            &copy; 2026 Q2 Pivot Strategy Group <br />
+                            A project by Coaching with Dr Larry, LLC
+                        </div>
+                        <div className="text-right text-fluid-brass font-black italic authority-title">
+                            The Sovereignty of Yield_
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

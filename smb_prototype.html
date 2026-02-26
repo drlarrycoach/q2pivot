@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The SMB Prototype | Q2 Pivot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10/dist/framer-motion.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;700;900&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-cyan': '#0ff0fc',
+                        'q2-gold': '#c5a059',
+                        'q2-dark': '#0a0a12',
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0c0c14;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* V2 Texture: Blueprint Overlay */
+        .blueprint-bg {
+            background-image:
+                linear-gradient(rgba(15, 240, 252, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 240, 252, 0.05) 1px, transparent 1px),
+                radial-gradient(circle at 2px 2px, rgba(197, 160, 89, 0.1) 1px, transparent 0);
+            background-size: 80px 80px, 80px 80px, 40px 40px;
+            background-attachment: fixed;
+        }
+
+        /* Film Grain Effect */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Brutalist Glass */
+        .brutalist-card {
+            background: rgba(10, 10, 18, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 10px 10px 0px rgba(15, 240, 252, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .brutalist-card:hover {
+            box-shadow: 5px 5px 0px rgba(197, 160, 89, 0.3);
+            border-color: rgba(197, 160, 89, 0.3);
+            transform: translate(2px, 2px);
+        }
+
+        /* High-Authority Typography Classes */
+        .authority-text {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .log-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        /* Asymmetric Layout Tweaks */
+        .overlap-container {
+            margin-top: -4rem;
+            margin-bottom: -4rem;
+            position: relative;
+            z-index: 20;
+        }
+
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(15, 240, 252, 0.1);
+            position: absolute;
+            animation: scanline 8s linear infinite;
+            z-index: 5;
+        }
+
+        @keyframes scanline {
+            0% {
+                top: 0;
+            }
+
+            100% {
+                top: 100%;
+            }
+        }
+
+        .flicker {
+            animation: flicker 0.15s infinite;
+        }
+
+        @keyframes flicker {
+            0% {
+                opacity: 0.97;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.98;
+            }
+        }
+    </style>
+</head>
+
+<body class="blueprint-bg">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { motion, AnimatePresence } = window.Motion;
+
+        function App() {
+            return (
+                <div className="min-h-screen relative">
+                    <div className="scanline" />
+
+                    {/* Navigation - Industrial Style */}
+                    <nav className="fixed w-full z-50 py-6 px-12 flex justify-between items-center border-b-2 border-white/10 bg-q2-dark/80 backdrop-blur-md">
+                        <a href="q2pivot.html" className="text-3xl font-black tracking-tighter flex items-center gap-2">
+                            <span className="text-q2-gold">Q2</span>
+                            <span className="h-4 w-4 bg-white/20 rotate-45" />
+                            <span className="text-white">PIVOT</span>
+                        </a>
+                        <div className="flex gap-10 text-xs font-bold tracking-widest text-gray-500 uppercase">
+                            <a href="q2pivot.html" className="hover:text-q2-gold transition-colors underline decoration-q2-cyan/30 underline-offset-8">Terminal</a>
+                            <a href="orchestra.html" className="hover:text-q2-gold transition-colors">Orchestra</a>
+                            <div className="text-q2-gold opacity-50 border-l border-white/20 pl-4 log-text">STATUS: P_01_SYNCNET</div>
+                        </div>
+                    </nav>
+
+                    {/* Hero Section - Asymmetrical & Authority-Driven */}
+                    <section className="pt-56 pb-32 px-12 max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-start">
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="md:w-2/3"
+                        >
+                            <div className="log-text text-q2-cyan mb-4 uppercase tracking-[0.3em] flex items-center gap-3">
+                                <span className="h-1 w-8 bg-q2-cyan" /> 00 // PROJECT_ISLAND_LOGIC
+                            </div>
+                            <h1 className="text-6xl md:text-8xl font-black mb-10 leading-[0.9] authority-text italic font-bold">
+                                The SMB <br /><span className="text-q2-gold">Prototype.</span>
+                            </h1>
+                            <p className="text-gray-400 text-xl md:text-2xl max-w-xl leading-relaxed mb-12 font-medium">
+                                We are adapting the Q2 Pivot for smaller, nimbler units. Moving from "Managing" to "Architecting."
+                            </p>
+                            <div className="flex gap-6">
+                                <a href="mailto:larry@q2pivot.com" className="bg-q2-gold text-black px-10 py-5 font-black uppercase text-sm tracking-widest hover:scale-105 transition-transform shadow-[8px_8px_0px_white]">
+                                    Request Access
+                                </a>
+                            </div>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="md:w-1/3 brutalist-card p-8 rotate-3 hidden md:block"
+                        >
+                            <div className="log-text text-q2-gold mb-6 border-b border-q2-gold/30 pb-2 flex justify-between">
+                                <span>REDACTED_SYSTEM_LOG</span>
+                                <span>EXT_04</span>
+                            </div>
+                            <div className="space-y-4 text-xs font-mono text-gray-500 leading-relaxed">
+                                <p>[SYSTEM] Initializing Geographically Agnostic Layer...</p>
+                                <p>[SYSTEM] Context: Remote Operations / High-Friction Environment.</p>
+                                <p>[SYSTEM] Strategy: "The Dual-Model Enterprise".</p>
+                                <p>[AI_SYNC] Recommending 45-day sprint cycle for Hospital/Resort nodes.</p>
+                                <p className="text-q2-cyan">[CRITICAL] 70% Administrative burden detected in current legacy model.</p>
+                            </div>
+                        </motion.div>
+                    </section>
+
+                    {/* Section: The Admin Trap - Overlapping Brutalist Layout */}
+                    <section className="relative py-32 px-12 border-y-2 border-white/5 bg-white/[0.02]">
+                        <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-12">
+                            <div className="md:col-span-7 z-10">
+                                <h2 className="text-4xl md:text-6xl font-black mb-12 authority-text italic leading-tight">
+                                    The "Golden Treadmill"<br /> is killing your yield.
+                                </h2>
+                                <div className="grid md:grid-cols-2 gap-8">
+                                    <div className="brutalist-card p-8 border-l-4 border-l-red-500">
+                                        <h3 className="text-q2-gold font-bold mb-4 log-text uppercase">The Symptom</h3>
+                                        <p className="text-gray-300 font-medium">70% of employee bandwidth is currently burned on repetitive, low-value logistics.</p>
+                                    </div>
+                                    <div className="brutalist-card p-8 border-l-4 border-l-q2-cyan">
+                                        <h3 className="text-q2-cyan font-bold mb-4 log-text uppercase">The Fix</h3>
+                                        <p className="text-gray-300 font-medium">Reframe AI as a Logistics Engine, not a writer. Automate the intake; reclaim the human focus.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="md:col-span-5 relative mt-12 md:mt-0">
+                                <div className="md:absolute top-[-4rem] right-0 w-full brutalist-card p-12 bg-q2-gold text-black shadow-[15px_15px_0px_white]">
+                                    <h3 className="text-4xl font-black authority-text mb-6 italic leading-none">Yield > Effort.</h3>
+                                    <p className="font-bold text-lg mb-8 leading-relaxed">
+                                        We don't sell 'efficiency.' We sell <span className="bg-black text-white px-2">Decision Bandwidth</span>.
+                                    </p>
+                                    <p className="text-sm font-medium border-t border-black/20 pt-4 opacity-80">
+                                        In remote operations, every second wasted on admin is a second lost to patient care or guest experience. We break the treadmill.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* The 3 Pillars - Grid Breaking Layout */}
+                    <section className="py-40 px-12">
+                        <div className="max-w-7xl mx-auto">
+                            <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+                                <h2 className="text-5xl md:text-7xl font-black authority-text italic">The 3 Pillars of <br /><span className="text-q2-gold">SMB Sync.</span></h2>
+                                <div className="log-text text-q2-cyan max-w-xs text-right">
+                                    PROTOCOL_DOC_01A // ARCHITECTING THE NEW ECOSYSTEM
+                                </div>
+                            </div>
+
+                            <div className="grid md:grid-cols-3 gap-0 border-2 border-white/10">
+                                {[
+                                    {
+                                        title: "Friction Tolerance",
+                                        subtitle: "Automating the Treadmill",
+                                        desc: "Continuous, low-friction integration. 15-minute logistical sprints that recover hours of lost professional time.",
+                                        footer: "Habitualization > Automation"
+                                    },
+                                    {
+                                        title: "Lateral Bandwidth",
+                                        subtitle: "The Mesh Network",
+                                        desc: "Breaking silos in small teams. Shared AI synthesis between disparate units (Hospital <-> Resort).",
+                                        footer: "Silo Decimation Protocol"
+                                    },
+                                    {
+                                        title: "Incentive Layer",
+                                        subtitle: "Contribution to Yield",
+                                        desc: "Moving beyond 'hours worked' to 'yield generated.' Rewarding human intelligence over administrative endurance.",
+                                        footer: "Yield-Driven Compensation"
+                                    }
+                                ].map((pillar, i) => (
+                                    <div key={i} className={`p-12 border-white/10 ${i < 2 ? 'md:border-r-2' : ''} border-b-2 md:border-b-0 group hover:bg-white/[0.03] transition-colors`}>
+                                        <div className="text-q2-gold font-mono text-sm mb-8">P-0{i + 1}</div>
+                                        <h3 className="text-3xl font-black authority-text mb-4 italic group-hover:text-q2-cyan transition-colors">{pillar.title}</h3>
+                                        <div className="bg-white/10 text-[0.6rem] font-black uppercase tracking-[0.2em] px-2 py-1 inline-block mb-10 text-gray-400">
+                                            {pillar.subtitle}
+                                        </div>
+                                        <p className="text-gray-400 font-medium leading-relaxed mb-12 min-h-[100px]">{pillar.desc}</p>
+                                        <div className="log-text text-[0.7rem] text-q2-gold/50">{pillar.footer}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Status Check - Experimental Feel */}
+                    <section className="py-32 px-12 bg-q2-gold/10 relative overflow-hidden">
+                        <div className="max-w-4xl mx-auto text-center relative z-10">
+                            <motion.div
+                                animate={{ opacity: [0.4, 1, 0.4] }}
+                                transition={{ repeat: Infinity, duration: 2 }}
+                                className="mb-8 flex justify-center"
+                            >
+                                <div className="h-4 w-4 bg-q2-cyan rounded-full animate-ping" />
+                            </motion.div>
+                            <h2 className="text-4xl md:text-5xl font-black authority-text italic mb-8">Phase 01: Active Deployment.</h2>
+                            <p className="text-gray-400 text-xl md:text-2xl leading-relaxed italic mb-12 px-8">
+                                "Its principles of high-reliability/low-admin architecture are designed to scale to any SMB facing the 70% admin trap."
+                            </p>
+                            <div className="log-text border-2 border-dashed border-q2-gold/30 p-6 inline-block mb-12 text-sm">
+                                CURRENT_NODE: [REDACTED_REMOTE_LOCATION] // SYSTEM_STATUS: OPERATIONAL
+                            </div>
+                        </div>
+                        {/* Mechanical decorative element */}
+                        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-q2-gold/10" />
+                        <div className="absolute top-0 left-1/4 h-full w-[1px] bg-q2-gold/10" />
+                    </section>
+
+                    {/* Footer - Minimalist Brutalist */}
+                    <footer className="py-12 px-12 border-t-2 border-white/10 bg-q2-dark">
+                        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+                            <div className="text-3xl font-black tracking-tighter flex items-center gap-2">
+                                <span className="text-q2-gold">Q2</span>
+                                <span className="text-white">PIVOT</span>
+                            </div>
+                            <div className="text-right">
+                                <p className="text-gray-600 font-bold log-text uppercase mb-2">
+                                    © 2026 Q2 Pivot Strategy Group, LLC.
+                                </p>
+                                <p className="text-gray-700 text-[0.6rem] font-bold tracking-widest uppercase">
+                                    A project of Coaching with Dr Larry, LLC. Incorporated in Delaware, USA
+                                </p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

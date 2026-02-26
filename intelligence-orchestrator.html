@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Intelligence Orchestrator | Q2 Pivot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10/dist/framer-motion.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-cyan': '#0ff0fc',
+                        'q2-gold': '#c5a059',
+                        'q2-dark': '#0a0a12',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0a0a12;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(15, 240, 252, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 240, 252, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #0ff0fc;
+            border-radius: 4px;
+        }
+
+        .ancestor-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .ancestor-content {
+            position: relative;
+            z-index: 10;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .ancestor-card:hover .ancestor-content {
+            transform: translateY(-50px);
+        }
+
+        .ancestor-bio {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .ancestor-card:hover .ancestor-bio {
+            max-height: 250px;
+            opacity: 1;
+            margin-top: 0.75rem;
+        }
+
+        .line-icon {
+            width: 80px;
+            height: 80px;
+            stroke-width: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { motion, AnimatePresence } = Motion;
+
+        const LineIcons = {
+            presentation: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <path d="M2 3h20M21 3v11a2 2 0 01-2 2H5a2 2 0 01-2-2V3M7 21l5-5 5 5" />
+                </svg>
+            ),
+            target: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" />
+                </svg>
+            ),
+            layers: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" />
+                </svg>
+            ),
+            shield: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+            ),
+            user: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" /><circle cx="12" cy="7" r="4" />
+                </svg>
+            ),
+        };
+
+        const sessions = [
+            { id: 1, type: "AUDIT", title: "The AI Collision", desc: "Differentiate passive AI usage from orchestration. Analyze resistance patterns.", case: "Activity: The Nokia Simulation" },
+            { id: 2, type: "AUDIT", title: "The Friction Audit", desc: "Identify 'Hidden Admin'. Measure opportunity cost.", case: "Activity: Heat Mapping" },
+            { id: 3, type: "ARCHITECT", title: "Shadow AI", desc: "Identify revenue leakage. Map bottlenecks.", case: "Activity: Journey Trace" },
+            { id: 4, type: "ARCHITECT", title: "The Mesh Network", desc: "Design data structures. Implement lateral bandwidth.", case: "Activity: Mesh Prototyping" },
+            { id: 5, type: "YIELD", title: "The Yield Framework", desc: "Construct KPIs for AI. Defend investment with Yield.", case: "Activity: ROI Dashboard" },
+            { id: 6, type: "YIELD", title: "AI-Ready Management", desc: "Shift to Curation mindset. Manage Augmented Staff.", case: "Activity: Feedback Mirror (Grand Palm)" },
+            { id: 7, type: "GOVERN", title: "Sovereign Capability", desc: "Rented vs. Owned intel. Align with UAE Agenda.", case: "Activity: IP Fortification" },
+            { id: 8, type: "GOVERN", title: "Capstone: The Sprint", desc: "Synthesize modules. Critique AI Orchestration.", case: "Workshop: 45-Day Pitch" }
+        ];
+
+        function App() {
+            const typeColors = {
+                AUDIT: "bg-blue-500/20 text-blue-400 border-blue-900/30",
+                ARCHITECT: "bg-purple-500/20 text-purple-400 border-purple-900/30",
+                YIELD: "bg-green-500/20 text-green-400 border-green-900/30",
+                GOVERN: "bg-q2-gold/20 text-q2-gold border-q2-gold/30"
+            };
+
+            return (
+                <div className="min-h-screen grid-bg selection:bg-q2-cyan/30 selection:text-q2-cyan">
+                    {/* Nav */}
+                    <nav className="border-b border-white/5 bg-black/40 backdrop-blur-xl sticky top-0 z-50">
+                        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                            <a href="index.html" className="flex items-center gap-4 group">
+                                <div className="w-10 h-10 border border-q2-cyan/30 rounded flex items-center justify-center bg-q2-cyan/5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0ff0fc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /></svg>
+                                </div>
+                                <div>
+                                    <h1 className="text-xl font-bold tracking-tight text-white uppercase">Q2 Pivot</h1>
+                                    <p className="text-[10px] font-mono text-q2-gold uppercase tracking-[0.2em] mt-0.5">Strategic Proposal</p>
+                                </div>
+                            </a>
+                            <a href="index.html" className="text-xs font-mono text-q2-cyan hover:text-white transition-colors border border-q2-cyan/20 px-4 py-2 rounded-full bg-q2-cyan/5 uppercase tracking-widest">← BACK TO SYSTEM</a>
+                        </div>
+                    </nav>
+
+                    {/* Hero */}
+                    <header className="py-24 px-8 relative overflow-hidden">
+                        <div className="max-w-7xl mx-auto flex flex-col items-center text-center space-y-8">
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="px-3 py-1 rounded-full border border-q2-cyan/30 bg-q2-cyan/5 text-q2-cyan font-mono text-[10px] tracking-widest uppercase"
+                            >
+                                DEPLOYMENT_TARGET: ABU_DHABI_UNIVERSITY
+                            </motion.div>
+
+                            <motion.h1
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="text-6xl md:text-9xl font-black text-white leading-tight tracking-tighter italic"
+                            >
+                                The Intelligence <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-q2-cyan via-blue-500 to-q2-gold">Orchestrator.</span>
+                            </motion.h1>
+
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.2 }}
+                                className="text-xl md:text-2xl text-zinc-400 max-w-2xl leading-relaxed italic font-serif"
+                            >
+                                "Moving institutional leadership from the limitations of the Oracle to the scalability of the Orchestrator."
+                            </motion.p>
+                        </div>
+                    </header>
+
+                    {/* Key Shifts Section */}
+                    <section className="py-24 px-8 bg-black/40">
+                        <div className="max-w-5xl mx-auto space-y-16">
+                            <div className="border-l-4 border-q2-gold pl-6">
+                                <h2 className="text-4xl font-bold text-white mb-4 uppercase italic">The Logic of the Pivot</h2>
+                                <p className="text-zinc-500 text-lg">Four core transformations for the modern executive.</p>
+                            </div>
+
+                            <div className="grid gap-4">
+                                {[
+                                    { id: "01", from: "Rote Admin", to: "Hours Returned to Business", desc: "Automate the Golden Treadmill. Focus on high-value human synthesis." },
+                                    { id: "02", from: "External LLMs", to: "Sovereign Intelligence", desc: "Own your data. Own your models. Control your own cognitive infrastructure." },
+                                    { id: "03", from: "Oracle Answers", to: "Orchestrated Workflows", desc: "Don't just ask AI for answers; build systems where AI performs the logistics." },
+                                    { id: "04", from: "Status Quo", to: "Yield Capture", desc: "Shift from vanity metrics to measurable institutional ROI." }
+                                ].map((item, i) => (
+                                    <motion.div
+                                        key={i}
+                                        whileHover={{ x: 10 }}
+                                        className="p-8 rounded-2xl border border-white/5 bg-white/5 hover:border-q2-cyan/30 transition-all group"
+                                    >
+                                        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+                                            <span className="text-4xl font-bold text-q2-gold group-hover:text-q2-cyan transition-colors">{item.id}</span>
+                                            <div className="flex-grow space-y-1">
+                                                <div className="flex flex-wrap items-center gap-2 text-sm font-mono tracking-wider">
+                                                    <span className="text-zinc-600">FROM</span>
+                                                    <span className="text-zinc-300 font-bold">{item.from}</span>
+                                                    <span className="text-q2-cyan">→</span>
+                                                    <span className="text-zinc-600">TO</span>
+                                                    <span className="text-white font-bold">{item.to}</span>
+                                                </div>
+                                                <p className="text-zinc-500 group-hover:text-zinc-400 transition-colors uppercase text-xs tracking-widest">{item.desc}</p>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Sessions Grid */}
+                    <section className="py-24 px-8">
+                        <div className="max-w-7xl mx-auto">
+                            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-white/10 pb-8">
+                                <div>
+                                    <h2 className="text-5xl font-black text-white italic uppercase tracking-tighter">The Syllabus</h2>
+                                    <p className="text-zinc-500 mt-2 font-mono uppercase tracking-[0.3em] text-[10px]">PROGRAM_SPEC: 8_SESSIONS_INTENSIVE</p>
+                                </div>
+                                <div className="text-right hidden md:block">
+                                    <div className="text-q2-cyan font-mono text-xs font-bold ring-1 ring-q2-cyan/30 px-3 py-1 rounded bg-q2-cyan/5">GOVERNANCE_READY</div>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                {sessions.map((session, i) => (
+                                    <motion.div
+                                        key={session.id}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: i * 0.05 }}
+                                        className="p-6 rounded-sm border border-white/5 bg-black/40 hover:border-q2-cyan/40 transition-all cursor-crosshair group relative"
+                                    >
+                                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
+                                            <span className="text-[8px] font-mono text-q2-cyan">ID:{session.id}</span>
+                                        </div>
+                                        <div className={`text-[9px] font-mono px-2 py-0.5 rounded border w-fit mb-4 uppercase tracking-widest ${typeColors[session.type]}`}>
+                                            {session.type}
+                                        </div>
+                                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-q2-cyan transition-colors italic">
+                                            {session.title}
+                                        </h3>
+                                        <p className="text-zinc-500 text-sm mb-4 leading-relaxed line-clamp-2">
+                                            {session.desc}
+                                        </p>
+                                        <div className="pt-4 border-t border-white/5 text-[10px] font-mono text-zinc-600 uppercase italic">
+                                            {session.case}
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Dr Larry Profile Card */}
+                    <section className="py-24 px-8 bg-black/50">
+                        <div className="max-w-7xl mx-auto flex flex-col items-center">
+                            <h2 className="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.5em] mb-12">THE COGNITIVE ARCHITECT</h2>
+
+                            <div className="w-full max-w-md">
+                                <div className="ancestor-card group border border-white/10 rounded-2xl p-8 bg-zinc-900/60 transition-all duration-500 hover:border-q2-gold/50">
+                                    {/* Background Symbol */}
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 scale-150 rotate-12 transition-all duration-700 group-hover:opacity-20 group-hover:rotate-0">
+                                        {LineIcons.user("#c5a059", "w-64 h-64")}
+                                    </div>
+
+                                    <div className="ancestor-content space-y-4">
+                                        <p className="text-q2-gold font-mono text-[10px] tracking-widest uppercase mb-1">PRACTITIONER. REGIONAL LEADER. ARCHITECT.</p>
+                                        <h3 className="text-4xl font-black text-white italic tracking-tighter">Dr. Larry Davies, Ed.D.</h3>
+
+                                        <p className="text-zinc-500 text-xs italic group-hover:opacity-0 transition-opacity flex items-center gap-2">
+                                            <span className="w-1 h-1 bg-q2-gold rounded-full"></span>
+                                            REIFIED_PROFILE_DECRYPTING...
+                                        </p>
+
+                                        <div className="ancestor-bio space-y-4">
+                                            <p className="text-zinc-300 text-sm font-serif leading-relaxed italic">
+                                                "I architect the 3 Pillars of AI Transformation to help leaders own their organization’s cognitive architecture."
+                                            </p>
+                                            <p className="text-zinc-400 text-xs leading-relaxed">
+                                                Dr. Larry Davies is an Executive Coach and a specialist in the Diffusion of Innovation Theory (Ed.D.). He has served as a senior leader in both **Saudi Arabia (KSA)** and the **UAE**, managing complex organizational transitions across the Middle East and Asia.
+                                            </p>
+                                            <div className="flex gap-2 pt-2">
+                                                <span className="px-2 py-0.5 rounded border border-white/10 text-[8px] font-mono text-zinc-500 uppercase tracking-widest">Ed.D in Innovation</span>
+                                                <span className="px-2 py-0.5 rounded border border-white/10 text-[8px] font-mono text-zinc-500 uppercase tracking-widest">GCC Strategist</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="py-12 px-8 border-t border-white/5 bg-black">
+                        <div className="max-w-7xl mx-auto text-center space-y-4">
+                            <h3 className="text-2xl font-black text-white tracking-widest uppercase italic">
+                                <span className="text-q2-gold">Q2</span> <span className="text-q2-cyan">PIVOT</span>
+                            </h3>
+                            <p className="text-zinc-600 text-[10px] font-mono uppercase tracking-[0.3em]">
+                                Governing the AI Transition • Q2 Education (Pty) Ltd • 2026
+                            </p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

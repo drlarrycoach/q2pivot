@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMB Prototype: THE LAB | Q2 Pivot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10/dist/framer-motion.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'lab-blue': '#003366',
+                        'lab-cyan': '#00e5ff',
+                        'lab-gold': '#c5a059',
+                        'lab-dark': '#050a10',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050a10;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Technical Blueprint Grid */
+        .blueprint-bg {
+            background-image:
+                linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(rgba(0, 229, 255, 0.1) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.1) 2px, transparent 2px);
+            background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+            background-attachment: fixed;
+        }
+
+        .annotation-line {
+            height: 1px;
+            background: rgba(0, 229, 255, 0.3);
+            position: relative;
+        }
+
+        .annotation-line::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: -2px;
+            width: 5px;
+            height: 5px;
+            background: #00e5ff;
+            border-radius: 50%;
+        }
+
+        .coord-overlay {
+            position: fixed;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: rgba(0, 229, 255, 0.2);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .card-border {
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            position: relative;
+        }
+
+        .card-border::before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 10px;
+            height: 10px;
+            border-top: 1px solid #00e5ff;
+            border-left: 1px solid #00e5ff;
+        }
+
+        .card-border::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            width: 10px;
+            height: 10px;
+            border-bottom: 1px solid #00e5ff;
+            border-right: 1px solid #00e5ff;
+        }
+    </style>
+</head>
+
+<body class="blueprint-bg">
+    <div className="coord-overlay top-4 left-4">X: 044.2 // Y: 129.8</div>
+    <div className="coord-overlay bottom-4 right-4">LN: 2026_V1 // SYS: OPERATIONAL</div>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { motion } = window.Motion;
+
+        function App() {
+            return (
+                <div className="min-h-screen p-8 md:p-16">
+                    {/* Header */}
+                    <header className="mb-24 flex justify-between items-start">
+                        <div>
+                            <div className="bg-lab-cyan text-lab-dark px-2 py-0.5 text-[0.6rem] font-bold inline-block mb-2">TECHNICAL_SPEC // PROTO_01</div>
+                            <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white">THE LAB_</h1>
+                            <div className="h-1 w-24 bg-lab-cyan mt-2" />
+                        </div>
+                        <div className="text-right font-mono text-xs text-lab-cyan opacity-40">
+                            COORDINATES locked<br />
+                            MALDIVES_NODE: [REDACTED]<br />
+                            GEOGRAPHIC_AWARENESS: NULL
+                        </div>
+                    </header>
+
+                    {/* Main Content Area */}
+                    <main className="max-w-7xl mx-auto">
+                        <div className="grid md:grid-cols-12 gap-12">
+                            {/* Left Col: The Core Specs */}
+                            <div className="md:col-span-8">
+                                <section className="mb-20">
+                                    <h2 className="text-lab-cyan font-mono text-sm mb-6 flex items-center gap-4">
+                                        <span className="w-8 h-px bg-lab-cyan/30" /> 0.1 PRIMARY_OBJECTIVE
+                                    </h2>
+                                    <p className="text-3xl md:text-5xl font-bold leading-tight mb-8">
+                                        Reducing <span className="text-lab-cyan">Administrative Friction</span> via Algorithmic Orchestration.
+                                    </p>
+                                    <div className="annotation-line w-full mb-8" />
+                                    <p className="text-gray-400 text-lg max-w-2xl leading-relaxed">
+                                        The 70% Admin Trap is a structural failure. Our laboratory focus is the synthesis of "Island Logic" into high-reliability, low-touch business architecture.
+                                    </p>
+                                </section>
+
+                                <div className="grid md:grid-cols-2 gap-8">
+                                    {[
+                                        { title: "HABIT_SYNC", code: "AX_90", desc: "15-minute logistical sprints integrated into existing employee movement." },
+                                        { title: "LATERAL_BANDWIDTH", code: "MS_NET", desc: "Cross-unit intelligence sharing between Resort and Medical nodes." },
+                                    ].map((item, i) => (
+                                        <div key={i} className="card-border p-8 bg-lab-blue/10 backdrop-blur-sm">
+                                            <div className="text-[0.6rem] font-mono text-lab-cyan mb-2">ID: {item.code}</div>
+                                            <h3 className="text-xl font-bold mb-4">{item.title}</h3>
+                                            <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Right Col: The Annotation Panel */}
+                            <div className="md:col-span-4">
+                                <div className="sticky top-24 space-y-8">
+                                    <div className="border border-white/5 p-6 bg-black/40">
+                                        <h4 className="text-xs font-mono text-lab-gold mb-4 uppercase tracking-widest">System Diagnostics</h4>
+                                        <div className="space-y-2">
+                                            {[
+                                                { label: "Admin Burden", val: "70.2%", status: "CRITICAL" },
+                                                { label: "Decision Yield", val: "12.5%", status: "LOW" },
+                                                { label: "Human Focus", val: "OFFLINE", status: "WARN" }
+                                            ].map((stat, i) => (
+                                                <div key={i} className="flex justify-between items-center text-[0.7rem] font-mono border-b border-white/5 pb-2">
+                                                    <span className="text-gray-500">{stat.label}</span>
+                                                    <span className={stat.status === 'CRITICAL' ? 'text-red-500' : 'text-lab-cyan'}>{stat.val}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="text-[0.6rem] font-mono text-gray-600 leading-normal bg-lab-cyan/5 p-4 italic">
+                                        "Note: Deployment in remote operations requires a shift from 'Effort-Focus' to 'Yield-Architecture'. The lab validates this pivot daily."
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+
+                    {/* Footer */}
+                    <footer className="mt-32 pt-12 border-t border-white/10 flex justify-between items-end">
+                        <div className="font-mono text-[0.6rem] text-gray-500">
+                            COPYRIGHT &copy; 2026 // Q2 PIVOT STRATEGY GROUP<br />
+                            COACHING WITH DR LARRY, LLC // INCORPORATED DELAWARE
+                        </div>
+                        <div className="text-lab-cyan font-bold tracking-widest text-[0.7rem] uppercase">
+                            S-M-B // PROTO_03
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

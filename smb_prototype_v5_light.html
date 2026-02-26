@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMB Prototype: LIGHT AUTHORITY | Q2 Pivot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10/dist/framer-motion.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=JetBrains+Mono:wght@500;800&family=Outfit:wght@300;400;700;900&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-cyan': '#0ff0fc',
+                        'q2-gold': '#c5a059',
+                        'q2-dark': '#0a0a12',
+                        'light-bg': '#fcfaf5',
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Outfit', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: #fcfaf5;
+            color: #1a1a1a;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Light Blueprint / Grid */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(197, 160, 89, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(197, 160, 89, 0.08) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1;
+        }
+
+        .authority-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            box-shadow: 20px 20px 0px rgba(10, 10, 18, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .authority-card:hover {
+            box-shadow: 25px 25px 0px rgba(197, 160, 89, 0.1);
+            transform: translate(-5px, -5px);
+        }
+
+        .gold-border {
+            border-left: 4px solid #c5a059;
+        }
+
+        .cyan-accent {
+            color: #0088cc;
+            /* Darker cyan for light mode readability */
+        }
+
+        .brass-gradient {
+            background: linear-gradient(135deg, #c5a059, #b38b4d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .authority-title {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -0.01em;
+        }
+
+        .mechanical-underline {
+            height: 2px;
+            background: repeating-linear-gradient(90deg,
+                    #c5a059,
+                    #c5a059 4px,
+                    transparent 4px,
+                    transparent 8px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-bg"></div>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { motion } = window.Motion;
+
+        function App() {
+            return (
+                <div className="relative z-10 min-h-screen p-8 md:p-24">
+                    {/* Header HUD */}
+                    <header className="mb-32 flex flex-col md:flex-row justify-between items-end gap-8 border-b-2 border-q2-gold/20 pb-12">
+                        <div>
+                            <div className="text-[0.6rem] font-bold tracking-[0.5em] text-q2-gold uppercase mb-4">
+                                Protocol // Zenith_Light
+                            </div>
+                            <h1 className="text-6xl md:text-8xl font-black authority-title italic leading-none">
+                                <span className="brass-gradient">Light</span><br />
+                                Authority_
+                            </h1>
+                        </div>
+                        <div className="text-right font-mono text-[0.6rem] text-gray-400 leading-relaxed uppercase tracking-widest">
+                            Q2_PALETTE: ACTIVATED <br />
+                            ISLAND_LOGIC: DEP_V5 <br />
+                            STATUS: HIGH_YIELD
+                        </div>
+                    </header>
+
+                    {/* Content Grid */}
+                    <main className="max-w-7xl mx-auto">
+                        <div className="grid md:grid-cols-12 gap-16">
+                            {/* Left Side */}
+                            <div className="md:col-span-8 space-y-32">
+                                <section>
+                                    <h2 className="text-4xl md:text-6xl font-black authority-title italic mb-10 leading-tight">
+                                        Recovering <span className="text-q2-gold">Intelligence</span> from the 70% Trap.
+                                    </h2>
+                                    <p className="text-xl md:text-2xl font-light text-gray-600 leading-relaxed mb-12">
+                                        Administrative friction in remote units is an erosion of specialized talent. We do not solve for efficiency—we architect for <span className="font-bold border-b-2 border-q2-cyan/30">Sovereignty.</span>
+                                    </p>
+                                    <div className="mechanical-underline w-32 mb-16" />
+                                </section>
+
+                                <div className="grid md:grid-cols-2 gap-12">
+                                    {[
+                                        { title: "Friction Tolerance", desc: "15-minute logistical habits to recover hour-scale professional focus." },
+                                        { title: "Lateral Bandwidth", desc: "Synchronizing resort and medical nodes through a single cognitive mesh." }
+                                    ].map((p, i) => (
+                                        <div key={i} className="authority-card p-12 gold-border">
+                                            <h3 className="text-2xl font-black authority-title italic mb-6">{p.title}</h3>
+                                            <p className="text-gray-500 text-sm leading-relaxed italic">{p.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Right Side: High-End Info Panel */}
+                            <aside className="md:col-span-4">
+                                <div className="sticky top-24 space-y-12">
+                                    <div className="bg-q2-gold px-8 py-12 text-white shadow-2xl">
+                                        <h4 className="text-[0.6rem] font-bold uppercase tracking-[0.4em] mb-8 opacity-80">Strategic Yield Check</h4>
+                                        <div className="space-y-6">
+                                            <div className="flex justify-between items-end border-b border-white/20 pb-4">
+                                                <span className="text-xs font-mono uppercase">Decoupling</span>
+                                                <span className="text-2xl font-black authority-title italic">High</span>
+                                            </div>
+                                            <div className="flex justify-between items-end border-b border-white/20 pb-4">
+                                                <span className="text-xs font-mono uppercase">Admin Burden</span>
+                                                <span className="text-2xl font-black authority-title italic">Minimised</span>
+                                            </div>
+                                        </div>
+                                        <div className="mt-12">
+                                            <a href="mailto:larry@q2pivot.com" className="block text-center border-2 border-white py-4 font-black text-xs uppercase tracking-widest hover:bg-white hover:text-q2-gold transition-all">
+                                                Initialize Contact
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div className="text-[0.65rem] font-mono text-gray-400 italic leading-relaxed px-4">
+                                        "Note: This light aesthetic prioritizes executive clarity and transparency in the AI transition. High Authority is visible, not hidden in shadows."
+                                    </div>
+                                </div>
+                            </aside>
+                        </div>
+                    </main>
+
+                    {/* Footer */}
+                    <footer className="mt-56 py-12 border-t border-q2-gold/10 flex justify-between items-center text-[0.6rem] font-mono text-gray-400 uppercase tracking-widest">
+                        <div className="space-y-1">
+                            <div>Q2 Pivot is a strategic initiative of <a href="https://drlarry.coach" class="hover:text-q2-gold underline decoration-white/10 underline-offset-4 transition-colors">Coaching with Dr. Larry, LLC</a>.</div>
+                            <div>&copy; 2026 Q2 Pivot Strategy</div>
+                        </div>
+                        <div className="text-q2-gold font-bold italic authority-title tracking-normal text-right">The Authority of Yield_</div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

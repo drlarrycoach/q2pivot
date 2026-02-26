@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMB Prototype: THE DOSSIER | Q2 Pivot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10/dist/framer-motion.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=JetBrains+Mono:wght@700&family=Inter:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dossier-paper': '#0d0d12',
+                        'dossier-brass': '#b38b4d',
+                        'dossier-ink': '#e2e2e2',
+                        'dossier-red': '#8B0000',
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #08080a;
+            color: #d1d1d1;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Tactile Paper / Dossier Texture */
+        .dossier-bg {
+            background-image:
+                radial-gradient(circle at 50% 50%, rgba(179, 139, 77, 0.05) 0%, transparent 80%),
+                url("https://www.transparenttextures.com/patterns/dark-matter.png");
+            background-attachment: fixed;
+        }
+
+        .paper-fold {
+            position: relative;
+            box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.5);
+            border-left: 15px solid #1a1a1a;
+        }
+
+        .stamp {
+            border: 4px solid #8B0000;
+            color: #8B0000;
+            padding: 4px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            font-weight: 900;
+            display: inline-block;
+            transform: rotate(-15deg);
+            opacity: 0.8;
+            letter-spacing: 2px;
+        }
+
+        .brass-accent {
+            background: linear-gradient(135deg, #b38b4d, #d4af37, #b38b4d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .authority-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(179, 139, 77, 0.4), transparent);
+            margin: 2rem 0;
+        }
+
+        .paper-clip {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            width: 40px;
+            height: 100px;
+            border: 4px solid #333;
+            border-radius: 20px;
+            opacity: 0.5;
+            z-index: 50;
+        }
+    </style>
+</head>
+
+<body class="dossier-bg">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { motion } = window.Motion;
+
+        function App() {
+            return (
+                <div className="min-h-screen py-20 px-4 md:px-12 flex justify-center">
+                    {/* The Main Dossier Folder */}
+                    <div className="max-w-4xl w-full bg-dossier-paper paper-fold p-12 md:p-24 relative overflow-hidden">
+                        <div className="paper-clip" />
+
+                        {/* Dossier Header */}
+                        <header className="mb-16 border-b border-dossier-brass/20 pb-12">
+                            <div className="flex justify-between items-start mb-12">
+                                <div className="stamp border-dossier-brass text-dossier-brass">CLASSIFIED</div>
+                                <div className="text-right text-[0.6rem] font-mono text-gray-600 uppercase tracking-widest leading-relaxed">
+                                    Archive Ref: Q2P_SMB_01<br />
+                                    Security Level: Zenith<br />
+                                    Subject: Island Logic
+                                </div>
+                            </div>
+
+                            <h1 className="text-5xl md:text-7xl font-black italic authority-serif mb-6 leading-none">
+                                <span className="brass-accent">The Prototype</span><br />
+                                <span className="opacity-90">Dossier_</span>
+                            </h1>
+                            <p className="text-gray-500 font-mono text-xs uppercase tracking-[0.4em]">Strategic Assessment: SMB Remote Operations</p>
+                        </header>
+
+                        {/* Content Sections as "Attached Notes" */}
+                        <div className="space-y-20">
+                            <section>
+                                <div className="flex gap-6 items-baseline mb-8">
+                                    <span className="text-4xl authority-serif italic font-bold text-dossier-brass opacity-50">I.</span>
+                                    <h2 className="text-3xl font-black authority-serif italic"> The 70% Erosion.</h2>
+                                </div>
+                                <p className="text-gray-400 text-lg leading-relaxed italic mb-8 border-l-2 border-dossier-red/40 pl-8">
+                                    "Our fieldwork reveals that administrative 'noise' in remote units consumes seventy percent of potential yield. This isn't inefficiency; it's systemic sabotage."
+                                </p>
+                                <div className="bg-white/[0.02] p-8 border border-white/5 relative">
+                                    <div className="absolute top-2 right-4 text-[0.6rem] font-mono text-gray-700">STAMP_X_REDACTED</div>
+                                    <h3 className="text-xs font-mono text-dossier-brass mb-4 uppercase tracking-[0.2em]">Finding: The Golden Treadmill</h3>
+                                    <p className="text-sm text-gray-500 leading-relaxed">
+                                        Experts in these nodes spend the majority of their prime cognitive hours on intake, booking, and policy clarification. The human core is being hollowed out by manual logistics.
+                                    </p>
+                                </div>
+                            </section>
+
+                            <section>
+                                <div className="flex gap-6 items-baseline mb-8">
+                                    <span className="text-4xl authority-serif italic font-bold text-dossier-brass opacity-50">II.</span>
+                                    <h2 className="text-3xl font-black authority-serif italic"> The SyncNet Protocol.</h2>
+                                </div>
+                                <div className="grid md:grid-cols-2 gap-8">
+                                    {[
+                                        { title: "Mesh Bandwidth", meta: "LATERAL_01", desc: "Breaking silos between disparate units via shared AI synthesis." },
+                                        { title: "Yield Incentive", meta: "ECON_LAYER", desc: "Shifting compensation from 'effort-input' to 'human-output' generated." }
+                                    ].map((note, i) => (
+                                        <div key={i} className="border-t border-dossier-brass/30 pt-6">
+                                            <div className="text-[0.6rem] font-mono text-gray-600 mb-2">{note.meta}</div>
+                                            <h4 className="text-xl font-bold authority-serif italic mb-4">{note.title}</h4>
+                                            <p className="text-gray-500 text-sm leading-relaxed">{note.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+
+                            <section className="pt-12 border-t-4 border-double border-dossier-brass/20 text-center">
+                                <div className="stamp mb-12">Action Required</div>
+                                <p className="text-xl font-black authority-serif italic mb-12 italic text-gray-400">
+                                    "Is your enterprise architected for yield, or merely for endurance?"
+                                </p>
+                                <a href="mailto:larry@q2pivot.com" className="inline-block border-2 border-dossier-brass text-dossier-brass px-12 py-4 font-black text-sm tracking-[0.3em] uppercase hover:bg-dossier-brass hover:text-dossier-paper transition-all">
+                                    Initialize Inquiry
+                                </a>
+                            </section>
+                        </div>
+
+                        {/* Footer / Confidential Marks */}
+                        <footer className="mt-32 pt-12 border-t border-white/5 text-[0.6rem] font-mono text-gray-700 flex justify-between uppercase">
+                            <div>Proprietary Material: Q2 Pivot Strategy Group</div>
+                            <div className="text-right">A project of Coaching with Dr Larry, LLC</div>
+                        </footer>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

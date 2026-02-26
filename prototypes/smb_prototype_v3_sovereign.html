@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMB Prototype: THE SOVEREIGN | Q2 Pivot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10/dist/framer-motion.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sov-gold': '#c5a059',
+                        'sov-black': '#0a0a0a',
+                        'sov-gray': '#1a1a1a',
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0c0c0c;
+            color: #f5f5f5;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+        }
+
+        .matte-bg {
+            background-image:
+                radial-gradient(circle at 50% -20%, #1a1a1a 0%, #0c0c0c 100%);
+        }
+
+        .gold-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c5a059 50%, transparent);
+            opacity: 0.3;
+        }
+
+        .authority-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .text-reveal {
+            background: linear-gradient(90deg, #c5a059, #fff, #c5a059);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 10s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .thin-border {
+            border: 1px solid rgba(197, 160, 89, 0.1);
+        }
+
+        .hover-gold-glow:hover {
+            border-color: rgba(197, 160, 89, 0.4);
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.05);
+        }
+    </style>
+</head>
+
+<body class="matte-bg">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { motion } = window.Motion;
+
+        function App() {
+            return (
+                <div className="min-h-screen">
+                    {/* Navigation */}
+                    <nav className="py-12 px-12 md:px-24 flex justify-between items-center bg-sov-black/50 backdrop-blur-sm border-b border-white/5">
+                        <div className="text-2xl font-black tracking-tighter uppercase italic authority-serif">
+                            <span className="text-sov-gold">Q2</span> Pivot
+                        </div>
+                        <div className="flex gap-16 text-[0.65rem] font-medium tracking-[0.4em] uppercase text-gray-500">
+                            <a href="q2pivot.html" className="hover:text-sov-gold transition-colors">Origins</a>
+                            <a href="orchestra.html" className="hover:text-sov-gold transition-colors">The Virtuosos</a>
+                            <div className="text-sov-gold/30">Protocol 12</div>
+                        </div>
+                    </nav>
+
+                    {/* Hero Section - Executive Gravity */}
+                    <section className="pt-40 pb-56 px-12 md:px-24 text-center max-w-6xl mx-auto">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1 }}
+                        >
+                            <div className="text-[0.65rem] font-bold tracking-[0.6em] uppercase text-sov-gold mb-12 opacity-60">
+                                The SMB Prototype // Zenith Edition
+                            </div>
+                            <h1 className="text-6xl md:text-8xl font-black authority-serif italic leading-[1] mb-16">
+                                The Quiet <br /> Authority of <span className="text-reveal">Yield.</span>
+                            </h1>
+                            <div className="gold-line w-1/2 mx-auto mb-16" />
+                            <p className="text-gray-400 text-xl font-light leading-relaxed max-w-2xl mx-auto italic">
+                                "We do not solve for efficiency. We architect for sovereignty. Recovering the human core from the seventy-percent administrative trap."
+                            </p>
+                        </motion.div>
+                    </section>
+
+                    {/* Section: The Problem - Minimalist Comparison */}
+                    <section className="py-40 px-12 md:px-24 border-y border-white/5 bg-sov-black/20">
+                        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-24 items-center">
+                            <div>
+                                <h2 className="text-4xl authority-serif italic font-bold mb-10 leading-tight">
+                                    The Golden Treadmill: <br />
+                                    <span className="text-sov-gold opacity-80">A Silent Crisis.</span>
+                                </h2>
+                                <p className="text-gray-400 font-light text-lg leading-relaxed mb-6">
+                                    Administrative friction in remote hospitality and medicine is more than a cost—it is an erosion of specialized talent.
+                                </p>
+                                <div className="space-y-6">
+                                    {[
+                                        "70% bandwidth loss to rote logistics.",
+                                        "Structural Expert-Decoupling.",
+                                        "Low-value habit cycles."
+                                    ].map((claim, i) => (
+                                        <div key={i} className="flex gap-4 items-center border-l border-sov-gold/20 pl-6 py-2">
+                                            <span className="text-gray-300 text-sm font-light italic">{claim}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="bg-sov-gray/50 p-16 thin-border flex flex-col items-center justify-center text-center">
+                                <div className="text-sov-gold font-black text-6xl mb-4 italic authority-serif">70%</div>
+                                <p className="text-[0.65rem] uppercase tracking-[0.5em] text-gray-400 mb-8 leading-relaxed">
+                                    Systematic Yield Loss <br /> in Legacy Operations.
+                                </p>
+                                <div className="h-px w-24 bg-white/10" />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* The Pillars - Ultra-Thin Layout */}
+                    <section className="py-56 px-12 md:px-24">
+                        <div className="max-w-7xl mx-auto">
+                            <div className="grid md:grid-cols-3 gap-16">
+                                {[
+                                    { title: "Friction Tolerance", label: "PHASE_01", desc: "15-minute logistical sprints that recover hours of professional time via integrated AI habits." },
+                                    { title: "Lateral Bandwidth", label: "MESH_LAYER", desc: "Synchronizing disparate medical and hospitality units into a single cognitive unit." },
+                                    { title: "Contribution to Yield", label: "VALUE_SYNC", desc: "Rewarding human intelligence and output over traditional administrative endurance." }
+                                ].map((pillar, i) => (
+                                    <div key={i} className="group">
+                                        <div className="text-sov-gold/40 text-[0.6rem] font-bold tracking-widest mb-6">0{i + 1} // {pillar.label}</div>
+                                        <h3 className="text-2xl authority-serif italic font-bold mb-8 group-hover:text-sov-gold transition-colors">{pillar.title}</h3>
+                                        <p className="text-gray-400 text-sm font-light leading-relaxed mb-12 italic">{pillar.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Final Word */}
+                    <section className="py-40 px-12 md:px-24 bg-sov-gold/5 flex flex-col items-center">
+                        <h2 className="text-4xl authority-serif italic font-bold mb-16 text-center max-w-2xl">
+                            "Your enterprise is either a treadmill or an orchestra. Choose with authority."
+                        </h2>
+                        <a href="mailto:larry@q2pivot.com" className="bg-sov-gold text-black px-16 py-6 font-black uppercase text-xs tracking-[0.6em] hover:bg-white transition-all shadow-[0_20px_50px_rgba(197,160,89,0.1)]">
+                            Enter the Pivot
+                        </a>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="py-12 px-12 md:px-24 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[0.6rem] tracking-[0.4em] uppercase text-gray-700">
+                        <div>&copy; 2026 Q2 Pivot Strategy Group, LLC</div>
+                        <div className="mt-4 md:mt-0 text-right">A project of Coaching with Dr Larry, LLC // DE</div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
