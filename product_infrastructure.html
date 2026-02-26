@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign AI Infrastructure | Q2 Pivot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-dark': '#0A0A12',
+                        'q2-cyan': '#0FF0FC',
+                        'q2-gold': '#C5A059',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .grid-bg {
+            background-image: linear-gradient(rgba(15, 240, 252, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 240, 252, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+    </style>
+</head>
+
+<body class="bg-q2-dark text-zinc-300 grid-bg min-h-screen">
+    <header class="border-b border-white/10 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-4 group">
+                <span class="text-white font-bold">Q2 PIVOT</span>
+            </a>
+            <a href="index.html#radar" class="text-sm font-mono text-q2-cyan hover:text-white transition-colors">← BACK
+                TO RADAR</a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto py-24 px-6 space-y-16">
+        <div class="space-y-6">
+            <div class="text-q2-gold font-mono text-sm tracking-widest uppercase">SKU: SOAR-02-INFRA</div>
+            <h1 class="text-5xl md:text-7xl font-bold text-white leading-tight">
+                Sovereign <br />
+                <span class="text-q2-cyan">Private Infrastructure</span>
+            </h1>
+            <p class="text-xl text-zinc-400 leading-relaxed italic">
+                "Why rent intelligence from OpenAI when you can own it? Secure, private, and permanent."
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12">
+            <div class="space-y-6">
+                <h2 class="text-2xl font-bold text-white border-l-4 border-q2-gold pl-4">The Challenge</h2>
+                <p>
+                    Universities are leaking proprietary research, student data, and intellectual property to public LLM
+                    providers. Subscription fees are uncapped and rising.
+                </p>
+            </div>
+            <div class="space-y-6">
+                <h2 class="text-2xl font-bold text-white border-l-4 border-q2-cyan pl-4">The Pivot</h2>
+                <p>
+                    Deploy local, private inference models (DeepSeek-V4, Llama-3) on your own hardware or VPC. Zero data
+                    leakage. Zero subscription fees. Total sovereignty over your institution's cognitive layer.
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 space-y-8">
+            <h2 class="text-3xl font-bold text-white mb-4">Infrastructure Setup</h2>
+            <ul class="space-y-4 font-mono text-sm">
+                <li class="flex gap-4 items-start"><span class="text-q2-cyan">01</span> <span>Encrypted Inference:
+                        Private LLM deployment on-prem or private cloud.</span></li>
+                <li class="flex gap-4 items-start"><span class="text-q2-cyan">02</span> <span>Campus Knowledge Base:
+                        RAG-enabled archives for every department.</span></li>
+                <li class="flex gap-4 items-start"><span class="text-q2-cyan">03</span> <span>Governance Wrapper: Full
+                        auditing and logging of every interaction.</span></li>
+            </ul>
+        </div>
+
+        <div class="text-center pt-12">
+            <a href="https://buy.stripe.com/sovereign-cloud-spec" target="_blank"
+                class="inline-block bg-q2-cyan text-black px-12 py-5 rounded font-black text-xl hover:bg-white transition-all shadow-[0_0_30px_rgba(15,240,252,0.2)]">
+                VIEW TECHNICAL SPEC →
+            </a>
+            <p class="mt-6 text-zinc-500 text-sm">Deployment: 2-3 Weeks Initial Integration</p>
+        </div>
+    </main>
+
+    <footer class="border-t border-white/10 py-12 text-center text-xs text-zinc-600">
+        © 2026 Q2 Pivot. Training the governors of the machine.
+    </footer>
+</body>
+
+</html>

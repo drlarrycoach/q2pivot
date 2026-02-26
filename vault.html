@@ -4,71 +4,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Vault | Q2 Pivot</title>
+    <title>Subtraction Strategy Retreat | Q2 Pivot</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            background-color: #0a0a12;
-            color: white;
-            font-family: 'Inter', sans-serif;
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-dark': '#0A0A12',
+                        'q2-cyan': '#0FF0FC',
+                        'q2-gold': '#C5A059',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+                    }
+                }
+            }
         }
-
-        .grid-bg {
-            background-image:
-                linear-gradient(rgba(197, 160, 89, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(197, 160, 89, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
+    </script>
+    <style>
+        .minimal-grid {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 80px 80px;
         }
     </style>
 </head>
 
-<body class="grid-bg min-h-screen">
-    <div class="max-w-5xl mx-auto py-24 px-8 space-y-16">
-        <header class="space-y-4">
-            <a href="index.html" class="text-q2-gold font-mono text-xs hover:underline inline-block mb-4">← RETURN TO
-                BASE</a>
-            <h1 class="text-6xl font-black tracking-tighter uppercase italic">The Vault.</h1>
-            <p class="text-gray-400 text-xl max-w-2xl leading-relaxed">
-                Privileged intelligence, strategy briefs, and architectural blueprints for education leadership.
-            </p>
+<body class="bg-[#0A0A0C] text-zinc-400 font-sans selection:bg-white/10 selection:text-white">
+    <div class="min-h-screen relative overflow-hidden flex flex-col minimal-grid">
+        <!-- Navigation -->
+        <header class="relative z-10 border-b border-white/5 bg-black/40 backdrop-blur-xl">
+            <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-4 group">
+                    <div
+                        class="w-10 h-10 border border-white/10 rounded flex items-center justify-center bg-white/5 group-hover:bg-white/10 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-white">
+                            <path d="M5 12h14"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-tight text-white">Q2 PIVOT</h1>
+                        <p class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mt-0.5">Subtraction
+                            Strategy</p>
+                    </div>
+                </a>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="index.html#pivot"
+                        class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors">The Pivot</a>
+                    <a href="guardrails.html"
+                        class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors">Guardrails</a>
+                    <a href="authenticity.html"
+                        class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors">Authenticity</a>
+                    <a href="architecture.html"
+                        class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors">Architecture</a>
+                    <a href="vault.html"
+                        class="bg-white/10 text-white px-4 py-2 border border-white/20 rounded text-sm hover:bg-white/20 transition-all font-mono">THE
+                        VAULT</a>
+                </nav>
+            </div>
         </header>
 
-        <div class="grid md:grid-cols-2 gap-8">
-            {[
-            { title: "Sovereign Cloud Blueprint", type: "BLUEPRINT", status: "ENCRYPTED", price: "$5,000", link:
-            "architecture.html" },
-            { title: "Cognitive Architecture Guide", type: "GUIDE", status: "AVAILABLE", price: "FREE", link: "#" },
-            { title: "Subtraction Audit Template", type: "TEMPLATE", status: "ENCRYPTED", price: "$1,200", link:
-            "product_strategy.html" },
-            { title: "The 7-Day Policy Sprint", type: "FRAMEWORK", status: "AVAILABLE", price: "FREE", link: "#" }
-            ].map((item, i) => (
-            <a href={item.link} key={i}
-                class="group p-8 border border-white/10 bg-gray-900/40 rounded-xl hover:border-q2-gold transition-all">
-                <div class="flex justify-between items-start mb-6">
-                    <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">{item.type} //
-                        {item.status}</span>
-                    <span class="text-q2-gold font-bold">{item.price}</span>
+        <main class="relative z-10 flex-grow">
+            <!-- Hero -->
+            <section class="py-24 px-6">
+                <div class="max-w-4xl mx-auto text-center space-y-8">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white text-xs font-mono uppercase tracking-widest">
+                        SKU: SOAR-03-RETREAT
+                    </div>
+                    <h2 class="text-5xl md:text-8xl font-black text-white leading-tight tracking-tighter">
+                        Your Institution Is <span class="text-zinc-600">Drowning</span> In Its Own Bloat. <br />Why
+                        Bother Adding <span class="text-q2-gold">More?</span>
+                    </h2>
+                    <p class="text-xl md:text-2xl text-zinc-500 max-w-2xl mx-auto leading-relaxed italic">
+                        "An 'AI Task Force' won’t fix the burnout. You need a Subtraction Strategy that gives faculty
+                        20% of their life back."
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-12">
+                        <button
+                            class="w-full sm:w-auto bg-white text-black px-12 py-5 rounded font-bold hover:bg-zinc-200 transition-all text-xl">
+                            BOOK STRATEGY SESSION
+                        </button>
+                        <div class="text-zinc-500 font-mono text-lg">
+                            $12,500 <span class="text-xs uppercase tracking-widest">+ Travel</span>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="text-2xl font-bold group-hover:text-q2-gold transition-colors mb-2">{item.title}</h3>
-                <div class="text-white/20 text-xs font-mono uppercase tracking-[0.2em] group-hover:text-white/40">
-                    INITIALIZE DECRYPTION →</div>
-            </a>
-            ))}
-        </div>
+            </section>
 
-        <section class="bg-q2-gold/5 border border-q2-gold/20 p-12 rounded-2xl space-y-8">
-            <div class="max-w-2xl">
-                <h2 class="text-3xl font-bold text-q2-gold mb-4">Institutional Access.</h2>
-                <p class="text-gray-400">
-                    Unlock the complete Conductor's Toolkit for your entire cabinet. Sovereign infrastructure, faculty
-                    certification, and strategic subtraction—integrated into a singular governance model.
+            <!-- Agitation: The Meeting Clock -->
+            <section class="py-24 px-6 bg-white/5 border-y border-white/5">
+                <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-8">
+                        <h3 class="text-4xl font-bold text-white">Your Faculty Are Surmounting The Calendar, Not The
+                            Curriculum.</h3>
+                        <div class="grid grid-cols-2 gap-8">
+                            <div class="space-y-2">
+                                <p class="text-5xl font-black text-white">63%</p>
+                                <p class="text-xs font-mono text-zinc-500 uppercase tracking-widest">Time spent on
+                                    non-teaching activities</p>
+                            </div>
+                            <div class="space-y-2">
+                                <p class="text-5xl font-black text-white">17</p>
+                                <p class="text-xs font-mono text-zinc-500 uppercase tracking-widest">Average meetings
+                                    per week</p>
+                            </div>
+                        </div>
+                        <p class="text-lg text-zinc-400">
+                            Every new initiative adds workload. Nothing ever gets subtracted. By Summer 2026, your best
+                            faculty haven't just checked out—they've left.
+                        </p>
+                    </div>
+                    <div class="p-1 border border-white/10 rounded-2xl bg-gradient-to-br from-white/10 to-transparent">
+                        <div class="bg-[#0A0A0C] p-12 rounded-xl space-y-8">
+                            <p class="text-xs font-mono text-zinc-600 uppercase tracking-widest">The Provost's
+                                Confession</p>
+                            <p class="text-2xl font-serif text-white italic leading-relaxed">
+                                "We launched a 'streamlining task force' to reduce faculty workload. It added 14
+                                meetings to the calendar before we realized the irony."
+                            </p>
+                            <p class="text-sm font-bold text-q2-gold uppercase">— Mid-Sized Regional University</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Solution: Reclaimed Time -->
+            <section class="py-24 px-6">
+                <div class="max-w-7xl mx-auto space-y-16">
+                    <div class="text-center space-y-4">
+                        <h3 class="text-4xl font-bold text-white uppercase tracking-tighter">The 4-Day Campus Strategy
+                        </h3>
+                        <p class="text-xl text-zinc-500">A 2-day executive offsite to design your institution's
+                            subtraction roadmap.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <div class="p-12 border border-white/5 rounded-3xl bg-white/5 space-y-6">
+                            <h4 class="text-2xl font-bold text-white">The Math of Subtraction</h4>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b border-white/5 pb-4">
+                                    <span class="text-zinc-500 font-mono text-sm uppercase">Protected Time</span>
+                                    <span class="text-white font-bold">8 hrs / week</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-white/5 pb-4">
+                                    <span class="text-zinc-500 font-mono text-sm uppercase">Reclaimed Value</span>
+                                    <span class="text-white font-bold">$24K / faculty / year</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-zinc-500 font-mono text-sm uppercase">Institutional ROI</span>
+                                    <span class="text-green-400 font-bold">$1.2M+ (for cohort of 50)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-12 border border-white/5 rounded-3xl bg-white/5 space-y-6">
+                            <h4 class="text-2xl font-bold text-white">The Subtraction Roadmap</h4>
+                            <p class="text-zinc-400">
+                                Move from a meeting-heavy calendar to a high-intensity 4-day deep work model.
+                            </p>
+                            <ul class="space-y-4 text-sm font-mono text-zinc-500 uppercase tracking-widest">
+                                <li class="flex items-center gap-3"><span class="w-1 h-1 bg-q2-gold"></span> Pre-retreat
+                                    bloat audit</li>
+                                <li class="flex items-center gap-3"><span class="w-1 h-1 bg-q2-gold"></span> Day 1:
+                                    Prototype the 4-day model</li>
+                                <li class="flex items-center gap-3"><span class="w-1 h-1 bg-q2-gold"></span> Day 2: The
+                                    Change Implementation Plan</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ROI Summary -->
+            <section class="py-24 px-6 bg-black">
+                <div class="max-w-4xl mx-auto text-center space-y-12">
+                    <h3 class="text-3xl font-bold text-white">"This was the hardest $12.5K I ever approved. And the best
+                        return on investment in my presidency."</h3>
+                    <div class="flex items-center justify-center gap-6">
+                        <div class="w-12 h-px bg-zinc-800"></div>
+                        <p class="text-sm font-mono text-zinc-500 uppercase tracking-widest">President, Private Liberal
+                            Arts College</p>
+                        <div class="w-12 h-px bg-zinc-800"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final CTA -->
+            <section class="py-24 px-6 text-center space-y-12">
+                <div class="max-w-2xl mx-auto space-y-6">
+                    <h3 class="text-5xl font-black text-white leading-tight">Reclaim Your Institution's Time.</h3>
+                    <p class="text-xl text-zinc-500">Stop adding. Start subtracting. Spring 2026 retreat dates are
+                        filling fast.</p>
+                </div>
+                <div class="flex flex-col items-center gap-8">
+                    <button
+                        class="bg-white text-black px-12 py-5 rounded font-black text-2xl hover:bg-q2-gold transition-colors">
+                        Book Your Strategy Session
+                    </button>
+                    <p class="text-zinc-600 font-mono text-xs uppercase tracking-[0.3em]">Governance Strategy •
+                        Institutional Sustainability • Reclaiming Agency</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="py-12 px-8 border-t border-white/10 bg-black/60">
+            <div class="max-w-7xl mx-auto text-center">
+                <h3 class="text-2xl font-bold mb-4">
+                    <span class="text-q2-gold">Q2</span> <span class="text-q2-cyan">PIVOT</span>
+                </h3>
+                <p class="text-gray-600 text-xs">
+                    © 2026 Q2 Pivot. Subtraction is a strategic choice.
                 </p>
             </div>
-            <a href="https://calendly.com/drlarry/q2-strategy-session"
-                class="bg-q2-gold text-black px-8 py-4 rounded font-bold hover:bg-white transition-colors inline-block">
-                REQUEST INSTITUTIONAL ACCESS →
-            </a>
-        </section>
+        </footer>
     </div>
 </body>
 

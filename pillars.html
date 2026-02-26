@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 3 Pillars of AI Transformation | Q2 Pivot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-dark': '#0A0A12',
+                        'q2-cyan': '#0FF0FC',
+                        'q2-gold': '#C5A059',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .grid-bg {
+            background-image: linear-gradient(rgba(15, 240, 252, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 240, 252, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+    </style>
+</head>
+
+<body class="bg-q2-dark text-zinc-300 grid-bg min-h-screen">
+    <header class="border-b border-white/10 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-4 group">
+                <span
+                    class="text-white font-bold group-hover:text-q2-cyan transition-colors uppercase tracking-widest">Q2
+                    Pivot</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html"
+                    class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors italic">Home</a>
+                <a href="orchestra.html"
+                    class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors italic">The
+                    Orchestra</a>
+                <a href="index.html#radar"
+                    class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors italic">The Radar</a>
+                <a href="vault.html"
+                    class="bg-cyan-900/20 text-cyan-400 px-4 py-2 border border-cyan-500/30 rounded text-sm hover:bg-cyan-500/20 transition-all font-mono italic">SECURE
+                    ARCHIVE</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto py-24 px-6 space-y-24">
+        <!-- Hero Section -->
+        <div class="space-y-6 text-center">
+            <div class="text-q2-gold font-mono text-sm tracking-widest uppercase">The Architectural Framework</div>
+            <h1 class="text-5xl md:text-7xl font-bold text-white leading-tight">
+                Three Pillars. <br />
+                <span class="text-q2-cyan font-black">One Architecture.</span>
+            </h1>
+            <p class="text-xl text-zinc-400 leading-relaxed max-w-3xl mx-auto italic">
+                Sustainable AI adoption doesn't start with technology. It starts with three architectural decisions that
+                provosts control.
+            </p>
+        </div>
+
+        <!-- Pillar 1 -->
+        <section class="grid md:grid-cols-2 gap-12 items-center border-t border-white/5 pt-16">
+            <div class="space-y-6">
+                <div
+                    class="inline-block px-3 py-1 rounded-full bg-q2-gold/10 border border-q2-gold/30 text-q2-gold text-xs font-mono">
+                    PILLAR 1</div>
+                <h2 class="text-4xl font-bold text-white">Friction Tolerance</h2>
+                <p class="text-lg text-q2-cyan font-bold italic">Which pedagogical struggles should we preserve, and
+                    which should we remove?</p>
+                <p class="text-zinc-400 leading-relaxed">
+                    Faculty fear that AI will eliminate the intellectual struggle essential to learning. Friction
+                    Tolerance gives your institution a principled framework for distinguishing between
+                    <strong>productive friction</strong> (Socratic dialogue, grappling with essential questions) and
+                    <strong>administrative friction</strong> (grading mechanics, scheduling).
+                </p>
+                <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                    <h4 class="text-xs font-mono text-gray-500 uppercase tracking-widest mb-3">Theorists</h4>
+                    <p class="text-sm text-q2-gold">Freire, Gattegno, Papert, Montessori, Csikszentmihalyi</p>
+                </div>
+            </div>
+            <div
+                class="bg-gradient-to-br from-q2-gold/20 to-transparent p-12 rounded-3xl border border-q2-gold/30 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 24 24" fill="none"
+                    stroke="#c5a059" stroke-width="1.5">
+                    <path
+                        d="M3 8V6a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2zM3 16v2a2 2 0 002 2h4a2 2 0 002-2v-2a2 2 0 00-2-2H5a2 2 0 00-2 2zM13 8V6a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2h-4a2 2 0 01-2-2zM13 18v-2a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2h-4a2 2 0 01-2-2z" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- Pillar 2 -->
+        <section class="grid md:grid-cols-2 gap-12 items-center">
+            <div
+                class="bg-gradient-to-br from-q2-cyan/20 to-transparent p-12 rounded-3xl border border-q2-cyan/30 flex items-center justify-center order-2 md:order-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 24 24" fill="none"
+                    stroke="#0ff0fc" stroke-width="1.5">
+                    <circle cx="12" cy="5" r="2" />
+                    <circle cx="5" cy="19" r="2" />
+                    <circle cx="19" cy="19" r="2" />
+                    <path d="M12 7v4M7 17l3-6M17 17l-3-6" />
+                </svg>
+            </div>
+            <div class="space-y-6 order-1 md:order-2">
+                <div
+                    class="inline-block px-3 py-1 rounded-full bg-q2-cyan/10 border border-q2-cyan/30 text-q2-cyan text-xs font-mono">
+                    PILLAR 2</div>
+                <h2 class="text-4xl font-bold text-white">Lateral Bandwidth</h2>
+                <p class="text-lg text-q2-cyan font-bold italic">How do we assess more while reducing proportional
+                    faculty effort?</p>
+                <p class="text-zinc-400 leading-relaxed">
+                    Lateral Bandwidth means expanding what you assess (diverse modalities, cross-cultural evidence,
+                    higher-order thinking) and how often (continuous formative loops) while reducing faculty grading
+                    load by 40-60%.
+                </p>
+                <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                    <h4 class="text-xs font-mono text-gray-500 uppercase tracking-widest mb-3">Theorists</h4>
+                    <p class="text-sm text-q2-gold">Bloom, Wiliam, Vygotsky, Mitra, Wiggins & McTighe</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pillar 3 -->
+        <section class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <div
+                    class="inline-block px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-mono">
+                    PILLAR 3</div>
+                <h2 class="text-4xl font-bold text-white">Incentive Layer</h2>
+                <p class="text-lg text-q2-cyan font-bold italic">How do we create conditions where faculty WANT to adopt
+                    AI?</p>
+                <p class="text-zinc-400 leading-relaxed">
+                    Compliance produces theater. Buy-in produces transformation. The Incentive Layer framework redesigns
+                    institutional systems so faculty adoption becomes intrinsically motivated by professional purpose,
+                    peer belonging, and creative agency.
+                </p>
+                <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                    <h4 class="text-xs font-mono text-gray-500 uppercase tracking-widest mb-3">Theorists</h4>
+                    <p class="text-sm text-q2-gold">Kotter, Senge, Sinek, Lave & Wenger, Dweck</p>
+                </div>
+            </div>
+            <div
+                class="bg-gradient-to-br from-purple-500/20 to-transparent p-12 rounded-3xl border border-purple-500/30 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 24 24" fill="none"
+                    stroke="#a78bfa" stroke-width="1.5">
+                    <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <div class="flex flex-col items-center gap-6 pt-12 border-t border-white/10">
+            <a href="https://q2pivot.com/assessment"
+                class="inline-block bg-q2-gold text-black px-12 py-5 rounded font-black text-xl hover:bg-white transition-all shadow-[0_0_30px_rgba(197,160,89,0.2)]">
+                TAKE THE READINESS ASSESSMENT
+            </a>
+            <p class="text-zinc-500 text-sm">A 5-minute diagnostic shows your biggest leverage point.</p>
+        </div>
+    </main>
+
+    <footer class="py-12 px-8 border-t border-white/10 bg-black/60 text-center">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-xl font-bold mb-4">
+                <span class="text-q2-gold">Q2</span> <span class="text-q2-cyan">PIVOT</span>
+            </h3>
+            <p class="text-gray-600 text-xs">
+                © 2026 Q2 Pivot. Training the governors of the machine.
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

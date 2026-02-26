@@ -32,6 +32,7 @@
             font-family: 'Inter', sans-serif;
         }
 
+        /* Grid background */
         .grid-bg {
             background-image:
                 linear-gradient(rgba(15, 240, 252, 0.03) 1px, transparent 1px),
@@ -39,585 +40,1052 @@
             background-size: 40px 40px;
         }
 
+        /* Ancestor card */
         .ancestor-card {
             position: relative;
             overflow: hidden;
-            min-height: 450px;
+            min-height: 350px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            background: rgba(17, 24, 39, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 0.75rem;
-            transition: all 0.3s ease;
         }
 
-        .ancestor-card:hover {
-            border-color: #0ff0fc;
+        .ancestor-icon-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.08;
+            width: 160px;
+            height: 160px;
+            transition: opacity 0.4s ease;
+        }
+
+        .ancestor-card:hover .ancestor-icon-bg {
+            opacity: 0.15;
         }
 
         .ancestor-content {
             position: relative;
             z-index: 10;
-            padding: 1.5rem;
-            transition: transform 0.4s ease;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .ancestor-card:hover .ancestor-content {
-            transform: translateY(-20px);
+            transform: translateY(-50px);
         }
 
         .ancestor-bio {
             max-height: 0;
             opacity: 0;
             overflow: hidden;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .ancestor-card:hover .ancestor-bio {
-            max-height: 300px;
+            max-height: 200px;
             opacity: 1;
-            margin-top: 1rem;
+            margin-top: 0.75rem;
         }
 
-        .line-icon {
-            width: 120px;
-            height: 120px;
-            stroke-width: 1;
-            opacity: 0.1;
-            position: absolute;
-            top: 20px;
-            right: 20px;
+        .ancestor-card:hover .hover-hide {
+            opacity: 0;
+            max-height: 0;
+            margin: 0;
+        }
+
+        /* Simple line icons */
+        .line-icon-large {
+            width: 160px;
+            height: 160px;
+            stroke-width: 1.5;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(15, 240, 252, 0.3);
+            border-radius: 10px;
         }
     </style>
 </head>
 
-<body class="grid-bg min-h-screen">
+<body>
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState } = React;
+        const { useState, useEffect } = React;
         const { motion, AnimatePresence } = Motion;
 
-        const LineIcon = ({ name, color }) => {
-            const icons = {
-                puzzle: <path d="M3 8V6a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2zM3 16v2a2 2 0 002 2h4a2 2 0 002-2v-2a2 2 0 00-2-2H5a2 2 0 00-2 2zM13 8V6a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2h-4a2 2 0 01-2-2zM13 18v-2a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2h-4a2 2 0 01-2-2z" />,
-                network: <><circle cx="12" cy="5" r="2" /><circle cx="5" cy="19" r="2" /><circle cx="19" cy="19" r="2" /><path d="M12 7v4M7 17l3-6M17 17l-3-6" /></>,
-                chip: <><rect x="6" y="6" width="12" height="12" rx="2" /><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" /></>,
-                graduation: <><path d="M22 10l-10-5-10 5 10 5 10-5z" /><path d="M6 12v5c0 2 4 3 6 3s6-1 6-3v-5" /></>,
-                brain: <><path d="M12 2a3 3 0 00-3 3v2a3 3 0 003 3 3 3 0 003-3V5a3 3 0 00-3-3zM9 12a3 3 0 100 6 3 3 0 000-6zM15 12a3 3 0 100 6 3 3 0 000-6z" /><path d="M12 10v2M9 15H7a2 2 0 01-2-2v-1M15 15h2a2 2 0 002-2v-1" /></>,
-                star: <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />,
-                plant: <><path d="M12 22v-8M8 14c-2.5 0-4-2-4-4 0-3 2-5 5-5h6c3 0 5 2 5 5 0 2-1.5 4-4 4" /><path d="M12 14c0-3-2-5-5-5M12 14c0-3 2-5 5-5" /></>,
-                mountain: <><path d="M3 20h18L12 4 3 20z" /><path d="M8 20l4-8 4 8" /></>,
-                globe: <><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" /></>,
-                layers: <><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" /></>,
-                radar: <><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /><path d="M12 2v4M12 18v4M2 12h4M18 12h4" /></>
-            };
-            return (
-                <svg className="line-icon" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1">
-                    {icons[name]}
+        // Simple Line Icons as SVG components
+        const LineIcons = {
+            puzzle: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <path d="M3 8V6a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2zM3 16v2a2 2 0 002 2h4a2 2 0 002-2v-2a2 2 0 00-2-2H5a2 2 0 00-2 2zM13 8V6a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2h-4a2 2 0 01-2-2zM13 18v-2a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2h-4a2 2 0 01-2-2z" />
                 </svg>
-            );
+            ),
+            network: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <circle cx="12" cy="5" r="2" />
+                    <circle cx="5" cy="19" r="2" />
+                    <circle cx="19" cy="19" r="2" />
+                    <path d="M12 7v4M7 17l3-6M17 17l-3-6" />
+                </svg>
+            ),
+            chip: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <rect x="6" y="6" width="12" height="12" rx="2" />
+                    <path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" />
+                </svg>
+            ),
+            graduation: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <path d="M22 10l-10-5-10 5 10 5 10-5z" />
+                    <path d="M6 12v5c0 2 4 3 6 3s6-1 6-3v-5" />
+                </svg>
+            ),
+            brain: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <path d="M12 2a3 3 0 00-3 3v2a3 3 0 003 3 3 3 0 003-3V5a3 3 0 00-3-3zM9 12a3 3 0 100 6 3 3 0 000-6zM15 12a3 3 0 100 6 3 3 0 000-6z" />
+                    <path d="M12 10v2M9 15H7a2 2 0 01-2-2v-1M15 15h2a2 2 0 002-2v-1" />
+                </svg>
+            ),
+            star: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+            ),
+            plant: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <path d="M12 22v-8M8 14c-2.5 0-4-2-4-4 0-3 2-5 5-5h6c3 0 5 2 5 5 0 2-1.5 4-4 4" />
+                    <path d="M12 14c0-3-2-5-5-5M12 14c0-3 2-5 5-5" />
+                </svg>
+            ),
+            mountain: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <path d="M3 20h18L12 4 3 20z" />
+                    <path d="M8 20l4-8 4 8" />
+                </svg>
+            ),
+            globe: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+                </svg>
+            ),
+            layers: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                    <polyline points="2 17 12 22 22 17" />
+                    <polyline points="2 12 12 17 22 12" />
+                </svg>
+            ),
+            radar: (color, className = "line-icon") => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+                    <circle cx="12" cy="12" r="10" />
+                    <circle cx="12" cy="12" r="7" />
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 12l5-5" />
+                </svg>
+            )
         };
 
+        // Orchestra Data - The Full Orchestra (Chronological by Birth)
         const orchestraData = [
             {
-                name: "John Dewey",
+                name: "Dr. John Dewey",
+                dates: "1859–1952",
                 archetype: "The Pragmatist",
+                quote: '"We must judge the value of any educational system... only on the ground of <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>what it moves toward and into</span>."',
                 image: "assets/images/dewey_pragmatist_v2_1769706455998.png",
                 bio: "Champion of 'learning by doing' and democratic education. He rejected passive learning, seeing AI simulations as laboratories for experimentation where students test ideas in consequence engines.",
-                quote: "Education is not preparation for life; education is life itself.",
                 color: "text-blue-400",
                 strokeColor: "#60a5fa",
                 icon: "plant",
-                section: "Woodwinds"
+                instrument: "The Democratic Philosopher • Cello"
             },
             {
-                name: "Maria Montessori",
+                name: "Dr. Maria Montessori",
+                dates: "1870–1952",
                 archetype: "The Architect",
+                quote: '"I did not invent a <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>method of education</span>, I simply gave some little children a <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>chance to live</span>."',
                 image: "assets/images/montessori_architect_1769586306280.png",
                 bio: "Pioneered the 'prepared environment' where children discover through interaction. She rejected factory-model classrooms with children in rows, championing child-centered learning spaces.",
-                quote: "The greatest sign of success for a teacher is to be able to say, 'The children are now working as if I did not exist.'",
                 color: "text-rose-400",
                 strokeColor: "#fb7185",
                 icon: "puzzle",
-                section: "Woodwinds"
+                instrument: "The Architect • Violin I"
             },
             {
-                name: "Lev Vygotsky",
+                name: "Dr. Lev Vygotsky",
+                dates: "1896–1934",
                 archetype: "The Networker",
+                quote: '"In general we might say that the relations between higher mental functions once were genuine relations between people... first, <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>between people</span> (interpsychological) and then inside the child (intrapsychological)."',
                 image: "assets/images/vygotsky_networker_1769586449324.png",
                 bio: "Father of the 'Zone of Proximal Development' and social constructivism. He rejected individual learning divorced from social context, viewing AI as the ultimate 'More Knowledgeable Other'.",
-                quote: "What a child can do in cooperation today, he can do alone tomorrow.",
                 color: "text-cyan-400",
                 strokeColor: "#22d3ee",
                 icon: "network",
-                section: "Woodwinds"
+                instrument: "The Networker • Violin II"
             },
             {
-                name: "Caleb Gattegno",
+                name: "Dr. Caleb Gattegno",
+                dates: "1911–1988",
                 archetype: "The Encoder",
+                quote: '"Only <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>awareness</span> is educable. ... Teaching is subordinated to <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>learning</span>."',
                 image: "assets/images/gattegno_encoder_1769586618987.png",
                 bio: "Believed only awareness is educable, demanding we subordinate teaching to learning. He rejected learning without awareness, treating AI as a feedback mirror for conscious cognition.",
-                quote: "Only awareness is educable.",
                 color: "text-amber-400",
                 strokeColor: "#fbbf24",
                 icon: "chip",
-                section: "Woodwinds"
+                instrument: "The Silence Keeper • Viola"
             },
             {
-                name: "Benjamin Bloom",
+                name: "Dr. Benjamin Bloom",
+                dates: "1913–1999",
                 archetype: "The Optimizer",
+                quote: '"What <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>any person</span> in the world can learn, <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>almost all persons</span> can learn if provided with appropriate prior and current conditions of learning."',
                 image: "assets/images/bloom_optimizer_1769587725495.png",
                 bio: "Identified the '2 Sigma Problem' and created Bloom's Taxonomy. He rejected time-based progression, seeing AI tutors as the scalable path to personalized mastery learning.",
-                quote: "After forty years of intensive research... my major conclusion is: What any person in the world can learn, almost all persons can learn if provided with appropriate prior and current conditions of learning.",
                 color: "text-indigo-400",
                 strokeColor: "#818cf8",
                 icon: "layers",
-                section: "Woodwinds"
+                instrument: "The Optimizer • Solo Violin"
             },
             {
-                name: "Malcolm Knowles",
+                name: "Dr. Malcolm Knowles",
+                dates: "1913–1997",
                 archetype: "The Andragogue",
+                quote: '"The new mission of education is to develop a <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>total environment conducive to human growth</span> and self-actualization to create an educative society."',
+                image: "assets/images/knowles_andragogue.png",
                 bio: "Pioneer of adult learning theory and self-directed learning. He rejected pedagogical paternalism, demanding AI respect learner autonomy rather than algorithmic control.",
-                quote: "Adult learning is best achieved through self-directed inquiry.",
                 color: "text-yellow-400",
                 strokeColor: "#facc15",
                 icon: "graduation",
-                section: "Woodwinds"
+                instrument: "The Autonomy Architect • Violin I"
             },
             {
-                name: "Edward T. Hall",
+                name: "Dr. Edward T. Hall",
+                dates: "1914–2009",
                 archetype: "The Context Decoder",
+                quote: '"We are captives of our own <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>cultural programming</span>... The great gift is an opportunity to achieve <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>awareness</span>."',
+                image: "assets/images/hall_context_decoder.png",
                 bio: "Mapped high/low context communication and proxemics. He rejected universal communication assumptions, demanding AI honor cultural context over algorithmic universalism.",
-                quote: "The silent language of culture speaks louder than words.",
                 color: "text-violet-400",
                 strokeColor: "#a78bfa",
                 icon: "globe",
-                section: "Woodwinds"
+                instrument: "The Context Reader • Viola"
             },
             {
-                name: "Jerome Bruner",
+                name: "Dr. Jerome Bruner",
+                dates: "1915–2016",
                 archetype: "The Scaffolder",
+                quote: '"Any subject can be taught effectively in some <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>intellectually honest form</span> to any child at any stage of development."',
+                image: "assets/images/bruner_scaffolder.png",
                 bio: "Theorist of 'discovery learning' and the spiral curriculum. He rejected rote memorization, treating AI as dynamic scaffolding that adjusts complexity as learners construct understanding.",
-                quote: "Any subject can be taught effectively in some intellectually honest form to any child at any stage of development.",
                 color: "text-green-400",
                 strokeColor: "#4ade80",
                 icon: "mountain",
-                section: "Woodwinds"
+                instrument: "The Narrative Architect • Violin I"
             },
             {
-                name: "Paulo Freire",
+                name: "Dr. Paulo Freire",
+                dates: "1921–1997",
                 archetype: "The Liberator",
+                quote: '"Because love is an act of courage, not of <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>fear</span>, love is commitment to others. No matter where the oppressed are found, the act of love is commitment to their cause—the cause of <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>liberation</span>."',
                 image: "assets/images/freire_liberator_1769586700518.png",
                 bio: "Fought the 'banking model' of education through critical pedagogy. He rejected teachers as authorities filling empty vessels, weaponizing AI literacy to dismantle epistemic privilege.",
-                quote: "Education either functions as an instrument which is used to facilitate integration of the younger generation into the logic of the present system... or it becomes the practice of freedom.",
                 color: "text-emerald-400",
                 strokeColor: "#34d399",
                 icon: "graduation",
-                section: "Woodwinds"
+                instrument: "The Liberator • Solo Oboe"
             },
             {
                 name: "Kurt Vonnegut Jr.",
+                dates: "1922–2007",
                 archetype: "The Unicorn",
+                quote: '"I tell you, we are here on Earth to <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>fart around</span>, and don\'t let anybody tell you different."',
+                image: "assets/images/vonnegut_unicorn.png",
                 bio: "Championed human creativity and kindness over efficiency. He rejected dehumanizing systems and technological determinism, insisting AI serve human values, not replace them.",
-                quote: "We are what we pretend to be, so we must be careful about what we pretend to be.",
                 color: "text-pink-400",
                 strokeColor: "#f472b6",
                 icon: "star",
-                section: "Woodwinds"
+                instrument: "The Humanist • Saxophone"
             },
             {
-                name: "Albert Bandura",
+                name: "Dr. Albert Bandura",
+                dates: "1925–2021",
                 archetype: "The Observer",
+                quote: '"The capacity to <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>exercise control</span> over the nature and quality of one’s life is the <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>essence of humanness</span>."',
+                image: "assets/images/bandura_observer.png",
                 bio: "Architect of 'social learning theory' and self-efficacy. He rejected behaviorist determinism, seeing AI role models as vicarious learning tools while warning against crushing human agency.",
-                quote: "Self-belief does not necessarily ensure success, but self-disbelief assuredly spawns failure.",
                 color: "text-pink-400",
                 strokeColor: "#f472b6",
                 icon: "brain",
-                section: "Woodwinds"
+                instrument: "The Modeler • Clarinet"
             },
             {
-                name: "Ivan Illich",
+                name: "Dr. Ivan Illich",
+                dates: "1926–2002",
                 archetype: "The Disestablisher",
+                quote: '"People need not only to obtain things, they need above all the <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>freedom to make things</span> among which they can live."',
+                image: "assets/images/illich_disestablisher.png",
                 bio: "Author of 'Deschooling Society' who challenged institutional monopolies. He rejected credentialing cartels, weaponizing AI to create learning webs that bypass gatekeeping entirely.",
-                quote: "The current search for new educational funnels must be reversed into the search for educational webs which heighten the opportunity for each one to transform each moment of his living into a moment of learning.",
                 color: "text-slate-400",
                 strokeColor: "#94a3b8",
                 icon: "globe",
-                section: "Percussion"
+                instrument: "The Iconoclast • Percussion"
             },
             {
-                name: "Seymour Papert",
+                name: "Dr. Seymour Papert",
+                dates: "1928–2016",
                 archetype: "The Maker",
+                quote: '"In many schools today, \"computer-aided instruction\" means making the <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>computer teach the child</span>. In my vision, the <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>child programs the computer</span>."',
                 image: "assets/images/papert_maker_1769586888969.png",
                 bio: "Creator of Constructionism and Logo programming. He rejected passive consumption of knowledge, handing students the keys to build their own cognitive tools with AI.",
-                quote: "The role of the teacher is to create the conditions for invention rather than to provide ready-made knowledge.",
                 color: "text-purple-400",
                 strokeColor: "#c084fc",
                 icon: "brain",
-                section: "Percussion"
+                instrument: "The Maker • Violin I"
             },
             {
-                name: "Geert Hofstede",
+                name: "Dr. Geert Hofstede",
+                dates: "1928–2020",
                 archetype: "The Cultural Cartographer",
+                quote: '"Culture is the <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>collective programming of the mind</span> which distinguishes the members of one group from another."',
+                image: "assets/images/hofstede_cultural_cartographer.png",
                 bio: "Mapped cultural dimensions across societies. He rejected one-size-fits-all Western educational models, demanding AI personalization honor cultural diversity at its core.",
-                quote: "Culture is more often a source of conflict than of synergy.",
                 color: "text-blue-400",
                 strokeColor: "#60a5fa",
                 icon: "globe",
-                section: "Percussion"
+                instrument: "The Mapmaker • Viola"
             },
             {
-                name: "Nel Noddings",
+                name: "Dr. Nel Noddings",
+                dates: "1929–2022",
                 archetype: "The Caregiver",
+                quote: '"The primary aim of education should be the <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>maintenance and enhancement of caring</span>."',
+                image: "assets/images/noddings_caregiver.png",
                 bio: "Theorist of 'ethics of care' in education. She rejected cold efficiency, insisting AI cannot replace the irreducible moral encounter between teacher and student—technology must serve care.",
-                quote: "The primary aim of every educational institution and every effort must be the maintenance and enhancement of caring.",
                 color: "text-rose-400",
                 strokeColor: "#fb7185",
                 icon: "plant",
-                section: "Percussion"
+                instrument: "The Caregiver • Flute"
             },
             {
-                name: "Mihaly Csikszentmihalyi",
+                name: "Dr. Mihaly Csikszentmihalyi",
+                dates: "1934–2021",
                 archetype: "The Flow Master",
+                quote: '"Passive leisure often leads to <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>psychic entropy</span>... True meaning comes from <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>psychic negentropy</span> (flow)."',
                 image: "assets/images/csikszentmihalyi_flow_master_v2_1769705704416.png",
                 bio: "Defined 'flow states' as optimal experience. He rejected boredom and anxiety as acceptable learning states, seeing AI as the dynamic difficulty engine for perpetual engagement.",
-                quote: "Flow is the state in which people are so involved in an activity that nothing else seems to matter.",
                 color: "text-sky-400",
                 strokeColor: "#38bdf8",
                 icon: "mountain",
-                section: "Percussion"
+                instrument: "The Flow Architect • Harpsichord"
             },
             {
                 name: "Christopher Alexander",
+                dates: "1936–2022",
                 archetype: "The Pattern Weaver",
-                image: "assets/images/alexander_weaver_1769587002061.png",
-                bio: "Architect and theorist of 'pattern languages'. He rejected dead, soul-less structures, using AI to generate living architectures that support human wholeness and organic growth.",
-                quote: "The quality of without-a-name is the root of all life and beauty in the world.",
-                color: "text-q2-gold",
-                strokeColor: "#c5a059",
+                quote: '"The <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>quality without a name</span> is the root of <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>life</span> in every living thing."',
+                image: "assets/images/alexander_pattern_weaver_v2_1769777936455.png",
+                bio: "Legendary architect and design theorist who championed \'Living Architecture\'. He rejected sterile, machine-like environments, viewing learning spaces as organic pattern languages that foster human wholeness.",
+                color: "text-blue-400",
+                strokeColor: "#60a5fa",
                 icon: "puzzle",
-                section: "Percussion"
+                instrument: "The Pattern Architect • Cello"
             },
             {
-                name: "David Kolb",
+                name: "Dr. David Kolb",
+                dates: "1939–",
                 archetype: "The Cycler",
+                quote: '"Thus, people <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>create themselves</span> through the choice of actual occasions they live through."',
+                image: "assets/images/kolb_cycler.png",
                 bio: "Designer of the 'experiential learning cycle'. He rejected abstract theory divorced from practice, insisting AI guide learners through experience, reflection, conceptualization, and experimentation.",
-                quote: "Learning is the process whereby knowledge is created through the transformation of experience.",
                 color: "text-red-400",
                 strokeColor: "#f87171",
                 icon: "layers",
-                section: "Percussion"
+                instrument: "The Cycler • French Horn"
             },
             {
                 name: "Dr. Milton Bennett",
+                dates: "1944–",
                 archetype: "The Intercultural Bridge",
+                quote: '"Cultural competence is developmental, not immediate."',
+                image: "assets/images/bennetts_intercultural_bridge.png",
                 bio: "Co-creator of the Developmental Model of Intercultural Sensitivity (DMIS). He rejected the idea that exposure alone creates competence, insisting on a structured journey from ethnocentrism to ethnorelativism.",
-                quote: "Intercultural competence is the ability to shift perspective and behavior effectively.",
                 color: "text-teal-400",
                 strokeColor: "#2dd4bf",
                 icon: "network",
-                section: "Percussion"
+                instrument: "The Bridge Builder • Viola"
             },
             {
                 name: "Dr. Janet Bennett",
+                dates: "1940s–2022",
                 archetype: "The Intercultural Bridge",
-                bio: "Executive director of the Intercultural Communication Institute. She rejected 'surface-level' diversity training, championing the deep, transformative mindset shifts required for true global connection.",
-                quote: "To reach the intercultural, one must move beyond the safety of the self.",
+                quote: '"Respectfully acknowledging <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>difference</span>... is the foundation of attributing <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>equal humanity</span> to others."',
+                image: "assets/images/bennetts_intercultural_bridge.png",
+                bio: "Executive director of the Intercultural Communication Institute. She rejected \'surface-level\' diversity training, championing the deep, transformative mindset shifts required for true global connection.",
                 color: "text-teal-400",
                 strokeColor: "#2dd4bf",
                 icon: "network",
-                section: "Percussion"
+                instrument: "The Bridge Builder • Viola"
             },
             {
                 name: "Dr. Jean Lave",
+                dates: "1939–",
                 archetype: "The Connector",
-                bio: "Anthropologist who pioneered the theory of situated learning. She rejected the 'Prussian classroom' model, proving that learning is always an aspect of all human activity within communities of practice.",
-                quote: "Learning is a process that takes place in a participation framework, not in an individual mind.",
+                quote: '"Learning is not merely situated in practice... it is an integral part of generative social practice in the lived-in world."',
+                image: "assets/images/lave_wenger_connectors_v2_1770625822835.png",
+                bio: "Anthropologist who pioneered the theory of situated learning. She rejected the \'Prussian classroom\' model, proving that learning is always an aspect of all human activity within communities of practice.",
                 color: "text-indigo-400",
                 strokeColor: "#818cf8",
                 icon: "network",
-                section: "Strings"
+                instrument: "The Apprenticeship Architect • Violin II"
             },
             {
                 name: "Etienne Wenger",
+                dates: "1952–",
                 archetype: "The Connector",
-                bio: "Computer scientist and educational theorist who defined 'Communities of Practice'. He rejected isolated skill acquisition, viewing AI as infrastructure connecting novices to global networks of participation.",
-                quote: "Communities of practice are groups of people who share a concern or a passion for something they do and learn how to do it better as they interact regularly.",
+                quote: '"Learning involves the construction of identities... [It] implies becoming a full participant, a member, a kind of person."',
+                image: "assets/images/lave_wenger_connectors_v2_1770625822835.png",
+                bio: "Computer scientist and educational theorist who defined \'Communities of Practice\'. He rejected isolated skill acquisition, viewing AI as infrastructure connecting novices to global networks of participation.",
                 color: "text-indigo-400",
                 strokeColor: "#818cf8",
                 icon: "network",
-                section: "Strings"
+                instrument: "The Apprenticeship Architect • Violin II"
             },
             {
-                name: "Robert Marzano",
+                name: "Dr. Robert Marzano",
+                dates: "1946–",
                 archetype: "The Systematizer",
+                quote: '"Instructional strategies that are <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>high-yield</span> have a statistical guarantee of <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>improving achievement</span>."',
+                image: "assets/images/marzano_systematizer_v1_1769778138621.png",
                 bio: "Researcher of 'high-yield instructional strategies' backed by meta-analysis. He rejected intuition over evidence, mining AI analytics to identify which moves generate largest effect sizes.",
-                quote: "To improve student achievement, we must focus on the instructional strategies that work.",
                 color: "text-cyan-400",
                 strokeColor: "#22d3ee",
                 icon: "chip",
-                section: "Strings"
+                instrument: "The Systematizer • Percussion"
             },
             {
-                name: "Howard Gardner",
+                name: "Dr. Howard Gardner",
+                dates: "1943–",
                 archetype: "The Pluralist",
+                quote: '"My wish is to help design the <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>future of learning</span> by supporting children all over the world to tap into their <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>innate sense of wonder</span>."',
                 image: "assets/images/gardner_pluralist_v2_1769706473952.png",
                 bio: "Father of 'multiple intelligences' theory. He rejected narrow definitions of intelligence, insisting AI personalization honor all intelligences, not just linguistic and logical-mathematical.",
-                quote: "It's not how smart you are, it's how you are smart.",
                 color: "text-fuchsia-400",
                 strokeColor: "#e879f9",
                 icon: "star",
-                section: "Strings"
+                instrument: "The Multiple Intelligences Theorist • Violin I"
             },
             {
-                name: "Carol Dweck",
+                name: "Dr. Carol Dweck",
+                dates: "1946–",
                 archetype: "The Gardener",
+                quote: '"In the <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>fixed mindset</span>, everything is about the outcome. The <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>growth mindset</span> allows people to value what they’re doing regardless of the outcome."',
                 image: "assets/images/dweck_gardener_1769587410617.png",
                 bio: "Mother of 'growth mindset' vs. fixed mindset. She rejected intelligence as innate, framing AI hallucinations as 'not yet' moments—invitations to grow the mind's neural network.",
-                quote: "Love challenges, be intrigued by mistakes, enjoy effort, and keep on learning.",
                 color: "text-lime-400",
                 strokeColor: "#a3e635",
                 icon: "plant",
-                section: "Strings"
+                instrument: "The Gardener • Solo Recorder"
             },
             {
-                name: "Peter Senge",
+                name: "Dr. Peter Senge",
+                dates: "1947–",
                 archetype: "The Systems Architect",
+                quote: '"...organizations where people continually expand their capacity to create the <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>results they truly desire</span>, where new and expansive patterns of thinking are nurtured, where <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>collective aspiration is set free</span>, and where people are continually <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>learning how to learn together</span>."',
                 image: "assets/images/senge_systems_architect_1769704996290.png",
                 bio: "Pioneer of learning organizations and systems thinking. He rejected hierarchical command-and-control, viewing AI as a lever for systemic transformation, not incremental fixes.",
-                quote: "The only sustainable competitive advantage is an organization's ability to learn faster than the competition.",
-                color: "text-slate-400",
-                strokeColor: "#94a3b8",
+                color: "text-emerald-400",
+                strokeColor: "#34d399",
                 icon: "layers",
-                section: "Strings"
+                instrument: "The Systems Architect • Cello"
             },
             {
-                name: "John Kotter",
+                name: "Dr. John Kotter",
+                dates: "1947–",
                 archetype: "The Change Conductor",
+                quote: '"Urgency is the feeling that we <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>must act now</span> to seize the <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>big opportunity</span>."',
+                image: "assets/images/kotter_conductor.png",
                 bio: "Designed the 8-step change management process. He rejected top-down mandates without cultural buy-in, orchestrating AI adoption as strategic transformation, not tech deployment.",
-                quote: "Change is the only constant, and management is the art of navigating it.",
                 color: "text-yellow-400",
                 strokeColor: "#facc15",
                 icon: "star",
-                section: "Strings"
+                instrument: "The Conductor • Baton"
             },
             {
-                name: "Ken Robinson",
+                name: "Sir Ken Robinson",
+                dates: "1950–2020",
                 archetype: "The Alchemist",
+                quote: '"We have spent too long mining our minds the way we <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>strip-mine</span> the earth... To survive and flourish, we must offer our children the gift of their own <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>wholeness</span>."',
                 image: "assets/images/robinson_alchemist_1769587197450.png",
                 bio: "Argued schools kill creativity through standardization. He rejected the factory model, demanding AI personalize expression and turn every student into a singular creative force.",
-                quote: "Creativity is as important now in education as literacy, and we should treat it with the same status.",
                 color: "text-orange-400",
                 strokeColor: "#fb923c",
                 icon: "star",
-                section: "Strings"
+                instrument: "The Alchemist • Solo Trumpet"
             },
             {
-                name: "Grant Wiggins",
+                name: "Dr. Grant Wiggins",
+                dates: "1950–2015",
                 archetype: "The Cartographer",
+                quote: '"The ultimate goal of all education is the ability to <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>transfer learning</span> to new, <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>unscripted situations</span>."',
+                image: "assets/images/wiggins_cartographer_v1_1769778177846.png",
                 bio: "Co-creator of Understanding by Design and backward design. He rejected content coverage over understanding, treating AI prompts as backward-designed learning architectures.",
-                quote: "To understand is to be able to wisely and effectively use knowledge and skill in a variety of contexts.",
                 color: "text-fuchsia-400",
                 strokeColor: "#e879f9",
                 icon: "puzzle",
-                section: "Strings"
+                instrument: "The Backward Designer • Violin I"
             },
             {
                 name: "Jay McTighe",
+                dates: "1947–",
                 archetype: "The Cartographer",
+                quote: '"Understanding is revealed through <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>transfer</span>. If students cannot apply knowledge in new contexts, they never understood it—they only <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>memorized</span> it."',
+                image: "assets/images/mctighe_cartographer_v1_1769778201286.png",
                 bio: "Co-architect of the UbD framework. He rejected teaching to the test, insisting AI assessment honor deep understanding over surface-level performance metrics.",
-                quote: "Thinking is the foundation of all learning.",
                 color: "text-violet-400",
                 strokeColor: "#a78bfa",
                 icon: "puzzle",
-                section: "Strings"
+                instrument: "The Backward Designer • Violin I"
             },
             {
-                name: "bell hooks",
-                archetype: "The Liberatory",
-                image: "assets/images/hooks_liberatory_v2_1769705932261.png",
-                bio: "Champion of 'engaged pedagogy' centering marginalized voices. She rejected neutral objectivity, demanding AI tools serve the margins first and confront algorithmic bias head-on.",
-                quote: "The classroom remains the most radical space of possibility in the academy.",
-                color: "text-amber-400",
-                strokeColor: "#fbbf24",
-                icon: "star",
-                section: "Brass"
-            },
-            {
-                name: "Sugata Mitra",
-                archetype: "The Disruptor",
-                image: "assets/images/mitra_disruptor_1769587562405.png",
-                bio: "Creator of the 'Hole in the Wall' self-organized learning experiment. He rejected teachers as necessary intermediaries, viewing AI as the ultimate 'Grandmother Cloud'.",
-                quote: "It's not about what you're taught, it's about what you learn when you're not being taught.",
-                color: "text-sky-400",
-                strokeColor: "#38bdf8",
-                icon: "globe",
-                section: "Brass"
-            },
-            {
-                name: "Dylan Wiliam",
-                archetype: "The Formative Voice",
-                bio: "Champion of assessment for learning, not of learning. He rejected summative testing as the primary driver, using AI to deliver real-time formative feedback at scale.",
-                quote: "Assessment is the bridge between teaching and learning.",
-                color: "text-green-400",
-                strokeColor: "#4ade80",
-                icon: "chip",
-                section: "Brass"
-            },
-            {
-                name: "Michael Schrage",
-                archetype: "The Collaboration Architect",
-                bio: "Theorist of shared spaces and serious play. He rejected isolation as optimal learning, seeing AI as collaborative infrastructure for co-creation, not solo consumption.",
-                quote: "Collaborative tools are not for talking to people, they are for working with people.",
-                color: "text-cyan-400",
-                strokeColor: "#22d3ee",
-                icon: "network",
-                section: "Brass"
-            },
-            {
-                name: "Pink & Duckworth",
-                archetype: "The Grit & Drive Duo",
-                bio: "Researchers of intrinsic motivation and grit. They rejected 'carrots and sticks' approach to learning, viewing AI as the high-friction sparring partner that develops character and sustained passion.",
-                quote: "Internal drive is more powerful than external rewards.",
-                color: "text-stone-400",
-                strokeColor: "#a8a29e",
-                icon: "mountain",
-                section: "Brass"
-            },
-            {
-                name: "Yong Zhao",
-                archetype: "The Globalization Scholar",
-                bio: "Champion of entrepreneurial mindsets and globalization. He rejected standardized testing and forced homogenization, fostering world-class learners who create their own paths.",
-                quote: "Education should be about finding your own path, not following someone else's.",
+                name: "Dr. Linda Darling-Hammond",
+                dates: "1951–",
+                archetype: "The Equity Architect",
+                quote: '"Every child deserves a <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>qualified teacher</span> and an <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>equitable chance</span> to succeed."',
+                image: "assets/images/darling_hammond_equity_architect_v2_1769777963916.png",
+                bio: "World-renowned education researcher focusing on teacher quality and educational equity. She rejected standardized barriers, advocating for professional learning environments that empower every student.",
                 color: "text-blue-400",
                 strokeColor: "#60a5fa",
                 icon: "graduation",
-                section: "Brass"
+                instrument: "The Equity Conductor • Violin I"
             },
             {
-                name: "Paul Tough",
-                archetype: "The Character Developer",
-                bio: "Explorer of how children succeed through non-cognitive skills. He rejected purely academic metrics, highlighting grit and self-control as the foundational traits for resilience.",
-                quote: "Character is more important than intelligence for long-term success.",
-                color: "text-stone-400",
-                strokeColor: "#a8a29e",
-                icon: "mountain",
-                section: "Brass"
-            },
-            {
-                name: "Angela Duckworth",
-                archetype: "The Stoic",
-                image: "assets/images/duckworth_stoic_1769587502372.png",
-                bio: "Champion of grit, perseverance, and character development. She rejected talent as the primary success factor, viewing AI as a high-friction sparring partner demanding mastery.",
-                quote: "Grit is passion and perseverance for very long-term goals.",
-                color: "text-stone-400",
-                strokeColor: "#a8a29e",
-                icon: "mountain",
-                section: "Brass"
-            },
-            {
-                name: "Simon Sinek",
-                archetype: "The Purpose Prophet",
-                bio: "Creator of 'Start with Why' and the golden circle. He rejected feature-first thinking, demanding AI adoption begin with purpose—why before how or what.",
-                quote: "People don't buy what you do; they buy why you do it.",
+                name: "bell hooks",
+                dates: "1952–2021",
+                archetype: "The Liberatory",
+                quote: '"To be in the margin is to be part of the whole but outside the main body."',
+                image: "assets/images/hooks_liberatory_v2_1769705932261.png",
+                bio: "Champion of \'engaged pedagogy\' centering marginalized voices. She rejected neutral objectivity, demanding AI tools serve the margins first and confront algorithmic bias head-on.",
                 color: "text-amber-400",
                 strokeColor: "#fbbf24",
                 icon: "star",
-                section: "Brass"
+                instrument: "The Liberatory • Vocals"
             },
             {
-                name: "Tony Wagner",
+                name: "Dr. Sugata Mitra",
+                dates: "1952–",
+                archetype: "The Disruptor",
+                quote: '"My wish is to help design the <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>future of learning</span> by supporting children all over the world to tap into their <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>innate sense of wonder</span>."',
+                image: "assets/images/mitra_disruptor_1769587562405.png",
+                bio: "Creator of the 'Hole in the Wall' self-organized learning experiment. He rejected teachers as necessary intermediaries, viewing AI as the ultimate 'Grandmother Cloud'.",
+                color: "text-sky-400",
+                strokeColor: "#38bdf8",
+                icon: "globe",
+                instrument: "The Self-Organized Learning Pioneer • Violin II"
+            },
+            {
+                name: "Dr. Dylan Wiliam",
+                dates: "1955–",
+                archetype: "The Formative Voice",
+                quote: '"Feedback should be a <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>recipe for improvement</span>, not an <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>autopsy of failure</span>."',
+                image: "assets/images/wiliam_formative_voice_v1_1769778228373.png",
+                bio: "Champion of assessment for learning, not of learning. He rejected summative testing as the primary driver, using AI to deliver real-time formative feedback at scale.",
+                color: "text-green-400",
+                strokeColor: "#4ade80",
+                icon: "chip",
+                instrument: "The Formative Voice • Oboe"
+            },
+            {
+                name: "Michael Schrage",
+                dates: "1958–",
+                archetype: "The Collaboration Architect",
+                quote: '"Innovation is not about the <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>solo genius</span>; it\'s about the <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>shared space</span>."',
+                image: "assets/images/schrage_collaboration_architect_v1_1769778256840.png",
+                bio: "Theorist of shared spaces and serious play. He rejected isolation as optimal learning, seeing AI as collaborative infrastructure for co-creation, not solo consumption.",
+                color: "text-cyan-400",
+                strokeColor: "#22d3ee",
+                icon: "network",
+                instrument: "The Collaboration Architect • Keyboards"
+            },
+            {
+                name: "Dr. Daniel Pink",
+                dates: "1964–",
+                archetype: "The Motivation Scientist",
+                quote: '"Human beings have an <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>innate inner drive</span> to be autonomous, self-determined, and connected to one another."',
+                image: "assets/images/pink_motivation_scientist_v2_1769778012352.png",
+                bio: "Author of \'Drive\' and theorist of intrinsic motivation. He rejected \'if-then\' rewards, identifying autonomy, mastery, and purpose as the engines of the human spirit in the AI age.",
+                color: "text-amber-400",
+                strokeColor: "#fbbf24",
+                icon: "star",
+                instrument: "The Motivation Theorist • Saxophone"
+            },
+            {
+                name: "Dr. Yong Zhao",
+                dates: "1965–",
+                archetype: "The Entrepreneurial Architect",
+                quote: '"We must move from <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>test-takers</span> to <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>world-shakers</span>."',
+                image: "assets/images/zhao_entrepreneurial_architect.png",
+                bio: "Champion of entrepreneurial mindsets and globalization. He rejected standardized testing and forced homogenization, fostering world-class learners who create their own paths.",
+                color: "text-blue-400",
+                strokeColor: "#60a5fa",
+                icon: "graduation",
+                instrument: "The Globalization Scholar • Violin I"
+            },
+            {
+                name: "Dr. Paul Tough",
+                dates: "1967–",
+                archetype: "The Character Developer",
+                quote: '"True <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>character</span> is not about IQ; it is about the <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>grit</span> to keep going."',
+                image: "assets/images/tough_character_developer_v4_1769778290811.png",
+                bio: "Explorer of how children succeed through non-cognitive skills. He rejected purely academic metrics, highlighting grit and self-control as the foundational traits for resilience.",
+                color: "text-stone-400",
+                strokeColor: "#a8a29e",
+                icon: "mountain",
+                instrument: "The Grit Researcher • Bass"
+            },
+            {
+                name: "Dr. Angela Duckworth",
+                dates: "1970–",
+                archetype: "The Stoic",
+                image: "assets/images/duckworth_stoic_1769587502372.png",
+                bio: "Champion of grit, perseverance, and character development. She rejected talent as the primary success factor, viewing AI as the ultimate 'high-friction' sparring partner demanding mastery.",
+                color: "text-stone-400",
+                strokeColor: "#a8a29e",
+                icon: "mountain",
+                instrument: "The Stoic • Bass"
+            },
+            {
+                name: "Simon Sinek",
+                dates: "1973–",
+                archetype: "The Purpose Prophet",
+                quote: '"It\'s \'<span class=\\\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\\\'>I have a dream</span>\' not \'<span class=\\\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\\\'>I have a plan</span>\'."',
+                image: "assets/images/sinek_prophet.png",
+                bio: "Creator of 'Start with Why' and the golden circle. He rejected feature-first thinking, demanding AI adoption begin with purpose—why before how or what.",
+                color: "text-amber-400",
+                strokeColor: "#fbbf24",
+                icon: "star",
+                instrument: "The Purpose Prophet • Trumpet"
+            },
+            {
+                name: "Dr. Tony Wagner",
+                dates: "1946–",
                 archetype: "The Innovation Expert",
-                bio: "Pioneer of 'Survival Skills' for the 21st century. He rejected knowledge consumption, advocating for play, passion, and purpose as the drivers of innovation.",
-                quote: "Innovation is the ability to see things differently and act on it.",
+                quote: '"The world <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>no longer cares</span> what you know; it cares <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>what you can do</span> with what you know."',
+                image: "assets/images/wagner_innovation_explorer_v1_final_1769778317904.png",
+                bio: "Pioneer of \'Survival Skills\' for the 21st century. He rejected knowledge consumption, advocating for play, passion, and purpose as the drivers of innovation.",
                 color: "text-orange-400",
                 strokeColor: "#fb923c",
                 icon: "star",
-                section: "Brass"
+                instrument: "The Innovation Explorer • Trumpet"
             },
             {
-                name: "David Cooperrider",
+                name: "Dr. David Cooperrider",
+                dates: "1954–",
                 archetype: "The Appreciative Inquirer",
+                quote: '"Organizations change faster by <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>amplifying their positive core</span>, not fixing what’s broken."',
                 image: "assets/images/cooperrider_appreciative_inquirer_v2_1769705685828.png",
                 bio: "Founder of Appreciative Inquiry. He rejected the deficit paradigm of 'fixing what's wrong', proving organizations change faster by amplifying their 'positive core' and envisioning aspirational futures.",
-                quote: "We live in the world our questions create.",
                 color: "text-yellow-400",
                 strokeColor: "#facc15",
                 icon: "star",
-                section: "Brass"
+                instrument: "The Appreciative Inquirer • Trumpet"
             },
             {
                 name: "Salman Khan",
-                archetype: "The Mastery Advocate",
-                bio: "Founder of Khan Academy. He rejected time-based progression, using AI to provide scalable, self-paced mastery learning for the world.",
-                quote: "Mastery learning is the only way to ensure success for every student.",
+                dates: "1976–",
+                archetype: "The Mastery Learning Advocate",
+                quote: '"We should be <span class=\'text-q2-cyan drop-shadow-[0_0_10px_rgba(13,124,140,0.5)]\'>mastering</span> concepts, not just <span class=\'text-q2-gold drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]\'>passing</span> tests."',
+                image: "assets/images/khan_mastery_advocate_v2_1769777988157.png",
+                bio: "Founder of Khan Academy and pioneer of the flipped classroom. He rejected time-based progression, using AI to provide scalable, self-paced mastery learning for the world.",
                 color: "text-cyan-400",
                 strokeColor: "#22d3ee",
                 icon: "chip",
-                section: "Brass"
+                instrument: "The Accelerator • Violin II"
             }
         ];
 
-        const sections = [
-            { id: "Woodwinds", label: "Woodwinds", desc: "Foundational Theories of Learning & Development" },
-            { id: "Percussion", label: "Percussion", desc: "Systems, Scales, & Context Mapping" },
-            { id: "Strings", label: "Strings", desc: "Communities of Practice & Mindset Shifts" },
-            { id: "Brass", label: "Brass", desc: "Critical Pedagogy & Disruption" }
+        // Orchestra Sections Data
+        const orchestraSections = [
+            {
+                id: "strings",
+                title: "The Strings",
+                subtitle: "The Foundation & Structure",
+                icon: "puzzle",
+                color: "text-blue-400",
+                borderColor: "border-blue-500",
+                metaphor: "Just as the strings provide the harmonic foundation of a symphony, these thinkers built the structural 'codebase' of modern education. They gave us the syntax of learning—curriculum, taxonomy, and developmental stages—that we must now upgrade.",
+                products: [
+                    { name: "Curriculum Architecture Audit", link: "architecture.html", style: "primary" },
+                    { name: "AI Policy Frameworks", link: "product_mockup.html?product=AI_Policy_Frameworks", style: "secondary" },
+                    { name: "Competency Map Design", link: "product_mockup.html?product=Competency_Map_Design", style: "secondary" }
+                ],
+                filter: (m) => m.instrument && (m.instrument.includes("Violin") || m.instrument.includes("Cello") || m.instrument.includes("Viola") || m.instrument.includes("Bass"))
+            },
+            {
+                id: "woodwinds",
+                title: "The Woodwinds",
+                subtitle: "The Human Breath",
+                icon: "plant",
+                color: "text-green-400",
+                borderColor: "border-green-500",
+                metaphor: "Woodwinds are powered by human breath. These virtuosos remind us that education is an irreducible human encounter. In the age of AI, their work protects the 'ghost in the machine'—care, relationship, and social context.",
+                products: [
+                    { name: "Faculty Fellows Program", link: "authenticity.html", style: "primary" },
+                    { name: "Human-in-the-Loop Coaching", link: "product_mockup.html?product=Human_Coaching", style: "secondary" },
+                    { name: "Student Socratic Bots", link: "product_mockup.html?product=Socratic_Bots", style: "secondary" }
+                ],
+                filter: (m) => m.instrument && (m.instrument.includes("Flute") || m.instrument.includes("Oboe") || m.instrument.includes("Clarinet") || m.instrument.includes("Saxophone") || m.instrument.includes("Recorder") || m.instrument.includes("Vocals"))
+            },
+            {
+                id: "brass",
+                title: "The Brass",
+                subtitle: "The Call to Action",
+                icon: "star",
+                color: "text-q2-gold",
+                borderColor: "border-q2-gold",
+                metaphor: "The brass section announces power and transformation. These voices shout above the noise, demanding we begin with 'Why' and find the courage to lead through disruption rather than manage decline.",
+                products: [
+                    { name: "The Subtraction Strategy", link: "product_strategy.html", style: "primary" },
+                    { name: "Leadership Pivot Retreats", link: "product_mockup.html?product=Leadership_Retreats", style: "secondary" },
+                    { name: "Crisis Management", link: "product_mockup.html?product=Crisis_Management", style: "secondary" }
+                ],
+                filter: (m) => m.instrument && (m.instrument.includes("Trumpet") || m.instrument.includes("French Horn") || m.instrument.includes("Tuba") || m.instrument.includes("Baton"))
+            },
+            {
+                id: "percussion",
+                title: "The Percussion",
+                subtitle: "The Disruptors",
+                icon: "chip",
+                color: "text-rose-400",
+                borderColor: "border-rose-500",
+                metaphor: "Percussion breaks the pattern. These disruptors smashed the 'factory model' of schooling long before AI arrived. They provide the new rhythm we need—one of self-organization, deschooling, and systemic change.",
+                products: [
+                    { name: "Sovereign Cloud & Guardrails", link: "guardrails.html", style: "primary" },
+                    { name: "Rogue AI Entrainment", link: "product_mockup.html?product=Rogue_AI_Strategy", style: "secondary" },
+                    { name: "Hackathon-in-a-Box", link: "product_mockup.html?product=Hackathon_Event", style: "secondary" }
+                ],
+                filter: (m) => m.instrument && (m.instrument.includes("Percussion") || m.instrument.includes("Harpsichord") || m.instrument.includes("Keyboards"))
+            }
         ];
 
-        function App() {
-            return (
-                <div className="max-w-7xl mx-auto py-16 px-8 space-y-24">
-                    {/* Header */}
-                    <header className="space-y-4 text-center">
-                        <a href="index.html" className="text-q2-cyan font-mono text-xs hover:underline inline-block mb-4">← RETURN TO BASE</a>
-                        <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase italic">The Orchestra.</h1>
-                        <p className="text-xl text-gray-400 max-w-3xl mx-auto italic">
-                            43 Virtuosos across 4 sections. The collective intelligence base of the Q2 Pivot.
-                        </p>
-                    </header>
+        // Orchestra Section Modal
+        function OrchestraSectionModal({ section, onClose }) {
+            if (!section) return null;
 
-                    {/* All Sections */}
-                    {sections.map(section => (
-                        <section key={section.id} id={section.id} className="space-y-12">
-                            <div className="border-l-4 border-q2-gold pl-6 space-y-2">
-                                <h2 className="text-4xl font-bold uppercase tracking-tight">{section.label}</h2>
-                                <p className="text-gray-500 font-mono text-sm uppercase tracking-widest">{section.desc}</p>
+            const members = orchestraData.filter(section.filter);
+
+            // Helper to determine button style based on section color
+            const getPrimaryGradient = (title) => {
+                if (title === 'The Strings') return 'from-blue-400 to-blue-200';
+                if (title === 'The Woodwinds') return 'from-green-400 to-green-200';
+                if (title === 'The Brass') return 'from-yellow-400 to-yellow-200';
+                return 'from-rose-400 to-rose-200';
+            };
+
+            return (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+                    onClick={onClose}
+                >
+                    <motion.div
+                        initial={{ scale: 0.9, y: 20 }}
+                        animate={{ scale: 1, y: 0 }}
+                        exit={{ scale: 0.9, y: 20 }}
+                        className={`bg-gray-900 border ${section.borderColor} rounded-2xl max-w-4xl w-full shadow-2xl relative overflow-hidden flex flex-col max-h-[90vh]`}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Header */}
+                        <div className="p-8 border-b border-white/10 relative shrink-0">
+                            <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl">×</button>
+                            <div className="flex items-center gap-4 mb-2">
+                                {LineIcons[section.icon] ? LineIcons[section.icon](section.color.replace('text-', '#').replace('-400', ''), "w-10 h-10") : null}
+                                <div>
+                                    <h2 className={`text-3xl font-bold ${section.color} uppercase tracking-widest`}>{section.title}</h2>
+                                    <p className="text-gray-400 font-serif italic">{section.subtitle}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Content (Scrollable) */}
+                        <div className="p-8 overflow-y-auto custom-scrollbar">
+                            <div className="mb-8">
+                                <h3 className="text-white font-bold mb-2 uppercase text-sm tracking-widest">The Metaphor</h3>
+                                <p className="text-xl md:text-2xl text-gray-300 font-serif leading-relaxed italic">
+                                    "{section.metaphor}"
+                                </p>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                {orchestraData.filter(m => m.section === section.id).map((member, i) => (
-                                    <div key={i} className="ancestor-card group">
-                                        <LineIcon name={member.icon} color={member.strokeColor} />
-
-                                        {member.image && (
-                                            <div className="absolute inset-0 z-0">
-                                                <img src={member.image} alt={member.name} className="w-full h-full object-cover opacity-100 saturate-125 transition-all duration-700 group-hover:opacity-40" />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent"></div>
-                                            </div>
-                                        )}
-
-                                        <div className="ancestor-content">
-                                            <p className={`${member.color} text-xs tracking-widest mb-1 uppercase font-mono`}>{member.archetype}</p>
-                                            <h3 className="text-2xl font-bold leading-none mb-4">{member.name}</h3>
-
-                                            <div className="ancestor-bio">
-                                                <p className="text-gray-300 text-sm leading-relaxed mb-4 italic">"{member.quote}"</p>
-                                                <p className="text-gray-400 text-sm leading-relaxed">{member.bio}</p>
-                                            </div>
+                            <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-widest">Virtuosos in this Section</h3>
+                            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+                                {members.map((m, i) => (
+                                    <div key={i} className="text-center group">
+                                        <div className="w-16 h-16 mx-auto mb-2 rounded-full overflow-hidden border border-white/10 group-hover:border-q2-cyan transition-colors">
+                                            {m.image ? (
+                                                <img src={m.image} className="w-full h-full object-cover" alt={m.name} />
+                                            ) : (
+                                                <div className="w-full h-full bg-white/5 flex items-center justify-center text-xs text-gray-500">?</div>
+                                            )}
                                         </div>
+                                        <p className="text-[10px] text-gray-400 uppercase tracking-wide leading-tight">{m.name}</p>
                                     </div>
                                 ))}
                             </div>
-                        </section>
-                    ))}
+                        </div>
+
+                        {/* Footer / CTA Buttons */}
+                        <div className="p-6 bg-black/40 border-t border-white/10 shrink-0 flex flex-col md:flex-row items-center justify-between gap-4">
+                            <div className="hidden md:block">
+                                <p className="text-xs text-gray-500 uppercase tracking-widest">Alignment Solutions</p>
+                            </div>
+                            <div className="flex flex-wrap gap-2 justify-end">
+                                {section.products && section.products.map((p, i) => (
+                                    <a
+                                        key={i}
+                                        href={p.link}
+                                        target="_blank"
+                                        className={`px-4 py-2 rounded font-bold text-black uppercase tracking-widest text-xs hover:opacity-90 transition-opacity ${p.style === 'primary' ? 'bg-gradient-to-r ' + getPrimaryGradient(section.title) : 'bg-transparent border border-gray-500 !text-gray-300 hover:bg-white/5'}`}
+                                    >
+                                        {p.name} →
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+
+                    </motion.div>
+                </motion.div>
+            );
+        }
+
+        function OrchestraCard({ member, index }) {
+            // Safety fallback for missing icons
+            const IconComponent = LineIcons[member.icon] || LineIcons.puzzle;
+            const [imageError, setImageError] = useState(false);
+
+            return (
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.05 }}
+                    className="ancestor-card group border border-white/10 rounded-xl p-6 bg-gray-900/40 backdrop-blur-sm transition-all duration-300 hover:border-q2-cyan/50"
+                >
+                    {/* Background Image */}
+                    {member.image && !imageError ? (
+                        <div className="absolute inset-0 z-0">
+                            <img
+                                src={member.image}
+                                alt={member.name}
+                                className="w-full h-full object-cover opacity-100 saturate-125 transition-all duration-700 group-hover:opacity-40 group-hover:grayscale"
+                                onError={() => setImageError(true)}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent"></div>
+                        </div>
+                    ) : (
+                        /* Large background icon - fallback or default */
+                        <div className="ancestor-icon-bg">
+                            {IconComponent(member.strokeColor, "line-icon-large")}
+                        </div>
+                    )}
+
+                    {/* Content that moves up on hover */}
+                    <div className="ancestor-content">
+                        <p className={`${member.color} text-xs tracking-widest mb-2 uppercase`}>
+                            {member.archetype}
+                        </p>
+                        <h3 className="font-bold text-sm mb-0.5">
+                            {member.name}
+                        </h3>
+                        {member.dates && (
+                            <p className="text-gray-500 text-[10px] font-mono mb-2">{member.dates}</p>
+                        )}
+
+                        {/* Position / Instrument if available */}
+                        {member.instrument && (
+                            <div className="mb-2 opacity-80">
+                                <span className="text-q2-gold text-[10px] border border-q2-gold/30 px-1.5 py-0.5 rounded bg-q2-gold/5">
+                                    {member.instrument.split('•')[1] || "Virtuoso"}
+                                </span>
+                            </div>
+                        )}
+
+                        {/* Hover to decrypt - fades out */}
+                        <p className="hover-hide text-gray-500 text-xs mt-2 transition-all duration-300">
+                            [HOVER TO DECRYPT]
+                        </p>
+
+                        {/* Text that drops down */}
+                        <div className="ancestor-bio">
+                            <p className="text-gray-400 text-sm leading-relaxed">
+                                {member.bio}
+                            </p>
+                        </div>
+                    </div>
+                </motion.div>
+            );
+        }
+
+        // Rotating Quotes Component
+        function RotatingQuotes() {
+            // Aggregate all quotes (primary and secondary)
+            const allQuotes = React.useMemo(() => {
+                const q = [];
+                orchestraData.forEach(m => {
+                    if (m.quote) q.push({ text: m.quote, author: m.name, instrument: m.instrument });
+                    if (m.quote2) q.push({ text: m.quote2, author: m.name, instrument: m.instrument });
+                });
+
+                // Fisher-Yates Shuffle
+                for (let i = q.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [q[i], q[j]] = [q[j], q[i]];
+                }
+                return q;
+            }, []);
+
+            const [index, setIndex] = React.useState(0);
+            const [currentQuote, setCurrentQuote] = React.useState(allQuotes[0]);
+
+            React.useEffect(() => {
+                const interval = setInterval(() => {
+                    setIndex((prev) => {
+                        let next = (prev + 1) % allQuotes.length;
+                        // Avoid same author back-to-back if possible
+                        if (allQuotes.length > 2 && allQuotes[next].author === allQuotes[prev].author) {
+                            next = (next + 1) % allQuotes.length;
+                        }
+                        return next;
+                    });
+                }, 10000);
+                return () => clearInterval(interval);
+            }, [allQuotes]);
+
+            React.useEffect(() => {
+                if (allQuotes[index]) {
+                    setCurrentQuote(allQuotes[index]);
+                }
+            }, [index, allQuotes]);
+
+            if (!currentQuote) return null;
+
+            return (
+                <div
+                    className="px-8 mx-auto my-12 text-center relative h-48 flex items-center justify-center border-b border-white/5 pb-8"
+                    style={{ width: '100%', maxWidth: '1600px' }}
+                >
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.5 }}
+                            className="absolute inset-0 flex flex-col items-center justify-center px-4"
+                        >
+                            <p
+                                className="text-xl md:text-2xl font-serif text-gray-200 mb-6 leading-relaxed"
+                                dangerouslySetInnerHTML={{ __html: currentQuote.text }}
+                            />
+                            <div className="flex items-center gap-2 text-sm text-gray-400 font-mono tracking-wide">
+                                <span className="text-q2-cyan font-bold uppercase">{currentQuote.author}</span>
+                                <span className="w-1 h-1 bg-gray-500 rounded-full"></span>
+                                <span className="text-q2-gold border border-q2-gold/30 px-2 py-0.5 rounded-full text-xs bg-q2-gold/5">
+                                    {currentQuote.instrument}
+                                </span>
+                            </div>
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
+            );
+        }
+
+        // Main App Component
+        function App() {
+            const [activeSection, setActiveSection] = useState(null);
+
+            return (
+                <div className="min-h-screen flex flex-col">
+                    {/* Hero / Header */}
+                    <section className="relative overflow-hidden grid-bg py-24 px-8 text-center border-b border-white/10">
+                        {/* Back Button */}
+                        <div className="absolute top-8 left-8">
+                            <a href="index.html" className="text-gray-400 hover:text-q2-cyan transition-colors flex items-center gap-2 text-sm font-mono uppercase tracking-widest">
+                                &larr; Return to Pivot
+                            </a>
+                        </div>
+
+                        <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
+                            The <span className="text-q2-cyan font-black">Orchestra.</span>
+                        </h1>
+                        <p className="text-gray-400 text-xl max-w-2xl mx-auto mb-12 italic">
+                            Built on insights from 22 foundational learning theorists. Each one reimagined for the AI era.
+                        </p>
+
+                        {/* Section Buttons */}
+                        <div className="flex flex-wrap justify-center gap-3 mb-8">
+                            {orchestraSections.map((section) => (
+                                <button
+                                    key={section.id}
+                                    onClick={() => setActiveSection(section)}
+                                    className={`px-4 py-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-all text-sm font-mono tracking-widest uppercase flex items-center gap-2 group ${section.color}`}
+                                >
+                                    <span className="opacity-50 group-hover:opacity-100 transition-opacity">●</span> {section.title}
+                                </button>
+                            ))}
+                        </div>
+                    </section>
+
+                    <RotatingQuotes />
+
+                    {/* The Orchestra Grid */}
+                    <section className="py-24 px-8 bg-black/50">
+                        <div className="max-w-[1600px] mx-auto">
+                            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                                {orchestraData.map((member, i) => (
+                                    <OrchestraCard key={i} member={member} index={i} />
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Modals */}
+                    <AnimatePresence>
+                        {activeSection && (
+                            <OrchestraSectionModal
+                                section={activeSection}
+                                onClose={() => setActiveSection(null)}
+                            />
+                        )}
+                    </AnimatePresence>
 
                     {/* Footer */}
-                    <footer className="text-center py-24 border-t border-white/10 opacity-50">
-                        <p className="text-xs font-mono uppercase tracking-[0.5em] mb-4">Finalizing Transition</p>
-                        <h3 className="text-2xl font-bold">Q2 PIVOT // 2026</h3>
+                    <footer className="py-12 px-8 border-t border-white/10 mt-auto">
+                        <div className="max-w-7xl mx-auto text-center">
+                            <div className="mb-6">
+                                <h3 className="mb-2">
+                                    <a href="index.html">
+                                        <img src="assets/images/logo.png" alt="Q2 Pivot" className="h-8 mx-auto" />
+                                    </a>
+                                </h3>
+                                <p className="text-gray-500 text-sm">Governing the AI Transition</p>
+                            </div>
+                            <p className="text-gray-600 text-xs">
+                                © 2026 Q2 Pivot, a product of Coaching with Dr Larry, LLC. Incorporated in Delaware, USA.
+                            </p>
+                        </div>
                     </footer>
                 </div>
             );

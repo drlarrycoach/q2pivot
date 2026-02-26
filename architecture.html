@@ -6,187 +6,288 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sovereign Campus Cloud | Q2 Pivot</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-dark': '#0A0A12',
+                        'q2-cyan': '#0FF0FC',
+                        'q2-gold': '#C5A059',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            background-color: #0a0a12;
-            color: white;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .grid-bg {
-            background-image:
-                linear-gradient(rgba(15, 240, 252, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(15, 240, 252, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
-
-        .sticky-header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background: rgba(10, 10, 18, 0.8);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .grid-bg-gold {
+            background-image: linear-gradient(rgba(197, 160, 89, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(197, 160, 89, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
         }
     </style>
 </head>
 
-<body class="grid-bg">
-    <header class="sticky-header py-4 px-8">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold">
-                <span class="text-q2-gold">Q2</span> <span class="text-q2-cyan">PIVOT</span>
-            </a>
-            <nav class="flex gap-8 text-xs font-mono uppercase tracking-widest text-gray-400">
-                <a href="index.html" class="hover:text-q2-cyan transition-colors">Base</a>
-                <a href="orchestra.html" class="hover:text-q2-cyan transition-colors">Orchestra</a>
-                <a href="authenticity.html" class="hover:text-q2-cyan transition-colors">Fellows</a>
-                <a href="product_strategy.html" class="hover:text-q2-cyan transition-colors">Strategy</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="max-w-7xl mx-auto py-24 px-8 space-y-32">
-        <!-- Hero -->
-        <section class="space-y-8 text-center max-w-4xl mx-auto">
-            <div
-                class="inline-block px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-mono uppercase tracking-widest">
-                OPPORTUNITY // ARCHITECTURE PROTOCOL
-            </div>
-            <h1 class="text-5xl md:text-7xl font-black leading-tight">
-                OWN YOUR <br />
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">INSTITUTION'S
-                    BRAIN.</span>
-            </h1>
-            <p class="text-gray-400 text-xl leading-relaxed italic">
-                Signing a six-figure contract for Big Tech AI isn't strategy—it's a surrender of sovereignty.
-            </p>
-            <div class="flex flex-wrap gap-4 justify-center pt-8">
-                <a href="https://buy.stripe.com/test_5kAcOIeNpen38us8wx"
-                    class="bg-q2-cyan text-black px-12 py-5 rounded font-bold text-lg hover:bg-white transition-all transform hover:scale-105">
-                    DOWNLOAD THE BLUEPRINT ($5K) →
-                </a>
-                <a href="https://calendly.com/drlarry/q2-strategy-session"
-                    class="border border-white/20 px-12 py-5 rounded font-bold text-lg hover:bg-white/5 transition-all">
-                    BOOK STRATEGY SESSION →
-                </a>
-            </div>
-        </section>
-
-        <!-- Rent vs Own -->
-        <section class="space-y-12">
-            <h2 class="text-3xl font-bold text-center">Infrastructure Checkmate.</h2>
-            <div class="grid md:grid-cols-2 gap-px bg-white/10 border border-white/10 rounded-xl overflow-hidden">
-                <div class="bg-black/40 p-12 space-y-8">
-                    <h3 class="text-2xl font-bold text-red-500">Renting AI (SaaS)</h3>
-                    <ul class="space-y-6">
-                        <li class="flex items-start gap-4">
-                            <span class="text-red-500 font-bold">×</span>
-                            <div>
-                                <h4 class="font-bold">Privacy At Risk</h4>
-                                <p class="text-sm text-gray-500">Your institutional data is used to train someone else's
-                                    model.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <span class="text-red-500 font-bold">×</span>
-                            <div>
-                                <h4 class="font-bold">Algorithmic Censorship</h4>
-                                <p class="text-sm text-gray-500">Big Tech decides what is "appropriate" for your
-                                    research.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <span class="text-red-500 font-bold">×</span>
-                            <div>
-                                <h4 class="font-bold">Subscription Death Spiral</h4>
-                                <p class="text-sm text-gray-500">Per-seat licensing that grows every year with no exit
-                                    path.</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="bg-white/5 p-12 space-y-8">
-                    <h3 class="text-2xl font-bold text-q2-cyan">Owning AI (Sovereign)</h3>
-                    <ul class="space-y-6">
-                        <li class="flex items-start gap-4">
-                            <span class="text-q2-cyan font-bold">✓</span>
-                            <div>
-                                <h4 class="font-bold">Total Data Privacy</h4>
-                                <p class="text-sm text-gray-500">Inference happens on-premise. No data ever leaves your
-                                    firewall.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <span class="text-q2-cyan font-bold">✓</span>
-                            <div>
-                                <h4 class="font-bold">Uncensored Research</h4>
-                                <p class="text-sm text-gray-500">Deploy open-weight models optimized for your specific
-                                    fields.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <span class="text-q2-cyan font-bold">✓</span>
-                            <div>
-                                <h4 class="font-bold">Fixed Asset ROI</h4>
-                                <p class="text-sm text-gray-500">Compute is an asset, not an expense. Marginal cost of
-                                    use is electricity.</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Impact -->
-        <section class="grid md:grid-cols-2 gap-16 items-center">
-            <div class="space-y-8">
-                <div class="p-8 border-l-4 border-q2-gold bg-q2-gold/5">
-                    <p class="text-xl italic text-gray-300">
-                        "If you don't own the weights, you don't own the future. The university that relies on external
-                        APIs for its cognitive work is effectively an intellectual colony."
-                    </p>
-                </div>
-                <div class="space-y-4">
-                    <h2 class="text-3xl font-bold">Financial Sovereignty.</h2>
-                    <p class="text-gray-400">
-                        A typical mid-sized university spends $240k/year on AI API calls. A sovereign cluster costs $85k
-                        once. ROI is achieved in month four.
-                    </p>
-                </div>
-            </div>
-            <div class="bg-gray-900 border border-white/10 p-12 rounded-xl relative overflow-hidden group">
-                <div class="absolute inset-0 grid-bg opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                <div class="relative z-10 space-y-8">
-                    <div class="flex justify-between items-end">
-                        <div class="text-5xl font-black">6.4x</div>
-                        <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest">Efficiency Multiplier
-                        </div>
+<body class="bg-[#0A0A0C] text-zinc-400 font-sans selection:bg-gold-500/30 selection:text-gold-200">
+    <div class="min-h-screen relative overflow-hidden flex flex-col grid-bg-gold">
+        <!-- Navigation -->
+        <header class="relative z-10 border-b border-white/5 bg-black/40 backdrop-blur-xl">
+            <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-4 group">
+                    <div
+                        class="w-10 h-10 border border-q2-gold/30 rounded flex items-center justify-center bg-q2-gold/5 group-hover:border-q2-gold transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-q2-gold">
+                            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                            <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                            <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                            <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                        </svg>
                     </div>
-                    <p class="text-gray-400 text-sm italic">
-                        Compared to cloud-based inference for large-scale student cohorts.
+                    <div>
+                        <h1 class="text-xl font-bold tracking-tight text-white">Q2 PIVOT</h1>
+                        <p class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mt-0.5">Sovereign
+                            Architecture</p>
+                    </div>
+                </a>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="index.html#pivot"
+                        class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors italic">The
+                        Pivot</a>
+                    <a href="orchestra.html"
+                        class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors italic">The
+                        Orchestra</a>
+                    <a href="index.html#radar"
+                        class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors italic">The
+                        Radar</a>
+                    <a href="vault.html"
+                        class="bg-q2-gold/10 text-q2-gold px-4 py-2 border border-q2-gold/30 rounded text-sm hover:bg-q2-gold hover:text-white transition-all font-mono italic">SECURE
+                        ARCHIVE</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="relative z-10 flex-grow">
+            <!-- Hero -->
+            <section class="py-24 px-6 border-b border-white/5">
+                <div class="max-w-4xl mx-auto text-center space-y-8">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-q2-gold/10 border border-q2-gold/20 text-q2-gold text-xs font-mono uppercase tracking-widest">
+                        SKU: SOAR-02-CLOUD
+                    </div>
+                    <h2 class="text-5xl md:text-7xl font-black text-white leading-tight tracking-tighter">
+                        You’re Renting Your Institution’s <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-q2-gold to-yellow-600">Brain.</span>
+                        <br />Why Bother?
+                    </h2>
+                    <p class="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto leading-relaxed italic">
+                        "Signing a six-figure contract for Big Tech AI isn’t strategy—it’s a surrender of sovereignty.
+                        Ownership is the only path to privacy."
                     </p>
-                    <div class="pt-8 space-y-2">
-                        <div class="h-1 bg-gray-800 rounded-full w-full">
-                            <div class="h-full bg-q2-cyan w-[85%]"></div>
-                        </div>
-                        <div class="flex justify-between text-[10px] font-mono text-zinc-600">
-                            <span>SOVEREIGN CLOUD</span>
-                            <span>AZURE/AWS</span>
-                        </div>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                        <a href="https://buy.stripe.com/sovereign-cloud-spec" target="_blank"
+                            class="w-full sm:w-auto bg-q2-gold text-black px-8 py-4 rounded font-bold hover:bg-yellow-500 transition-colors flex items-center justify-center gap-2 text-lg">
+                            GET THE BLUEPRINT - $5K
+                        </a>
+                        <a href="https://calendly.com/q2pivot/cloud-strategy" target="_blank"
+                            class="w-full sm:w-auto bg-transparent border border-white/20 text-white px-8 py-4 rounded font-bold hover:bg-white/5 transition-colors flex items-center justify-center gap-2 text-lg">
+                            BUILD IT WITH US
+                        </a>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
 
-    <footer class="py-12 px-8 border-t border-white/10 mt-24">
-        <div class="max-w-7xl mx-auto text-center">
-            <p class="text-gray-600 text-xs font-mono uppercase tracking-[0.5em]">
-                Q2 PIVOT // OWN THE FUTURE
-            </p>
-        </div>
-    </footer>
+            <!-- TCO Comparison -->
+            <section class="py-24 px-6 bg-black/40">
+                <div class="max-w-7xl mx-auto space-y-12">
+                    <h3 class="text-4xl font-bold text-center text-white">Own vs. Rent: The 3-Year Reality</h3>
+                    <div class="overflow-x-auto border border-white/10 rounded-2xl bg-zinc-900/50">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-white/5 border-b border-white/10">
+                                    <th class="p-6 text-sm font-mono text-zinc-500 uppercase tracking-widest">Solution
+                                    </th>
+                                    <th class="p-6 text-sm font-mono text-zinc-500 uppercase tracking-widest">Year 1
+                                        Cost</th>
+                                    <th class="p-6 text-sm font-mono text-zinc-500 uppercase tracking-widest">Year 3
+                                        Total</th>
+                                    <th class="p-6 text-sm font-mono text-zinc-500 uppercase tracking-widest">Data
+                                        Privacy</th>
+                                    <th class="p-6 text-sm font-mono text-zinc-500 uppercase tracking-widest">Control
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-zinc-300">
+                                <tr class="border-b border-white/5">
+                                    <td class="p-6 font-bold text-white">ChatGPT Enterprise</td>
+                                    <td class="p-6">$150K</td>
+                                    <td class="p-6">$450K+</td>
+                                    <td class="p-6 text-red-500">Shared Infra</td>
+                                    <td class="p-6 text-red-500">Vendor Locked</td>
+                                </tr>
+                                <tr class="border-b border-white/5">
+                                    <td class="p-6 font-bold text-white">Google Gemini</td>
+                                    <td class="p-6">$120K</td>
+                                    <td class="p-6">$360K+</td>
+                                    <td class="p-6 text-red-500">Google Cloud</td>
+                                    <td class="p-6 text-red-500">Vendor Locked</td>
+                                </tr>
+                                <tr class="bg-q2-gold/5">
+                                    <td class="p-6 font-bold text-q2-gold">Sovereign Cloud</td>
+                                    <td class="p-6 font-bold text-q2-gold">$35K - $50K</td>
+                                    <td class="p-6 font-bold text-q2-gold">$60K - $80K</td>
+                                    <td class="p-6 font-bold text-green-400">Your Servers</td>
+                                    <td class="p-6 font-bold text-green-400">Full Autonomy</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Agitation -->
+            <section class="py-24 px-6">
+                <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center italic">
+                    <div class="space-y-6">
+                        <h3 class="text-3xl font-bold text-white not-italic underline decoration-q2-gold">You're Paying
+                            for Privacy Risk</h3>
+                        <p class="text-lg text-zinc-400 leading-relaxed">
+                            Your institution is signing contracts with Big Tech. The pitch is "Enterprise-grade." But
+                            here's what they don't advertise:
+                        </p>
+                        <ul class="space-y-4 not-italic">
+                            <li class="flex items-start gap-4 p-4 border border-red-500/20 rounded bg-red-500/5">
+                                <span class="text-red-500 text-xl font-bold font-mono">⚠️</span>
+                                <div>
+                                    <p class="text-white font-bold">$150K-$300K Annual Subscription</p>
+                                    <p class="text-zinc-500 text-sm">Recurring costs that never end and only go up.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4 p-4 border border-red-500/20 rounded bg-red-500/5">
+                                <span class="text-red-500 text-xl font-bold font-mono">⚠️</span>
+                                <div>
+                                    <p class="text-white font-bold">Data Leaves Your Servers</p>
+                                    <p class="text-zinc-500 text-sm">Student queries become vendor training fuel (read
+                                        the fine print).</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-zinc-900 border border-q2-gold/30 p-12 rounded-3xl relative">
+                        <div
+                            class="absolute -top-6 -right-6 w-12 h-12 bg-q2-gold flex items-center justify-center rounded-full text-black font-black text-2xl">
+                            ?</div>
+                        <p class="text-2xl font-bold text-white mb-6">The Consequence:</p>
+                        <p class="text-lg text-zinc-400 mb-8">
+                            You're renting cognitive infrastructure the same way you used to rent email. In 3 years,
+                            you'll wish you owned it.
+                        </p>
+                        <a href="https://q2pivot.com/assets/docs/TCO_Calculator.xlsx" target="_blank"
+                            class="inline-block bg-white text-black px-8 py-4 rounded font-bold hover:bg-zinc-200 transition-all text-center w-full">Download
+                            TCO Calculator</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ROI Stats -->
+            <section class="py-24 px-6 border-t border-white/5 bg-zinc-900/30">
+                <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+                    <div class="p-8 border-l-4 border-cyan-400 bg-black/40">
+                        <div class="text-4xl font-black text-white mb-2">100%</div>
+                        <p class="text-zinc-500 uppercase tracking-widest text-xs font-mono">Data Sovereignty</p>
+                        <p class="mt-4 text-sm text-zinc-400">Your student data never leaves your secure campus
+                            infrastructure.</p>
+                    </div>
+                    <div class="p-8 border-l-4 border-q2-gold bg-black/40">
+                        <div class="text-4xl font-black text-white mb-2">$480K</div>
+                        <p class="text-zinc-500 uppercase tracking-widest text-xs font-mono">3-Year Projected Savings
+                        </p>
+                        <p class="mt-4 text-sm text-zinc-400">Average savings compared to Tier-1 commercial AI
+                            subscriptions.</p>
+                    </div>
+                    <div class="p-8 border-l-4 border-purple-500 bg-black/40">
+                        <div class="text-4xl font-black text-white mb-2">∞</div>
+                        <p class="text-zinc-500 uppercase tracking-widest text-xs font-mono">Model Freedom</p>
+                        <p class="mt-4 text-sm text-zinc-400">Run Llama, Mistral, or custom domain-tuned weights at
+                            will.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Case Study -->
+            <section class="py-24 px-6 bg-black/60">
+                <div class="max-w-5xl mx-auto space-y-12">
+                    <div class="flex items-center gap-4 text-q2-gold font-mono text-sm tracking-[0.2em]">
+                        <span class="h-px w-12 bg-q2-gold"></span> CASE STUDY: MID-SIZED PUBLIC UNIVERSITY
+                    </div>
+                    <h3 class="text-4xl md:text-5xl font-bold text-white">"This paid for itself in Year 1, and we're
+                        never locked in again."</h3>
+                    <div class="grid md:grid-cols-2 gap-12 text-zinc-400">
+                        <div class="space-y-4">
+                            <p class="text-white font-bold uppercase text-xs">The Challenge</p>
+                            <p>Provost wanted campus-wide AI access, but CIO refused to send student data to ChatGPT.
+                                Stalemate for 6 months.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <p class="text-white font-bold uppercase text-xs">The Solution</p>
+                            <p>Sovereign Cloud White-Glove Deployment. On-prem GPU cluster running Llama 3 and
+                                nursing-specific models.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <section class="py-24 px-6 border-t border-white/5">
+                <div class="max-w-4xl mx-auto text-center space-y-12">
+                    <h3 class="text-4xl font-bold text-white leading-tight">Ready to Own Your Institution's AI
+                        Infrastructure?</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div
+                            class="p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-q2-gold transition-colors text-left space-y-4">
+                            <h4 class="text-xl font-bold text-white">Path 1: The Blueprint</h4>
+                            <p class="text-sm text-zinc-500">120-page technical spec + deployment scripts for your IT
+                                team.</p>
+                            <div class="text-2xl font-black text-q2-gold">$5,000</div>
+                            <a href="https://buy.stripe.com/sovereign-cloud-spec" target="_blank"
+                                class="block w-full bg-q2-gold text-black py-4 rounded font-bold text-center">Buy
+                                Now</a>
+                        </div>
+                        <div
+                            class="p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-cyan-400 transition-colors text-left space-y-4">
+                            <h4 class="text-xl font-bold text-white">Path 2: White-Glove</h4>
+                            <p class="text-sm text-zinc-500">Infrastructure audit & full deployment by our engineering
+                                team.</p>
+                            <div class="text-2xl font-black text-cyan-400">$35,000+</div>
+                            <a href="https://calendly.com/q2pivot/cloud-strategy" target="_blank"
+                                class="block w-full bg-cyan-400 text-black py-4 rounded font-bold text-center">Book
+                                Strategy
+                                Session</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="py-12 px-8 border-t border-white/10 bg-black/60">
+            <div class="max-w-7xl mx-auto text-center">
+                <h3 class="text-2xl font-bold mb-4">
+                    <span class="text-q2-gold">Q2</span> <span class="text-q2-cyan">PIVOT</span>
+                </h3>
+                <p class="text-gray-600 text-xs mb-2">
+                    Q2 Pivot is a division of Q2 Education (Pty) Ltd, incorporated in South Africa.
+                </p>
+                <p class="text-gray-600 text-xs font-mono">
+                    © 2026 Q2 Pivot. Sovereignty is the only path to privacy.
+                </p>
+            </div>
+        </footer>
+    </div>
 </body>
 
 </html>

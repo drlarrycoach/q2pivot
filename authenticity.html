@@ -6,157 +6,267 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faculty Fellows Program | Q2 Pivot</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            background-color: #0a0a12;
-            color: white;
-            font-family: 'Inter', sans-serif;
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-dark': '#0A0A12',
+                        'q2-cyan': '#0FF0FC',
+                        'q2-gold': '#C5A059',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+                    }
+                }
+            }
         }
-
+    </script>
+    <style>
         .grid-bg {
-            background-image:
-                linear-gradient(rgba(15, 240, 252, 0.03) 1px, transparent 1px),
+            background-image: linear-gradient(rgba(15, 240, 252, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(15, 240, 252, 0.03) 1px, transparent 1px);
             background-size: 40px 40px;
-        }
-
-        .sticky-header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background: rgba(10, 10, 18, 0.8);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
 
-<body class="grid-bg">
-    <header class="sticky-header py-4 px-8">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold">
-                <span class="text-q2-gold">Q2</span> <span class="text-q2-cyan">PIVOT</span>
-            </a>
-            <nav class="flex gap-8 text-xs font-mono uppercase tracking-widest text-gray-400">
-                <a href="index.html" class="hover:text-q2-cyan transition-colors">Base</a>
-                <a href="orchestra.html" class="hover:text-q2-cyan transition-colors">Orchestra</a>
-                <a href="architecture.html" class="hover:text-q2-cyan transition-colors">Cloud</a>
-                <a href="product_strategy.html" class="hover:text-q2-cyan transition-colors">Strategy</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="max-w-7xl mx-auto py-24 px-8 space-y-32">
-        <!-- Hero -->
-        <section class="space-y-8 text-center max-w-4xl mx-auto">
-            <div
-                class="inline-block px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono uppercase tracking-widest">
-                STRENGTH // INTELLIGENCE PROTOCOL
-            </div>
-            <h1 class="text-5xl md:text-7xl font-black leading-tight">
-                STOP TRYING TO <br />
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">"TRAIN"
-                    FACULTY.</span>
-            </h1>
-            <p class="text-gray-400 text-xl leading-relaxed italic">
-                Faculty don't need another workshop. They need to stop being content dispensers and start being
-                Cognitive Architects.
-            </p>
-            <div class="pt-8">
-                <a href="https://buy.stripe.com/test_fyc5m6fRteU30U08ww"
-                    class="bg-q2-cyan text-black px-12 py-5 rounded font-bold text-lg hover:bg-white transition-all transform hover:scale-105 inline-block">
-                    ENROLL IN FELLOWS PROGRAM ($15K) →
+<body class="bg-[#0A0A0C] text-zinc-400 font-sans selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div class="min-h-screen relative overflow-hidden flex flex-col grid-bg">
+        <!-- Navigation -->
+        <header class="relative z-10 border-b border-white/5 bg-black/40 backdrop-blur-xl">
+            <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-4 group">
+                    <div
+                        class="w-10 h-10 border border-cyan-500/30 rounded flex items-center justify-center bg-cyan-500/5 group-hover:border-cyan-400 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-cyan-400">
+                            <path
+                                d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-tight text-white">Q2 PIVOT</h1>
+                        <p class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mt-0.5">Autonomous
+                            Governance</p>
+                    </div>
                 </a>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="index.html#pivot"
+                        class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors italic">The
+                        Pivot</a>
+                    <a href="orchestra.html"
+                        class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors italic">The
+                        Orchestra</a>
+                    <a href="index.html#radar"
+                        class="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors italic">The
+                        Radar</a>
+                    <a href="vault.html"
+                        class="bg-cyan-900/20 text-cyan-400 px-4 py-2 border border-cyan-500/30 rounded text-sm hover:bg-cyan-500/20 transition-all font-mono">SECURE
+                        ARCHIVE</a>
+                </nav>
             </div>
-        </section>
+        </header>
 
-        <!-- Agitation -->
-        <section class="grid md:grid-cols-2 gap-16 items-center border-t border-white/10 pt-24">
-            <div class="space-y-6">
-                <h2 class="text-3xl font-bold">The "Pilot" Failure.</h2>
-                <p class="text-gray-400 leading-relaxed">
-                    Most universities are running AI "pilots" that are destined for the graveyard. They focus on the
-                    tools, not the pedagogy. They focus on the technology, not the human architecture of learning.
+        <main class="relative z-10 flex-grow">
+            <!-- Hero -->
+            <section class="py-24 px-6 border-b border-white/5">
+                <div class="max-w-4xl mx-auto text-center space-y-8">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono uppercase tracking-widest">
+                        SKU: SOAR-01-FELLOWS
+                    </div>
+                    <h2 class="text-5xl md:text-7xl font-black text-white leading-tight tracking-tighter">
+                        Stop Trying to "Train" Faculty on AI. <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Why
+                            Bother?</span>
+                    </h2>
+                    <p class="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto leading-relaxed italic">
+                        "Your faculty don't need another workshop. They need to stop being content dispensers and start
+                        being Cognitive Architects."
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                        <a href="https://calendly.com/q2pivot/fellows-fit-check" target="_blank"
+                            class="w-full sm:w-auto bg-white text-black px-8 py-4 rounded font-bold hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 text-lg">
+                            BOOK FIT CHECK
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M5 12h14" />
+                                <path d="m12 5 7 7-7 7" />
+                            </svg>
+                        </a>
+                        <div
+                            class="text-q2-gold font-bold text-xl px-8 py-4 border border-q2-gold/20 rounded bg-q2-gold/5">
+                            $15,000 <span class="text-sm text-zinc-500 font-normal">per cohort</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Agitation -->
+            <section class="py-24 px-6 bg-black/20">
+                <div class="max-w-7xl mx-auto">
+                    <div class="grid lg:grid-cols-2 gap-16 items-center">
+                        <div class="space-y-6">
+                            <h3 class="text-3xl font-bold text-white border-l-4 border-red-500 pl-6">The Faculty AI
+                                Crisis Is Here</h3>
+                            <p class="text-lg text-zinc-400">
+                                Your faculty are drowning. Academic integrity violations are spiking. And nobody knows
+                                what "good" actually looks like.
+                            </p>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="text-red-500 mt-1">✕</span>
+                                    <span>Students submitting AI work nobody can detect</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-red-500 mt-1">✕</span>
+                                    <span>Faculty terrified they're becoming obsolete</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-red-500 mt-1">✕</span>
+                                    <span>Workshops that inspire but don't transform</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div
+                            class="bg-zinc-900/50 border border-white/10 p-8 rounded-2xl relative group overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                            </div>
+                            <div class="relative z-10 space-y-4">
+                                <p class="text-sm font-mono text-zinc-500 uppercase tracking-widest">System Alert</p>
+                                <p class="text-2xl font-bold text-white">By Fall 2026, the chaos becomes a crisis.</p>
+                                <p class="text-zinc-400">Faculty burnout accelerates. Students graduate unprepared. Your
+                                    institution falls behind.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Solution -->
+            <section class="py-24 px-6 bg-gradient-to-b from-black to-[#0A0A0C]">
+                <div class="max-w-7xl mx-auto text-center space-y-12">
+                    <h3 class="text-4xl font-bold text-white">What If Faculty Led the AI Revolution?</h3>
+                    <p class="text-xl text-zinc-400 max-w-3xl mx-auto">
+                        This isn't another workshop. It's a <span class="text-cyan-400 font-bold">train-the-trainer
+                            certification</span> that turns 10 hand-picked faculty into your institution's cognitive
+                        architecture experts.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-8 pt-8">
+                        <div class="p-8 border border-white/5 rounded-xl bg-white/5 space-y-4 text-left">
+                            <div class="text-cyan-400 text-3xl font-bold">01</div>
+                            <h4 class="text-xl font-bold text-white">Un-Cheatable Assessments</h4>
+                            <p class="text-sm text-zinc-500">Redesign evaluations that leverage AI instead of fighting
+                                it.</p>
+                        </div>
+                        <div class="p-8 border border-white/5 rounded-xl bg-white/5 space-y-4 text-left">
+                            <div class="text-cyan-400 text-3xl font-bold">02</div>
+                            <h4 class="text-xl font-bold text-white">Departmental Literacy</h4>
+                            <p class="text-sm text-zinc-500">Fellows lead workshops that cascade knowledge across the
+                                institution.</p>
+                        </div>
+                        <div class="p-8 border border-white/5 rounded-xl bg-white/5 space-y-4 text-left">
+                            <div class="text-cyan-400 text-3xl font-bold">03</div>
+                            <h4 class="text-xl font-bold text-white">Sustainable Capacity</h4>
+                            <p class="text-sm text-zinc-500">Build internal expertise that stays after the consultants
+                                leave.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ROI Section -->
+            <section class="py-24 px-6 border-y border-white/5">
+                <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-8">
+                        <h3 class="text-4xl font-bold text-white">ROI: What Does $15,000 Buy?</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-6 p-4 rounded-xl bg-cyan-500/5 border border-cyan-500/10">
+                                <div class="text-3xl font-bold text-cyan-400">$60K</div>
+                                <div class="text-sm text-zinc-400 font-mono uppercase tracking-widest">Reclaimed Faculty
+                                    Time / Year</div>
+                            </div>
+                            <div class="flex items-center gap-6 p-4 rounded-xl bg-cyan-500/5 border border-cyan-500/10">
+                                <div class="text-3xl font-bold text-cyan-400">1.5K</div>
+                                <div class="text-sm text-zinc-400 font-mono uppercase tracking-widest">Students equipped
+                                    per year</div>
+                            </div>
+                            <div class="flex items-center gap-6 p-4 rounded-xl bg-cyan-500/5 border border-cyan-500/10">
+                                <div class="text-3xl font-bold text-cyan-400">40%</div>
+                                <div class="text-sm text-zinc-400 font-mono uppercase tracking-widest">Reduction in
+                                    integrity cases</div>
+                            </div>
+                        </div>
+                        <p class="text-lg text-zinc-400 italic">Net ROI in Year 1: $60K-$110K in measurable value.</p>
+                    </div>
+                    <div class="bg-q2-gold/5 border border-q2-gold/20 p-8 rounded-3xl space-y-6">
+                        <h4 class="text-2xl font-bold text-q2-gold">The 50/50 Risk Split</h4>
+                        <ul class="space-y-4 text-zinc-300">
+                            <li class="flex items-center gap-3">
+                                <span class="text-q2-gold">●</span>
+                                <span>$7,500 deposit at contract signing</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-q2-gold">●</span>
+                                <span>$7,500 balance at Week 4 milestone</span>
+                            </li>
+                        </ul>
+                        <div class="p-4 bg-black/40 rounded-xl border border-white/5">
+                            <p class="text-sm font-bold text-white uppercase mb-2">The Guarantee</p>
+                            <p class="text-zinc-400 text-sm">If your Fellows aren't leading AI workshops by Week 6,
+                                we'll refund the second payment.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonial -->
+            <section class="py-24 px-6 bg-black/40">
+                <div class="max-w-4xl mx-auto text-center space-y-8">
+                    <p class="text-3xl font-serif text-white italic leading-relaxed">
+                        "We tried AI workshops before. Faculty nodded politely, then nothing changed. The Fellows
+                        Program gave us 10 evangelists who are now leading department-level transformation. Worth every
+                        penny."
+                    </p>
+                    <p class="text-sm font-mono text-cyan-400 uppercase tracking-widest">— Provost, Regional Public
+                        University</p>
+                </div>
+            </section>
+
+            <!-- CTA Final -->
+            <section class="py-24 px-6 text-center space-y-12">
+                <h3 class="text-4xl font-bold text-white">Ready to Build Your Fellows Network?</h3>
+                <div class="flex flex-col items-center gap-6">
+                    <a href="https://calendly.com/q2pivot/fellows-fit-check" target="_blank"
+                        class="inline-block bg-cyan-500 text-black px-12 py-5 rounded-full font-black text-xl hover:bg-cyan-400 transition-all shadow-[0_0_20px_rgba(15,240,252,0.3)]">
+                        Book Your Fit Check Call
+                    </a>
+                    <p class="text-zinc-500 font-mono text-sm underline cursor-pointer">Questions first? Email
+                        fellows@q2pivot.com</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="py-12 px-8 border-t border-white/10 bg-black/60">
+            <div class="max-w-7xl mx-auto text-center">
+                <h3 class="text-2xl font-bold mb-4">
+                    <span class="text-q2-gold">Q2</span> <span class="text-q2-cyan">PIVOT</span>
+                </h3>
+                <p class="text-gray-600 text-xs mb-2">
+                    Q2 Pivot is a division of Q2 Education (Pty) Ltd, incorporated in South Africa.
                 </p>
-                <ul class="space-y-4 text-sm font-mono text-zinc-500">
-                    <li class="flex items-center gap-2">
-                        <span class="text-red-500">×</span> Workshops have 0% long-term retention
-                    </li>
-                    <li class="flex items-center gap-2">
-                        <span class="text-red-500">×</span> AI Task Forces create policy, not practice
-                    </li>
-                    <li class="flex items-center gap-2">
-                        <span class="text-red-500">×</span> "Banning" is an admission of irrelevance
-                    </li>
-                </ul>
+                <p class="text-gray-600 text-xs">
+                    © 2026 Q2 Pivot. Training the governors of the machine.
+                </p>
             </div>
-            <div class="bg-blue-500/5 border border-blue-500/20 p-8 rounded-xl">
-                <div class="text-5xl font-black text-blue-400 mb-2">0%</div>
-                <p class="text-gray-300 font-bold uppercase tracking-widest text-sm">Effectiveness of Traditional PD</p>
-                <div class="mt-8 h-2 bg-gray-800 rounded-full overflow-hidden">
-                    <div class="h-full bg-blue-500 w-[5%]"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Solution -->
-        <section class="space-y-16">
-            <div class="text-center space-y-4">
-                <h2 class="text-3xl font-bold">The Fellows Framework.</h2>
-                <p class="text-gray-400">A 6-week intensive certification for your institution's cognitive architecture
-                    experts.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                {[
-                { title: "Cognitive Load Theory", desc: "Design learning experiences that optimize mental processing in
-                the age of infinite content." },
-                { title: "Prompt Engineering", desc: "Master the art of semantic orchestration to turn AI into a
-                personalized tutor for every student." },
-                { title: "Socratic AI", desc: "Deploy models that don't give answers, but ask the right questions to
-                drive deep understanding." }
-                ].map((item, i) => (
-                <div key={i}
-                    className="p-8 bg-white/5 border border-white/10 rounded-xl hover:border-blue-400 transition-colors">
-                    <div className="text-blue-400 font-mono mb-4">0{i+1} // MODULE</div>
-                    <h4 className="text-xl font-bold mb-4">{item.title}</h4>
-                    <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
-                </div>
-                ))}
-            </div>
-        </section>
-
-        <!-- ROI -->
-        <section class="bg-gray-900/50 p-12 rounded-2xl border border-white/5 text-center space-y-8">
-            <h2 class="text-4xl font-bold uppercase tracking-tighter">Projected 3-Year Impact</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div>
-                    <div class="text-4xl font-bold text-q2-cyan mb-2">20%</div>
-                    <p class="text-xs text-zinc-500 uppercase tracking-widest">Time Reclaimed for Research</p>
-                </div>
-                <div>
-                    <div class="text-4xl font-bold text-q2-cyan mb-2">35%</div>
-                    <p class="text-xs text-zinc-500 uppercase tracking-widest">Increase in Student Engagement</p>
-                </div>
-                <div>
-                    <div class="text-4xl font-bold text-q2-cyan mb-2">100%</div>
-                    <p class="text-xs text-zinc-500 uppercase tracking-widest">Digital Sovereignty Retention</p>
-                </div>
-            </div>
-            <div class="pt-8">
-                <a href="https://calendly.com/drlarry/q2-strategy-session"
-                    class="text-q2-cyan font-mono hover:text-white transition-colors">BOOK AN INSTITUTIONAL BRIEFING
-                    →</a>
-            </div>
-        </section>
-    </main>
-
-    <footer class="py-12 px-8 border-t border-white/10 mt-24">
-        <div class="max-w-7xl mx-auto text-center">
-            <p class="text-gray-600 text-xs font-mono uppercase tracking-[0.5em]">
-                Q2 PIVOT // FAITHFUL TO THE FUTURE
-            </p>
-        </div>
-    </footer>
+        </footer>
+    </div>
 </body>
 
 </html>

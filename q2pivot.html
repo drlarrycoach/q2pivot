@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Govern the AI Transition | Q2 Pivot</title>
+  <title>The Conductor's Toolkit | Q2 Pivot</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -202,7 +202,7 @@
         content: "A 2-day executive offsite where leadership audits what's consuming time—and designs a roadmap to a 4-day deep work model.",
         service: 'Service: The Subtraction Strategy Retreat ($12.5K)',
         impact: "VISIONARY",
-        link: "product_strategy.html"
+        link: "strategy.html"
       },
       {
         id: 4,
@@ -800,15 +800,18 @@
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.5 }}
-              className="absolute inset-0 flex flex-col items-center justify-center px-4"
+              className="absolute inset-0 flex flex-col items-center justify-center"
             >
-              <p className="text-xl md:text-2xl font-serif text-gray-200 mb-6 leading-relaxed">
-                {quotes[index].text}
-              </p>
+              <p
+                className="text-xl md:text-2xl font-serif text-gray-200 mb-4 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: quotes[index].text }}
+              />
               <div className="flex items-center gap-2 text-sm text-gray-400 font-mono tracking-wide">
                 <span className="text-q2-cyan font-bold uppercase">{quotes[index].author}</span>
                 <span className="w-1 h-1 bg-gray-500 rounded-full"></span>
-                <span>{quotes[index].instrument}</span>
+                <span className="text-q2-gold border border-q2-gold/30 px-2 py-0.5 rounded-full text-xs bg-q2-gold/5">
+                  {quotes[index].instrument}
+                </span>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -816,201 +819,524 @@
       );
     }
 
+    // Main App Component
     function App() {
-      useHashScroll();
+      useHashScroll(); // Activate hash scrolling fix
+
       const [selectedSOAR, setSelectedSOAR] = useState(null);
 
+      const typeColors = {
+        STRENGTH: "bg-blue-500/20 text-blue-400",
+        OPPORTUNITY: "bg-green-500/20 text-green-400",
+        ASPIRATION: "bg-purple-500/20 text-purple-400",
+        RESULT: "bg-yellow-500/20 text-yellow-400"
+      };
+
       return (
-        <div className="min-h-screen flex flex-col">
+        <>
           {/* Hero Section */}
-          <section className="relative overflow-hidden grid-bg py-24 px-8 border-b border-white/10">
-            <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
-              <div className="flex-1 space-y-8 text-center lg:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono uppercase tracking-widest">
-                  Status: Transitioning to Autonomous Governance
-                </div>
-                <h1 className="text-5xl md:text-8xl font-black leading-[0.9] tracking-tighter">
-                  GOVERN THE <br />
-                  <span class="text-transparent bg-clip-text bg-gradient-to-r from-q2-cyan to-blue-600">AI TRANSITION.</span>
-                </h1>
-                <p className="text-gray-400 text-xl md:text-2xl max-w-2xl leading-relaxed italic">
-                  "The AI transition isn't a technical problem. It's a governance crisis. Stop managing the tools. Start governing the outcome."
-                </p>
-                <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                  <a href="#pivot" class="bg-q2-cyan text-black px-8 py-4 rounded font-bold hover:bg-white transition-colors flex items-center gap-2">
-                    INITIALIZE PIVOT →
-                  </a>
-                  <a href="orchestra.html" class="border border-white/20 px-8 py-4 rounded font-bold hover:bg-white/5 transition-colors">
-                    THE ORCHESTRA
-                  </a>
-                </div>
-              </div>
-              <div className="flex-1 relative hidden lg:block">
-                {/* Visual centerpiece - Radar Scan */}
-                <div className="relative w-[500px] h-[500px]">
-                  <div className="absolute inset-0 border border-q2-cyan/20 rounded-full animate-pulse"></div>
-                  <div className="absolute inset-0 border border-q2-cyan/10 rounded-full scale-75 animate-pulse delay-75"></div>
-                  <div className="absolute inset-0 border border-q2-cyan/10 rounded-full scale-50 animate-pulse delay-150"></div>
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-q2-cyan rounded-full shadow-[0_0_20px_rgba(15,240,252,0.8)]"></div>
-                  {/* Rotating scanner line */}
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                    className="absolute top-1/2 left-1/2 w-[250px] h-1 bg-gradient-to-r from-q2-cyan/40 to-transparent origin-left -translate-y-1/2"
-                  ></motion.div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Collision Section */}
-          <section className="py-24 px-8 border-b border-white/10" id="collision">
+          <section className="min-h-screen relative overflow-hidden grid-bg py-24 px-8">
             <div className="max-w-7xl mx-auto">
-              <div className="flex flex-col md:flex-row gap-16 items-center">
-                <div className="flex-1 space-y-6">
-                  <h2 className="text-q2-gold text-sm font-mono tracking-[0.5em] uppercase">Phase 01: The Collision</h2>
-                  <h3 className="text-4xl md:text-5xl font-bold leading-tight">
-                    Efficiency is a <span class="text-red-500">Trap.</span> <br />
-                    Speed is a <span class="text-red-500">Weapon.</span>
-                  </h3>
-                  <p className="text-gray-400 text-lg leading-relaxed">
-                    Higher education is optimized for a world that ceased to exist in November 2022. Every day you spend "piloting" ChatGPT, your institution moves closer to obsolescence.
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                {/* Left Content */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="space-y-8"
+                >
+                  <p className="text-q2-gold text-sm tracking-widest uppercase">THE CONDUCTOR'S TOOLKIT</p>
+
+                  <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+                    The 3 Pillars of<br />
+                    <span className="text-q2-cyan">AI Transformation.</span>
+                  </h1>
+
+                  <p className="text-gray-300 text-lg leading-relaxed max-w-xl">
+                    Your institution has an AI policy. Your faculty aren't using it. The problem isn't resistance—it's architecture. The 3 Pillars framework gives provosts the institutional infrastructure that makes AI adoption inevitable.
                   </p>
-                  <div className="grid grid-cols-2 gap-8 pt-8 border-t border-white/5">
-                    <div>
-                      <div className="text-3xl font-bold text-white mb-2">70%</div>
-                      <p className="text-xs text-zinc-500 uppercase tracking-widest font-mono">Administrative Erosion</p>
-                    </div>
-                    <div>
-                      <div className="text-3xl font-bold text-white mb-2">14 Days</div>
-                      <p className="text-xs text-zinc-500 uppercase tracking-widest font-mono">Policy Half-Life</p>
-                    </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* The Radar - with line icon */}
+                    <a href="#radar" className="group relative p-1 rounded-2xl bg-gradient-to-br from-q2-gold/20 to-transparent hover:from-q2-cyan/50 transition-all duration-300 block">
+                      <div className="border border-q2-gold/30 rounded-xl p-6 bg-black/40 backdrop-blur-sm">
+                        <div className="text-q2-gold mb-3 group-hover:text-q2-cyan transition-colors flex justify-center">
+                          {LineIcons.radar("#c5a059", "w-10 h-10 mx-auto group-hover:stroke-q2-cyan transition-colors")}
+                        </div>
+                        <h3 className="text-xl font-bold mb-2">The Radar</h3>
+                        <p className="text-gray-400 text-sm">Weekly governance intelligence.</p>
+                      </div>
+                    </a>
+
+                    {/* The Collision - with line icon */}
+                    <a href="#collision" className="group relative p-1 rounded-2xl bg-gradient-to-br from-q2-cyan/20 to-transparent hover:from-q2-gold/50 transition-all duration-300 block">
+                      <div className="border border-q2-cyan/30 rounded-xl p-6 bg-black/40 backdrop-blur-sm">
+                        <div className="text-q2-cyan mb-3 group-hover:text-q2-gold transition-colors flex justify-center">
+                          {LineIcons.document("#0ff0fc", "w-10 h-10 mx-auto group-hover:stroke-q2-gold transition-colors")}
+                        </div>
+                        <h3 className="text-xl font-bold mb-2">The Collision</h3>
+                        <p className="text-gray-400 text-sm">Steampunk meets AI.</p>
+                      </div>
+                    </a>
+
+                    {/* The Orchestra - with line icon */}
+                    <a href="#orchestra" className="group relative p-1 rounded-2xl bg-gradient-to-br from-purple-500/20 to-transparent hover:from-q2-cyan/50 transition-all duration-300 block">
+                      <div className="border border-purple-500/30 rounded-xl p-6 bg-black/40 backdrop-blur-sm">
+                        <div className="text-purple-400 mb-3 group-hover:text-q2-cyan transition-colors flex justify-center">
+                          {LineIcons.star("#a78bfa", "w-10 h-10 mx-auto group-hover:stroke-q2-cyan transition-colors")}
+                        </div>
+                        <h3 className="text-xl font-bold mb-2">The Orchestra</h3>
+                        <p className="text-gray-400 text-sm">Giants with cybernetic upgrades.</p>
+                      </div>
+                    </a>
                   </div>
-                </div>
-                <div className="flex-1 grid grid-cols-2 gap-4">
-                  {[
-                    { label: "Faculty Burnout", color: "bg-red-500/10 border-red-500/30" },
-                    { label: "Integrity Collapse", color: "bg-red-500/10 border-red-500/30" },
-                    { label: "Content Devaluation", color: "bg-red-500/10 border-red-500/30" },
-                    { label: "Credential Irrelevance", color: "bg-red-500/10 border-red-500/30" }
-                  ].map((item, i) => (
-                    <div key={i} className={`p-8 border rounded-lg flex flex-col items-center justify-center text-center gap-4 ${item.color}`}>
-                      <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm font-bold uppercase tracking-widest text-white">{item.label}</span>
-                    </div>
-                  ))}
+                </motion.div>
+
+                {/* Right Content - ORIGINAL LOGO */}
+                <div className="relative h-[600px] flex items-center justify-center">
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3, duration: 0.8 }}
+                    className="absolute -right-20 top-10 font-mono text-q2-cyan text-xs opacity-60"
+                  >
+                    <motion.div
+                      animate={{ y: [0, -10, 0] }}
+                      transition={{ duration: 4, repeat: Infinity }}
+                    >
+                      01001010<br />
+                      11010011<br />
+                      PIVOT_COMPLETE
+                    </motion.div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 1 }}
+                    className="relative w-[500px] h-[500px]"
+                  >
+                    <motion.img
+                      src="https://0b252e7e.q2pivot-web.pages.dev/logo.png"
+                      alt="Q2 Pivot Logo"
+                      className="absolute inset-0 m-auto w-[400px] h-[400px] object-contain z-10"
+                      animate={{
+                        y: [0, -15, 0],
+                        rotate: [0, 2, 0]
+                      }}
+                      transition={{
+                        duration: 6,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+
+                    <motion.div
+                      animate={{ opacity: [0.2, 0.5, 0.2] }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                      className="absolute inset-0 bg-gradient-to-tr from-transparent via-q2-cyan/10 to-q2-cyan/30 blur-xl"
+                    />
+                  </motion.div>
                 </div>
               </div>
             </div>
+
+            <div className="absolute right-0 top-1/4 text-[12rem] font-mono font-bold opacity-5 select-none pointer-events-none hidden md:block">
+              TOOLKIT
+            </div>
           </section>
 
-          {/* Quotes Section */}
-          <RotatingQuotes />
-
-          {/* The Pivot section */}
-          <section className="py-24 px-8 bg-black/40 relative z-0" id="pivot">
-            <div className="max-w-7xl mx-auto space-y-16">
-              <div className="text-center space-y-4">
-                <h2 className="text-q2-gold text-sm font-mono tracking-[0.5em] uppercase">Phase 02: THE PIVOT</h2>
-                <h3 className="text-5xl font-bold">The Conductor's Toolkit.</h3>
-                <p className="text-gray-500 max-w-2xl mx-auto italic">
-                  Reframing institutional strategy through the SOAR intelligence protocol.
+          {/* New: The 3 Pillars Section */}
+          <section className="py-24 px-8 bg-black/30 border-y border-white/5" id="pillars">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-bold mb-4">The 3 Pillars Framework</h2>
+                <p className="text-gray-400 text-xl max-w-3xl mx-auto">
+                  Architectural decisions that shape faculty behavior for years. Sustainable transformation through infrastructure, not mandating.
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {soarData.map((item) => (
+              <div className="grid md:grid-cols-3 gap-8">
+                {[
+                  {
+                    title: "Friction Tolerance",
+                    icon: "puzzle",
+                    desc: "Which pedagogical struggles should we preserve, and which should we remove?",
+                    detail: "Calibrate productive struggle (Socratic dialouge) vs. administrative friction (grading mechanics).",
+                    theorists: "Freire, Gattegno, Papert, Montessori"
+                  },
+                  {
+                    title: "Lateral Bandwidth",
+                    icon: "network",
+                    desc: "How do we assess more while reducing faculty workload?",
+                    detail: "AI-enabled continuous formative feedback loops and multimodal assessment at scale.",
+                    theorists: "Bloom, Wiliam, Vygotsky, Mitra"
+                  },
+                  {
+                    title: "Incentive Layer",
+                    icon: "star",
+                    desc: "How do we make faculty adoption intrinsically motivated?",
+                    detail: "Aligning AI adoption with professional purpose, peer belonging, and creative agency.",
+                    theorists: "Kotter, Senge, Sinek, Lave & Wenger"
+                  }
+                ].map((pillar, i) => (
                   <motion.div
-                    key={item.id}
-                    whileHover={{ y: -5 }}
-                    onClick={() => setSelectedSOAR(item)}
-                    className="group cursor-pointer p-8 rounded-xl border border-white/10 bg-gray-900/40 hover:border-q2-cyan transition-colors"
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.2 }}
+                    className="p-8 border border-white/10 rounded-2xl bg-gray-900/50 hover:border-q2-cyan/30 transition-all group"
                   >
-                    <div className="text-xs font-mono text-zinc-500 mb-4">{item.type}</div>
-                    <h4 className="text-2xl font-bold mb-4">{item.title}</h4>
-                    <p className="text-sm text-gray-400 line-clamp-3 mb-6">{item.desc}</p>
-                    <div className="text-q2-cyan text-xs font-mono uppercase tracking-widest group-hover:underline">Expand Protocol →</div>
+                    <div className="text-q2-cyan mb-6 group-hover:scale-110 transition-transform flex justify-center">
+                      {LineIcons[pillar.icon]("#0ff0fc", "w-16 h-16")}
+                    </div>
+                    <h3 className="text-2xl font-bold mb-4 text-center">{pillar.title}</h3>
+                    <p className="text-gray-300 font-bold mb-4 text-center italic">{pillar.desc}</p>
+                    <p className="text-gray-400 text-sm mb-6 text-center">{pillar.detail}</p>
+                    <div className="pt-6 border-t border-white/5">
+                      <p className="text-[10px] font-mono text-gray-500 uppercase tracking-widest text-center">Intellectual Foundation</p>
+                      <p className="text-xs text-q2-gold text-center mt-1">{pillar.theorists}</p>
+                    </div>
                   </motion.div>
                 ))}
               </div>
-            </div>
-          </section>
 
-          {/* The Orchestra Section (Spotlight) */}
-          <section className="py-24 px-8 border-b border-white/10 overflow-hidden">
-            <div className="max-w-7xl mx-auto space-y-16">
-              <div className="flex flex-col md:flex-row justify-between items-end gap-8">
-                <div className="space-y-4">
-                  <h2 className="text-q2-gold text-sm font-mono tracking-[0.5em] uppercase">Intelligence Base</h2>
-                  <h3 className="text-5xl font-bold">The Orchestra.</h3>
-                </div>
-                <a href="orchestra.html" className="text-q2-cyan font-mono text-sm border-b border-q2-cyan hover:text-white hover:border-white transition-colors pb-1">
-                  VIEW FULL ROSTER [43 VIRTUAOSOS]
+              <div className="text-center mt-12">
+                <a href="pillars.html" className="inline-block bg-white text-black px-8 py-4 rounded font-bold hover:bg-zinc-200 transition-colors">
+                  EXPLORE THE FULL FRAMEWORK
                 </a>
               </div>
+            </div>
+          </section>
 
-              {/* Scrolling Horizontal Row */}
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                {orchestraData.slice(0, 5).map((member, i) => (
-                  <OrchestraCard key={i} member={member} index={i} />
-                ))}
+          {/* The Collision Section */}
+          <section className="py-24 px-8 bg-black/50" id="collision">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="border-l-4 border-q2-gold pl-6 mb-16 relative"
+              >
+                <div className="absolute -ml-20 mt-2 text-q2-gold text-6xl opacity-10 font-bold">1880</div>
+                <h2 className="text-5xl md:text-6xl font-bold mb-4">The Collision</h2>
+                <p className="text-gray-400 text-2xl italic">
+                  "We are entering Q2 of the 21st Century using the Operating systems of 1885."
+                </p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 gap-12 mt-12">
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                  className="space-y-6"
+                >
+                  <h3 className="text-q2-gold font-bold mb-4 uppercase tracking-widest text-base flex items-center gap-2">
+                    <span className="w-2 h-2 bg-q2-gold rounded-full"></span>
+                    Steampunk Education
+                  </h3>
+
+                  <p className="text-gray-300 leading-relaxed text-lg">
+                    Behind us lies a model forged in the <span className="text-q2-gold font-semibold">Prussian reforms</span> and solidified in the <span className="text-q2-gold font-semibold">1880s</span>.
+                  </p>
+
+                  <p className="text-gray-300 leading-relaxed text-lg">
+                    It was built for the industrial age—standardized testing, rigid hierarchies, and the scarcity of information. It is a machine of brass gears: heavy, reliable, but grinding to a halt.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                  className="space-y-6"
+                >
+                  <h3 className="text-q2-cyan font-bold mb-4 uppercase tracking-widest text-base flex items-center gap-2">
+                    <span className="w-2 h-2 bg-q2-cyan rounded-full"></span>
+                    The AI Future
+                  </h3>
+
+                  <p className="text-gray-300 leading-relaxed text-lg">
+                    Ahead lies a fluid, hyper-accelerated reality where <span className="text-q2-cyan font-semibold">intelligence is abundant</span>, and the old metrics of "knowledge retention" are obsolete.
+                  </p>
+
+                  <p className="text-gray-300 leading-relaxed text-lg">
+                    This mismatch is not just inefficient; it is dangerous. Using <span className="text-q2-cyan font-semibold">steam-engine policies</span> to govern generative AI results in catastrophic friction.
+                  </p>
+                </motion.div>
               </div>
             </div>
           </section>
 
-          {/* News section */}
-          <section className="py-24 px-8 bg-white/5" id="radar">
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16">
-              <div className="flex-1 space-y-8">
-                <h2 className="text-q2-gold text-sm font-mono tracking-[0.5em] uppercase">Phase 03: THE RADAR</h2>
-                <h3 className="text-5xl font-bold leading-tight">Weekly <br />Intelligence.</h3>
-                <p className="text-gray-400 text-lg leading-relaxed">
-                  The AI landscape changes in hours, not months. Join the weekly breakdown of how the transition is being governed.
-                </p>
-                <div className="flex gap-2">
-                  <input type="email" placeholder="Enter EDU Email" className="bg-black border border-white/20 p-4 rounded flex-grow focus:outline-none focus:border-q2-cyan transition-colors" />
-                  <button className="bg-white text-black px-8 py-4 rounded font-bold hover:bg-q2-cyan transition-colors">JOIN</button>
+          {/* The Q2 Pivot Section */}
+          <section className="py-24 px-8" id="pivot">
+            <div className="max-w-4xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="border border-white/10 rounded-2xl p-8 md:p-12 bg-black/30 backdrop-blur-sm space-y-8"
+              >
+                <h2 className="text-4xl md:text-5xl font-bold mb-8">The Q2 Pivot</h2>
+
+                <div className="space-y-8">
+                  {[
+                    { num: "01", from: "Training Faculty on AI", to: "Cognitive Architects", desc: "Turn faculty from AI skeptics into Cognitive Architects through 6 weeks of live certification.", link: "authenticity.html" },
+                    { num: "02", from: "Renting Intelligence", to: "Sovereign Infrastructure", desc: "Stop renting intelligence. Own your infrastructure, your models, and your data sovereignty.", link: "architecture.html" },
+                    { num: "03", from: "The 15-Week Semester", to: "The Async-First Pivot", desc: "Condense rote content delivery into AI-driven asynchronous modules. Reclaim campus hours for high-value research.", link: "product_strategy.html" },
+                    { num: "04", from: "Coding AI", to: "Governing the Machine", desc: "Launch a student-facing credential that trains the governors of the machine. Turnkey curriculum.", link: "guardrails.html" }
+                  ].map((item, i) => (
+                    <a href={item.link} key={i} className="block group">
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.3, duration: 0.6 }}
+                        className="flex gap-4 p-4 -ml-4 rounded-xl hover:bg-white/5 transition-colors cursor-pointer"
+                      >
+                        <span className="text-q2-gold text-3xl font-bold group-hover:text-q2-cyan transition-colors">{item.num}</span>
+                        <div className="flex-grow">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-gray-500 uppercase text-xs font-mono tracking-widest">FROM</span>
+                            <span className="text-gray-300 font-bold">{item.from}</span>
+                            <span className="text-q2-cyan font-black">→</span>
+                            <span className="text-gray-500 uppercase text-xs font-mono tracking-widest">TO</span>
+                            <span className="text-white font-bold group-hover:text-q2-cyan transition-colors">{item.to}</span>
+                          </div>
+                          <p className="text-gray-400 group-hover:text-gray-300 transition-colors opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">{item.desc}</p>
+                        </div>
+                      </motion.div>
+                    </a>
+                  ))}
                 </div>
-                <p className="text-gray-400 mt-1 max-w-xl">
-                  Join 4,500+ Education Leaders getting the weekly strategic breakdown.
-                </p>
-              </div>
-              <div className="flex-1 space-y-4">
-                {[
-                  { title: "The Sovereign Campus Cloud Blueprint", date: "Jan 24, 2026", type: "ARCHITECTURE" },
-                  { title: "Faculty Fellows: Cohort 04 Enrollment", date: "Jan 15, 2026", type: "FELLOWS" },
-                  { title: "The 7-Day Policy Sprint Framework", date: "Jan 08, 2026", type: "GOVERNANCE" }
-                ].map((news, i) => (
-                  <div key={i} className="group p-6 border-b border-white/10 hover:bg-white/5 transition-colors cursor-pointer flex justify-between items-center">
-                    <div>
-                      <div className="text-[10px] font-mono text-zinc-500 mb-2 uppercase">{news.type} // {news.date}</div>
-                      <h4 className="text-lg font-bold group-hover:text-q2-cyan transition-colors">{news.title}</h4>
-                    </div>
-                    <div className="text-zinc-500 group-hover:text-white">→</div>
-                  </div>
-                ))}
-              </div>
+
+                {/* Tagline - ONE LINE */}
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 1.2, duration: 1 }}
+                  className="text-xl md:text-2xl font-bold pt-6 mt-6 border-t border-white/10"
+                >
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-q2-gold via-white to-q2-cyan">
+                    The first quarter of the 21st Century is
+                  </span>
+                  <span className="text-q2-cyan"> over.</span>
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-q2-gold via-white to-q2-cyan ml-2">
+                    It's time for the Q2
+                  </span>
+                  <span className="text-q2-cyan"> Pivot.</span>
+                </motion.p>
+              </motion.div>
             </div>
           </section>
+
+          {/* The Orchestra Section */}
+          <section className="py-24 px-8 bg-black/50" id="orchestra">
+            <div className="max-w-7xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-16"
+              >
+                <h2 className="text-4xl md:text-5xl font-bold mb-4">The Orchestra</h2>
+                <p className="text-gray-400 text-xl">
+                  Built on insights from 22 foundational learning theorists. Each one reimagined for the AI era.
+                </p>
+
+                {/* Rotating Quotes */}
+                <RotatingQuotes />
+
+              </motion.div>
+
+
+              <div className="flex flex-col items-center gap-8">
+                <div className="w-full max-w-sm">
+                  <OrchestraCard member={orchestraData[0]} index={0} />
+                </div>
+                <a href="orchestra.html" className="inline-flex items-center gap-2 bg-purple-600/20 text-purple-400 px-8 py-4 border border-purple-500/30 rounded font-bold hover:bg-purple-600/30 transition-all">
+                  VIEW FULL ORCHESTRA →
+                </a>
+              </div>
+            </div>
+          </section >
+
+          {/* The Radar (SOAR) Section - WITH ARROW ANIMATION */}
+          <section className="py-24 px-8 bg-gray-900 relative overflow-hidden" id="radar">
+            <div className="absolute inset-0 grid-bg-gold opacity-20"></div>
+
+            <div className="max-w-7xl mx-auto relative z-10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 border-b border-white/10 pb-6"
+              >
+                <div>
+                  <div className="flex items-center gap-3 text-q2-gold mb-2">
+                    <div className="relative w-6 h-6 flex items-center justify-center">
+                      <span className="absolute w-full h-full border border-q2-gold/50 rounded-full animate-ping opacity-20"></span>
+                      <span className="text-xl">📡</span>
+                    </div>
+                    <span className="font-mono text-xs tracking-widest uppercase">Strategic Intelligence</span>
+                  </div>
+                  <h2 className="text-4xl md:text-5xl font-bold">The Radar (SOAR)</h2>
+                  <p className="text-gray-400 mt-2">Week 4, 2026: Strengths, Opportunities, Aspirations, Results.</p>
+                </div>
+                <div className="mt-4 md:mt-0 font-mono text-right text-xs text-q2-cyan">
+                  <div>FRAMEWORK: SOAR</div>
+                  <div className="text-green-400">STATUS: OPTIMISTIC</div>
+                </div>
+              </motion.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {soarData.map((item, i) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    onClick={() => setSelectedSOAR(item)}
+                    className="bg-black/40 border border-white/10 p-6 rounded-sm relative group hover:border-q2-cyan/50 transition-colors cursor-pointer"
+                  >
+                    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/30"></div>
+                    <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/30"></div>
+                    <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/30"></div>
+                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/30"></div>
+
+                    <div className="flex justify-between items-start mb-4">
+                      <span className={`text-xs font-mono px-2 py-1 rounded ${typeColors[item.type]}`}>
+                        {item.type}
+                      </span>
+                      {/* ARROW WITH ROTATION ANIMATION */}
+                      <span className="text-gray-600 group-hover:text-q2-cyan group-hover:rotate-90 transition-all inline-block">
+                        →
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl font-bold mb-3 group-hover:text-q2-cyan transition-colors">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-sm text-gray-400 mb-4">
+                      {item.desc}
+                    </p>
+
+                    <div className="flex items-center justify-between border-t border-white/5 pt-4">
+                      <span className="text-xs text-gray-500 font-mono">
+                        IMPACT: <span className="text-white">{item.impact}</span>
+                      </span>
+                      <div className="flex items-center gap-2 text-q2-cyan text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                        VIEW INTEL →
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mt-12 bg-gradient-to-r from-q2-cyan/10 to-transparent border-l-4 border-q2-cyan p-8 flex flex-col md:flex-row items-center justify-between gap-6"
+              >
+                <div>
+                  <h3 className="text-2xl font-bold text-white flex items-center gap-2">
+                    <span className="text-q2-cyan">⚡</span> Intercept the Full Briefing
+                  </h3>
+                  <p className="text-gray-400 mt-1 max-w-xl">
+                    Join 4,500+ Education Leaders getting the weekly strategic breakdown.
+                  </p>
+                </div>
+                <div className="flex gap-2 w-full md:w-auto">
+                  <input
+                    type="email"
+                    placeholder="Deans@university.edu"
+                    className="bg-black/50 border border-white/20 px-4 py-3 rounded text-white focus:outline-none focus:border-q2-cyan min-w-[250px]"
+                  />
+                  <button className="bg-q2-cyan text-black font-bold px-6 py-3 rounded hover:bg-white transition-colors">
+                    SUBSCRIBE
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          </section >
+
+          {/* The Vault: Subtraction Strategy */}
+          < section className="py-24 px-8 bg-black/50" id="vault" >
+            <div className="max-w-7xl mx-auto">
+              <div className="border border-q2-gold/30 rounded-2xl p-8 md:p-12 bg-black/40 backdrop-blur-sm">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
+                  <div className="flex items-center gap-3 text-q2-gold">
+                    <span className="text-3xl">🛡️</span>
+                    <h2 className="text-3xl md:text-4xl font-bold tracking-widest uppercase">The Vault: Subtraction Strategy</h2>
+                  </div>
+                  <a href="vault.html" className="bg-q2-gold text-black px-6 py-3 rounded font-bold hover:bg-white transition-colors">
+                    RECLAIM YOUR TIME →
+                  </a>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="grid grid-cols-[1fr_auto_auto] gap-4 pb-4 border-b border-white/10 text-gray-500 text-xs uppercase tracking-wider">
+                    <div>DOCUMENT TITLE</div>
+                    <div>CLASSIFICATION</div>
+                    <div>ACTION</div>
+                  </div>
+
+                  {[
+                    { title: "The Subtraction Strategy Playbook", classification: "AVAILABLE: CONTACT US", color: "bg-blue-500/20 border-blue-900 text-blue-400" },
+                    { title: "Oasis International School: Phase 1 Report", classification: "RESTRICTED", color: "bg-yellow-500/20 border-yellow-900 text-yellow-400" },
+                    { title: "UIC Executive Summary: Governance Models", classification: "RESTRICTED", color: "bg-yellow-500/20 border-yellow-900 text-yellow-400" },
+                    { title: "Cognitive Architecture: 2026 Spec", classification: "CONFIDENTIAL", color: "bg-q2-gold/20 border-q2-gold/50 text-q2-gold" },
+                    { title: "Sovereign Cloud: Deployment Roadmap", classification: "RESTRICTED", color: "bg-yellow-500/20 border-yellow-900 text-yellow-400" },
+                    { title: "The Forbidden Orchestra: NotebookLM Source", classification: "TOP SECRET", color: "bg-red-500/20 border-red-900/30 text-red-500" }
+                  ].map((doc, i) => (
+                    <div key={i} className="doc-row grid grid-cols-[1fr_auto_auto] gap-4 items-center py-4 border-b border-white/5 hover:bg-white/5 transition cursor-pointer">
+                      <div className="flex items-center gap-3">
+                        {LineIcons.file("#6b7280", "line-icon-small doc-icon")}
+                        <span className={doc.classification === "TOP SECRET" ? "text-gray-500 opacity-60" : "text-gray-300"}>
+                          {doc.title}
+                        </span>
+                      </div>
+                      <span className={`px-3 py-1 ${doc.color} text-xs rounded border`}>
+                        {doc.classification}
+                      </span>
+                      <span className="text-gray-600">🔒</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-white/10 text-center text-sm text-gray-500">
+                  SYSTEM NOTICE: Access to restricted files requires Level 4 clearance (Project Lead).
+                </div>
+              </div>
+            </div>
+          </section >
 
           {/* Footer */}
-          <footer className="py-12 px-8 border-t border-white/10">
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-              <div className="text-center md:text-left">
+          < footer className="py-12 px-8 border-t border-white/10" >
+            <div className="max-w-7xl mx-auto text-center">
+              <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2">
                   <span className="text-q2-gold">Q2</span> <span className="text-q2-cyan">PIVOT</span>
                 </h3>
-                <p className="text-gray-600 text-sm">
-                  © 2026 Q2 Pivot, a product of Coaching with Dr Larry, LLC. Incorporated in Delaware, USA.
-                </p>
+                <p className="text-gray-500 text-sm">Governing the AI Transition</p>
               </div>
-              <div className="flex gap-8 text-xs font-mono text-zinc-500 uppercase tracking-widest">
-                <a href="#" className="hover:text-white transition-colors">Sovereignty</a>
-                <a href="#" className="hover:text-white transition-colors">Privacy</a>
-                <a href="#" className="hover:text-white transition-colors">Governance</a>
-              </div>
+              <p className="text-gray-600 text-xs mb-2">
+                Q2 Pivot is a division of Q2 Education (Pty) Ltd, incorporated in South Africa.
+              </p>
+              <p className="text-gray-600 text-xs">
+                © 2026 Q2 Pivot. All rights reserved. | Educational Leadership • AI Governance • Strategic Foresight
+              </p>
             </div>
-          </footer>
+          </footer >
 
           <AnimatePresence>
             {selectedSOAR && (
@@ -1020,7 +1346,7 @@
               />
             )}
           </AnimatePresence>
-        </div>
+        </>
       );
     }
 
