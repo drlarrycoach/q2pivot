@@ -62,67 +62,8 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: #0d7c8c;
+      background: rgba(13, 124, 140, 0.3);
       border-radius: 4px;
-    }
-
-    /* Ancestor card - FIXED: NO card movement, name moves UP, text drops down */
-    .ancestor-card {
-      position: relative;
-      overflow: hidden;
-      min-height: 350px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    .ancestor-icon-bg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0.08;
-      width: 160px;
-      height: 160px;
-      transition: opacity 0.4s ease;
-    }
-
-    .ancestor-card:hover .ancestor-icon-bg {
-      opacity: 0.15;
-    }
-
-    .ancestor-content {
-      position: relative;
-      z-index: 10;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .ancestor-card:hover .ancestor-content {
-      transform: translateY(-50px);
-    }
-
-    .ancestor-bio {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .ancestor-card:hover .ancestor-bio {
-      max-height: 200px;
-      opacity: 1;
-      margin-top: 0.75rem;
-    }
-
-    .ancestor-card:hover .hover-hide {
-      opacity: 0;
-      max-height: 0;
-      margin: 0;
-    }
-
-    /* Document icon hover - turn CYAN */
-    .doc-row:hover .doc-icon {
-      stroke: #0ff0fc;
     }
 
     /* Simple line icons */
@@ -302,20 +243,6 @@
       ),
     };
 
-    // Orchestra Data - (Placeholder until hydrated by JSON)
-    const initialOrchestraData = [
-      {
-        name: "Lev Vygotsky",
-        archetype: "The Networker",
-        image: "assets/images/vygotsky_networker_1769586449324.png",
-        quote: "Through others we become ourselves.",
-        bio: "Father of the 'Zone of Proximal Development' and social constructivism. He rejected individual learning divorced from social context, viewing AI as the ultimate 'More Knowledgeable Other'.",
-        color: "text-cyan-400",
-        strokeColor: "#22d3ee",
-        icon: "network"
-      }
-    ];
-
     // SOAR Modal Component
     function SOARModal({ item, onClose }) {
       if (!item) return null;
@@ -339,13 +266,13 @@
             initial={{ scale: 0.9, y: 20 }}
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.9, y: 20 }}
-            className="bg-white border border-q2-cyan/30 rounded-lg max-w-2xl w-full shadow-2xl relative overflow-hidden"
+            className="bg-gray-900 border border-q2-cyan/30 rounded-lg max-w-2xl w-full shadow-2xl relative overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-8 border-b border-zinc-100 relative">
+            <div className="p-8 border-b border-white/10 relative">
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-900 text-2xl"
+                className="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl"
               >
                 ×
               </button>
@@ -354,15 +281,15 @@
                   {item.type} // INTELLIGENCE
                 </span>
               </div>
-              <h3 className="text-3xl font-bold text-zinc-900 mb-2">
+              <h3 className="text-3xl font-bold text-white mb-2">
                 {item.fullTitle}
               </h3>
-              <p className="text-zinc-600 text-lg">
+              <p className="text-gray-400 text-lg">
                 {item.content}
               </p>
             </div>
 
-            <div className="p-8 bg-zinc-50">
+            <div className="p-8 bg-black/30">
               <h4 className="text-q2-gold font-bold uppercase tracking-widest text-xs mb-3 flex items-center gap-2">
                 <span>⚡</span> Proposed Solution
               </h4>
@@ -371,7 +298,7 @@
                   {item.service}
                 </p>
               </div>
-              <a href={item.link} className="w-full bg-q2-cyan text-white font-bold py-4 rounded hover:bg-zinc-800 transition-colors flex items-center justify-center gap-2">
+              <a href={item.link} className="w-full bg-q2-cyan text-black font-bold py-4 rounded hover:bg-white transition-colors flex items-center justify-center gap-2">
                 INITIALIZE PROTOCOL →
               </a>
             </div>
@@ -380,628 +307,147 @@
       );
     }
 
-    // Orchestra Card Component - NAME MOVES UP, text drops down, NO card movement
-    function OrchestraCard({ member, index }) {
-      const [imageError, setImageError] = useState(false);
-
-      return (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: index * 0.05 }}
-          className="ancestor-card group border border-zinc-200 rounded-xl p-6 bg-white shadow-sm transition-all duration-300 hover:border-q2-cyan/50"
-        >
-          {/* Background Image */}
-          {member.image && !imageError ? (
-            <div className="absolute inset-0 z-0">
-              <img
-                src={member.image}
-                alt={member.name}
-                className="w-full h-full object-cover opacity-100 saturate-125 transition-all duration-700 group-hover:opacity-40 group-hover:grayscale"
-                onError={() => setImageError(true)}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent"></div>
-            </div>
-          ) : (
-            /* Large background icon - very subtle */
-            <div className="ancestor-icon-bg">
-              {LineIcons[member.icon] ? LineIcons[member.icon](member.strokeColor, "line-icon-large") : LineIcons.puzzle(member.strokeColor, "line-icon-large")}
-            </div>
-          )}
-
-          {/* Content that moves up on hover */}
-          <div className="ancestor-content">
-            <p className={`${member.color} text-[10px] tracking-widest mb-1 uppercase font-bold`}>
-              {member.archetype}
-            </p>
-            <h3 className="font-bold text-sm mb-1 text-white">
-              {member.name}
-            </h3>
-
-            {/* Hover to decrypt - fades out */}
-            <p className="hover-hide text-gray-500 text-[10px] mt-2 transition-all duration-300">
-              [HOVER TO DECRYPT]
-            </p>
-
-            {/* Text that drops down */}
-            <div className="ancestor-bio">
-              {(member.secondary_quote || member.quote) && (
-                <p className="text-q2-cyan text-[11px] font-bold mb-2 italic leading-tight">
-                  "{member.secondary_quote || member.quote}"
-                </p>
-              )}
-              <p className="text-zinc-600 text-[11px] leading-relaxed line-clamp-4">
-                {member.bio}
-              </p>
-
-              {member.notebookLink && (
-                <a
-                  href={member.notebookLink}
-                  target="_blank"
-                  className="mt-4 inline-flex items-center gap-2 bg-q2-cyan/20 text-q2-cyan border border-q2-cyan/30 px-3 py-1.5 rounded text-[10px] font-bold hover:bg-q2-cyan hover:text-black transition-all"
-                >
-                  <span className="w-2 h-2 bg-q2-cyan rounded-full animate-pulse"></span>
-                  NOTEBOOKLM ACCESS →
-                </a>
-              )}
-            </div>
-          </div>
-        </motion.div>
-      );
-    }
-
-    function RotatingQuotes({ data }) {
-      const quotes = React.useMemo(() => {
-        if (!data || data.length === 0) return [];
-        return data.filter(m => m.secondary_quote || m.quote).map(m => ({
-          text: m.secondary_quote || m.quote,
-          author: m.name,
-          instrument: m.instrument || m.archetype
-        }));
-      }, [data]);
-
-      const [index, setIndex] = useState(0);
-
-      useEffect(() => {
-        if (quotes.length <= 1) return;
-        const interval = setInterval(() => {
-          setIndex((prev) => (prev + 1) % quotes.length);
-        }, 10000);
-        return () => clearInterval(interval);
-      }, [quotes.length]);
-
-      if (quotes.length === 0) return null;
-
-      return (
-        <div className="max-w-4xl mx-auto my-12 text-center relative h-32 flex items-center justify-center">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.5 }}
-              className="absolute inset-0 flex flex-col items-center justify-center px-4"
-            >
-              <p
-                className="text-lg md:text-xl font-serif text-zinc-800 mb-4 leading-relaxed italic"
-                dangerouslySetInnerHTML={{ __html: `"${quotes[index].text}"` }}
-              />
-              <div className="flex items-center gap-2 text-[10px] text-zinc-500 font-mono tracking-wide">
-                <span className="text-q2-cyan font-bold uppercase">{quotes[index].author}</span>
-                <span className="w-1 h-1 bg-gray-500 rounded-full"></span>
-                <span className="text-q2-gold border border-q2-gold/30 px-2 py-0.5 rounded-full text-[10px] bg-q2-gold/5">
-                  {quotes[index].instrument}
-                </span>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      );
-    }
-
-    // Main App Component
     function App() {
-      useHashScroll();
       const [selectedSOAR, setSelectedSOAR] = useState(null);
-      const [orchestraData, setOrchestraData] = useState([]);
-      const [gridData, setGridData] = useState([]);
-
-      useEffect(() => {
-        fetch('virtuosos_db.json')
-          .then(res => res.json())
-          .then(data => {
-            setOrchestraData(data);
-            // Shuffle and pick 12 for the landing page grid
-            const shuffled = [...data].sort(() => 0.5 - Math.random());
-            setGridData(shuffled.slice(0, 12));
-          })
-          .catch(err => console.error("Error loading virtuosos:", err));
-      }, []);
-
-      const typeColors = {
-        STRENGTH: "bg-blue-500/20 text-blue-400",
-        OPPORTUNITY: "bg-green-500/20 text-green-400",
-        ASPIRATION: "bg-purple-500/20 text-purple-400",
-        RESULT: "bg-yellow-500/20 text-yellow-400"
-      };
+      useHashScroll();
 
       return (
         <>
-          {/* Navigation */}
-          <header className="relative z-50 border-b border-zinc-100 bg-white/80 backdrop-blur-xl sticky top-0">
-            <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-              <a href="index.html" className="flex items-center gap-4 group">
-                <div
-                  className="w-10 h-10 border border-white/20 rounded flex items-center justify-center bg-white/5 group-hover:border-q2-cyan transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                    className="text-white group-hover:text-q2-cyan transition-colors">
-                    <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
-                    <line x1="7" y1="2" x2="7" y2="22"></line>
-                    <line x1="17" y1="2" x2="17" y2="22"></line>
-                    <line x1="2" y1="12" x2="22" y2="12"></line>
-                    <line x1="2" y1="7" x2="22" y2="7"></line>
-                    <line x1="2" y1="17" x2="22" y2="17"></line>
-                  </svg>
-                </div>
-                <div>
-                  <h1 className="text-xl font-bold tracking-tight text-zinc-900">SOVEREIGN TRANSITIONS</h1>
-                  <p className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mt-0.5 font-bold">The Conductor's Toolkit</p>
-                </div>
-              </a>
-              <nav className="hidden md:flex items-center gap-8">
-                <a href="#pivot"
-                  className="text-sm font-medium text-zinc-600 hover:text-q2-cyan transition-colors italic">The Pivot</a>
-                <a href="orchestra.html"
-                  className="text-sm font-medium text-zinc-600 hover:text-q2-cyan transition-colors italic">The Orchestra</a>
-                <a href="#radar"
-                  className="text-sm font-medium text-zinc-600 hover:text-q2-cyan transition-colors italic">The Radar</a>
-                <a href="vault.html"
-                  className="bg-q2-cyan/10 text-q2-cyan px-4 py-2 border border-q2-cyan/30 rounded text-sm hover:bg-q2-cyan hover:text-black transition-all font-mono italic">SECURE ARCHIVE</a>
-              </nav>
-            </div>
-          </header>
-
           {/* Hero Section */}
-          <section className="min-h-screen relative overflow-hidden grid-bg py-24 px-8">
-            <div className="max-w-7xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
-                {/* Left Content */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8 }}
-                  className="space-y-8"
-                >
-                  <p className="text-q2-gold text-sm tracking-widest uppercase">The AI Revolution is Here.</p>
-
-                  <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-                    Govern the<br />
-                    <span className="text-q2-cyan">Transformation.</span>
-                  </h1>
-
-                  <p className="text-zinc-600 text-lg leading-relaxed max-w-xl">
-                    Your institution has an AI policy. Your faculty aren't using it. The problem isn't resistance—it's architecture. The Foundational Constants framework gives provosts the institutional infrastructure that makes AI adoption inevitable.
-                  </p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {/* The Radar - with line icon */}
-                    <a href="#radar" className="group relative p-1 rounded-2xl bg-gradient-to-br from-q2-gold/10 to-transparent hover:from-q2-cyan/50 transition-all duration-300 block">
-                      <div className="border border-q2-gold/20 rounded-xl p-6 bg-white shadow-sm">
-                        <div className="text-q2-gold mb-3 group-hover:text-q2-cyan transition-colors flex justify-center">
-                          {LineIcons.radar("#c5a059", "w-10 h-10 mx-auto group-hover:stroke-q2-cyan transition-colors")}
-                        </div>
-                        <h3 className="text-xl font-bold mb-2 text-zinc-900">The Radar</h3>
-                        <p className="text-zinc-500 text-sm">Weekly governance intelligence.</p>
-                      </div>
-                    </a>
-
-                    {/* The Collision - with line icon */}
-                    <a href="#collision" className="group relative p-1 rounded-2xl bg-gradient-to-br from-q2-cyan/10 to-transparent hover:from-q2-gold/50 transition-all duration-300 block">
-                      <div className="border border-q2-cyan/20 rounded-xl p-6 bg-white shadow-sm">
-                        <div className="text-q2-cyan mb-3 group-hover:text-q2-gold transition-colors flex justify-center">
-                          {LineIcons.document("#0ff0fc", "w-10 h-10 mx-auto group-hover:stroke-q2-gold transition-colors")}
-                        </div>
-                        <h3 className="text-xl font-bold mb-2 text-zinc-900">The Collision</h3>
-                        <p className="text-zinc-500 text-sm">Steampunk meets AI.</p>
-                      </div>
-                    </a>
-
-                    {/* The Orchestra - with line icon */}
-                    <a href="#orchestra" className="group relative p-1 rounded-2xl bg-gradient-to-br from-purple-500/10 to-transparent hover:from-q2-cyan/50 transition-all duration-300 block">
-                      <div className="border border-purple-500/20 rounded-xl p-6 bg-white shadow-sm">
-                        <div className="text-purple-600 mb-3 group-hover:text-q2-cyan transition-colors flex justify-center">
-                          {LineIcons.star("#a78bfa", "w-10 h-10 mx-auto group-hover:stroke-q2-cyan transition-colors")}
-                        </div>
-                        <h3 className="text-xl font-bold mb-2 text-zinc-900">The Orchestra</h3>
-                        <p className="text-zinc-500 text-sm">Giants with cybernetic upgrades.</p>
-                      </div>
-                    </a>
-                  </div>
-                </motion.div>
-
-                {/* Right Content - ORIGINAL LOGO */}
-                <div className="relative h-[600px] flex items-center justify-center">
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3, duration: 0.8 }}
-                    className="absolute -right-20 top-10 font-mono text-q2-cyan text-xs opacity-60"
-                  >
-                    <motion.div
-                      animate={{ y: [0, -10, 0] }}
-                      transition={{ duration: 4, repeat: Infinity }}
-                    >
-                      01001010<br />
-                      11010011<br />
-                      TRANSITION_COMPLETE
-                    </motion.div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 1 }}
-                    className="relative w-[500px] h-[500px]"
-                  >
-                    <motion.img
-                      src="https://0b252e7e.q2pivot-web.pages.dev/logo.png"
-                      alt="Sovereign Transitions Logo"
-                      className="absolute inset-0 m-auto w-[400px] h-[400px] object-contain z-10"
-                      animate={{
-                        y: [0, -15, 0],
-                        rotate: [0, 2, 0]
-                      }}
-                      transition={{
-                        duration: 6,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    />
-
-                    <motion.div
-                      animate={{ opacity: [0.2, 0.5, 0.2] }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                      className="absolute inset-0 bg-gradient-to-tr from-transparent via-q2-cyan/10 to-q2-cyan/30 blur-xl"
-                    />
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-
-            <div className="absolute right-0 top-1/4 text-[12rem] font-mono font-bold opacity-5 select-none pointer-events-none hidden md:block">
-              TOOLKIT
-            </div>
-          </section>
-
-
-
-          {/* The Collision Section */}
-          <section className="py-24 px-8 bg-black/50" id="collision">
-            <div className="max-w-5xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="border-l-4 border-q2-gold pl-6 mb-16 relative"
-              >
-                <div className="absolute -ml-20 mt-2 text-q2-gold text-6xl opacity-10 font-bold">1885</div>
-                <h2 className="text-5xl md:text-6xl font-bold mb-4 text-zinc-900">The Collision</h2>
-                <p className="text-zinc-500 text-2xl italic">
-                  "We are entering Q2 of the 21st Century using the Operating systems of 1885."
-                </p>
-              </motion.div>
-
-              <div className="grid md:grid-cols-2 gap-12 mt-12">
-                <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                  className="space-y-6"
-                >
-                  <h3 className="text-q2-gold font-bold mb-4 uppercase tracking-widest text-base flex items-center gap-2">
-                    <span className="w-2 h-2 bg-q2-gold rounded-full"></span>
-                    Steampunk Education
-                  </h3>
-
-                  Behind us lies a model forged in the <span className="text-q2-gold font-semibold">Prussian reforms</span> and solidified in the <span className="text-q2-gold font-semibold">1885</span>.
-
-                  <p className="text-zinc-600 leading-relaxed text-lg">
-                    It was built for the industrial age—standardized testing, rigid hierarchies, and the scarcity of information. It is a machine of brass gears: heavy, reliable, but grinding to a halt.
-                  </p>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                  className="space-y-6"
-                >
-                  <h3 className="text-q2-cyan font-bold mb-4 uppercase tracking-widest text-base flex items-center gap-2">
-                    <span className="w-2 h-2 bg-q2-cyan rounded-full"></span>
-                    The AI Future
-                  </h3>
-
-                  <p className="text-zinc-600 leading-relaxed text-lg">
-                    Ahead lies a fluid, hyper-accelerated reality where <span className="text-q2-cyan font-semibold">intelligence is abundant</span>, and the old metrics of "knowledge retention" are obsolete.
-                  </p>
-
-                  <p className="text-zinc-600 leading-relaxed text-lg">
-                    This mismatch is not just inefficient; it is dangerous. Using <span className="text-q2-gold font-semibold">steam-engine policies</span> to <span className="text-q2-cyan font-semibold">govern generative AI results</span> in catastrophic friction.
-                  </p>
-                </motion.div>
-              </div>
-            </div>
-          </section>
-
-          {/* The 3 Pillars Section */}
-          <section className="py-24 px-8 bg-black/30 border-y border-white/5" id="pillars">
-            <div className="max-w-7xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900">The Foundational Constants</h2>
-                <p className="text-zinc-600 text-xl max-w-3xl mx-auto">
-                  Architectural decisions that shape faculty behavior for years. Sustainable transformation through infrastructure, not mandating.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-8">
-                {[
-                  {
-                    title: "Friction Tolerance",
-                    icon: "puzzle",
-                    desc: "Which pedagogical struggles should we preserve, and which should we remove?",
-                    detail: "Calibrate productive struggle (Socratic dialouge) vs. administrative friction (grading mechanics).",
-                    theorists: "Freire, Gattegno, Papert, Montessori"
-                  },
-                  {
-                    title: "Lateral Bandwidth",
-                    icon: "network",
-                    desc: "How do we assess more while reducing faculty workload?",
-                    detail: "AI-enabled continuous formative feedback loops and multimodal assessment at scale.",
-                    theorists: "Bloom, Wiliam, Vygotsky, Mitra"
-                  },
-                  {
-                    title: "Incentive Layer",
-                    icon: "star",
-                    desc: "How do we make faculty adoption intrinsically motivated?",
-                    detail: "Aligning AI adoption with professional purpose, peer belonging, and creative agency.",
-                    theorists: "Kotter, Senge, Sinek, Lave & Wenger"
-                  }
-                ].map((pillar, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.2 }}
-                    className="p-8 border border-zinc-200 rounded-2xl bg-white shadow-sm hover:border-q2-cyan/30 transition-all group"
-                  >
-                    <div className="text-q2-cyan mb-6 group-hover:scale-110 transition-transform flex justify-center">
-                      {LineIcons[pillar.icon]("#0d7c8c", "w-16 h-16")}
-                    </div>
-                    <h3 className="text-2xl font-bold mb-4 text-center text-zinc-900">{pillar.title}</h3>
-                    <p className="text-zinc-700 font-bold mb-4 text-center italic">{pillar.desc}</p>
-                    <p className="text-zinc-500 text-sm mb-6 text-center">{pillar.detail}</p>
-                    <div className="pt-6 border-t border-zinc-100">
-                      <p className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest text-center">Intellectual Foundation</p>
-                      <p className="text-xs text-q2-gold text-center mt-1">{pillar.theorists}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              <div className="text-center mt-12">
-                <a href="pillars.html" className="inline-block bg-white text-black px-8 py-4 rounded font-bold hover:bg-zinc-200 transition-colors">
-                  EXPLORE THE FULL FRAMEWORK
-                </a>
-              </div>
-            </div>
-          </section>
-
-          {/* The Q2 Pivot Section */}
-          <section className="py-24 px-8" id="pivot">
-            <div className="max-w-4xl mx-auto">
+          <section className="relative min-h-screen flex flex-col justify-center items-center px-8 grid-bg" id="pivot">
+            <div className="max-w-7xl mx-auto w-full relative z-10 text-center space-y-12">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="border border-white/10 rounded-2xl p-8 md:p-12 bg-black/30 backdrop-blur-sm space-y-8"
+                animate={{ opacity: 1, y: 0 }}
+                className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-q2-cyan/30 bg-q2-cyan/5 backdrop-blur-sm"
               >
-                <h2 className="text-4xl md:text-5xl font-bold mb-8">The Sovereign Transitions</h2>
+                <span className="w-2 h-2 rounded-full bg-q2-cyan animate-pulse"></span>
+                <span className="text-q2-cyan font-mono text-xs uppercase tracking-[0.3em]">Institutional Resilience Protocol v2.5</span>
+              </motion.div>
 
+              <motion.h1
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-7xl md:text-9xl font-black tracking-tighter leading-none"
+              >
+                GOVERN THE <br />
+                <span className="text-q2-gold">TRANSITION.</span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="text-xl md:text-2xl text-gray-500 max-w-2xl mx-auto leading-relaxed italic"
+              >
+                Everything in education is changing. The machine is learning.
+                <span className="block mt-4 text-q2-cyan">Are you governing the pivot, or just watching it happen?</span>
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-12"
+              >
+                <a href="#collision" className="group relative px-10 py-5 bg-q2-cyan text-black font-black text-xl rounded hover:bg-white transition-all transform hover:-translate-y-1">
+                  VIEW STRATEGY →
+                </a>
+                <a href="orchestra.html" className="text-gray-400 hover:text-q2-cyan font-bold tracking-widest text-sm underline decoration-q2-cyan/30 underline-offset-8">
+                  THE ORCHESTRA
+                </a>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* Collision Section */}
+          <section className="py-32 px-8 border-y border-white/5 bg-[#fcfaf5]" id="collision">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-24 items-center">
                 <div className="space-y-8">
-                  {[
-                    { num: "01", from: "Training Faculty on AI", to: "Cognitive Architects", desc: "Turn faculty from AI skeptics into Cognitive Architects through 6 weeks of live certification.", link: "authenticity.html" },
-                    { num: "02", from: "Renting Intelligence", to: "Sovereign Infrastructure", desc: "Stop renting intelligence. Own your infrastructure, your models, and your data sovereignty.", link: "architecture.html" },
-                    { num: "03", from: "The 15-Week Semester", to: "The Async-First Transition", desc: "Condense rote content delivery into AI-driven asynchronous modules. Reclaim campus hours for high-value research.", link: "strategy.html" },
-                    { num: "04", from: "Coding AI", to: "Governing the Machine", desc: "Launch a student-facing credential that trains the governors of the machine. Turnkey curriculum.", link: "guardrails.html" }
-                  ].map((item, i) => (
-                    <a href={item.link} key={i} className="block group">
-                      <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.3, duration: 0.6 }}
-                        className="flex gap-4 p-4 -ml-4 rounded-xl hover:bg-white/5 transition-colors cursor-pointer"
-                      >
-                        <span className="text-q2-gold text-3xl font-bold group-hover:text-q2-cyan transition-colors">{item.num}</span>
-                        <div className="flex-grow">
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="text-gray-500 uppercase text-xs font-mono tracking-widest">FROM</span>
-                            <span className="text-gray-300 font-bold">{item.from}</span>
-                            <span className="text-q2-cyan font-black">→</span>
-                            <span className="text-gray-500 uppercase text-xs font-mono tracking-widest">TO</span>
-                            <span className="text-white font-bold group-hover:text-q2-cyan transition-colors">{item.to}</span>
-                          </div>
-                          <p className="text-gray-400 group-hover:text-gray-300 transition-colors opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">{item.desc}</p>
-                        </div>
-                      </motion.div>
-                    </a>
+                  <div className="text-q2-cyan font-mono text-xs tracking-widest uppercase mb-4">// The Collision</div>
+                  <h2 className="text-5xl md:text-6xl font-black tracking-tight leading-tight">
+                    The <span className="text-q2-gold">Old World</span> Measures Effort. <br />
+                    The <span className="text-q2-cyan">New World</span> Measures Intelligence.
+                  </h2>
+                  <p className="text-lg text-gray-500 leading-relaxed italic">
+                    By Summer 2026, 80% of student outputs will be AI-mediated.
+                    If your institution is still measuring "effort," you are effectively measuring the prompt secondary efficiency of an LLM.
+                  </p>
+                  <div className="p-8 border border-q2-cyan/20 bg-q2-cyan/5 rounded-2xl relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                      {LineIcons.radar("#0ff0fc", "w-24 h-24")}
+                    </div>
+                    <h4 className="text-q2-cyan font-bold uppercase tracking-widest text-xs mb-4">Urgent Warning</h4>
+                    <p className="text-xl text-white font-medium italic leading-relaxed">
+                      "Schools that do not pivot to verifying COGNITION instead of OUTPUT will suffer a total collapse of credential value within 18 months."
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-6">
+                  {soarData.map((item) => (
+                    <motion.div
+                      key={item.id}
+                      whileHover={{ scale: 1.02 }}
+                      className="p-8 border border-white/10 rounded-2xl bg-gray-900/40 backdrop-blur-sm cursor-pointer group"
+                      onClick={() => setSelectedSOAR(item)}
+                    >
+                      <div className="text-q2-cyan font-mono text-[10px] mb-4 tracking-widest uppercase">{item.type}</div>
+                      <h3 className="text-2xl font-bold mb-4 group-hover:text-q2-cyan transition-colors">{item.title}</h3>
+                      <p className="text-xs text-gray-500 leading-relaxed italic mb-4">{item.desc}</p>
+                      <span className="text-q2-gold text-[10px] font-bold uppercase tracking-widest group-hover:underline">Explore →</span>
+                    </motion.div>
                   ))}
                 </div>
-
-                {/* Tagline - ONE LINE */}
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 1.2, duration: 1 }}
-                  className="text-xl md:text-2xl font-bold pt-6 mt-6 border-t border-white/10"
-                >
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-q2-gold via-white to-q2-cyan">
-                    The first quarter of the 21st Century is
-                  </span>
-                  <span className="text-q2-cyan"> over.</span>
-                  <span className="text-q2-cyan"> Transitions.</span>
-                </motion.p>
-              </motion.div>
+              </div>
             </div>
           </section>
 
-          {/* The Orchestra Section */}
-          <section className="py-24 px-8 bg-black/50" id="orchestra">
+          {/* The Pipeline: Strategic Pillars */}
+          <section className="py-32 px-8 grid-bg-gold" id="radar">
             <div className="max-w-7xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-center mb-16"
-              >
-                <h2 className="text-4xl md:text-5xl font-bold mb-4">The Orchestra</h2>
-                <p className="text-gray-400 text-xl">
-                  Built on insights from 44 foundational learning theorists. Each one reimagined for the AI era.
-                </p>
-
-                {/* Rotating Quotes */}
-                <RotatingQuotes data={orchestraData} />
-
-              </motion.div>
-
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {gridData.map((member, index) => (
-                  <OrchestraCard key={index} member={member} index={index} />
-                ))}
+              <div className="text-center mb-24 space-y-4">
+                <div className="text-q2-gold font-mono text-xs tracking-widest uppercase">// The Pipeline</div>
+                <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">Strategic Pillars</h2>
               </div>
 
-              <div className="text-center mt-12">
-                <a href="orchestra.html" className="inline-flex items-center gap-2 bg-purple-600/20 text-purple-400 px-8 py-4 border border-purple-500/30 rounded font-bold hover:bg-purple-600/30 transition-all">
-                  LEARN MORE ABOUT THE ORCHESTRA →
-                </a>
-              </div>
-            </div>
-          </section >
-
-          {/* The Radar (SOAR) Section - WITH ARROW ANIMATION */}
-          <section className="py-24 px-8 bg-gray-900 relative overflow-hidden" id="radar">
-            <div className="absolute inset-0 grid-bg-gold opacity-20"></div>
-
-            <div className="max-w-7xl mx-auto relative z-10">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 border-b border-white/10 pb-6"
-              >
-                <div>
-                  <div className="flex items-center gap-3 text-q2-gold mb-2">
-                    <div className="relative w-6 h-6 flex items-center justify-center">
-                      <span className="absolute w-full h-full border border-q2-gold/50 rounded-full animate-ping opacity-20"></span>
-                      <span className="text-xl">📡</span>
+              <div className="grid md:grid-cols-3 gap-12">
+                {[
+                  {
+                    title: "Institutional Governance", icon: "puzzle",
+                    desc: "Redesigning the rulebook for a world where AI is the primary cognitive worker.",
+                    color: "#0ff0fc", link: "guardrails.html"
+                  },
+                  {
+                    title: "Cognitive Architecture", icon: "chip",
+                    desc: "Building private, sovereign inference models that protect your institution's data.",
+                    color: "#c5a059", link: "architecture.html"
+                  },
+                  {
+                    title: "Strategic Subtraction", icon: "plant",
+                    desc: "Identifying and removing the bureaucratic bloat that inhibits deep work.",
+                    color: "#818cf8", link: "product_strategy.html"
+                  }
+                ].map((pillar, i) => (
+                  <div key={i} className="group relative p-12 border border-white/10 rounded-3xl bg-gray-900/60 backdrop-blur-xl hover:border-q2-cyan/30 transition-all text-center">
+                    <div className="flex justify-center mb-8">
+                      {LineIcons[pillar.icon](pillar.color)}
                     </div>
-                    <span className="font-mono text-xs tracking-widest uppercase">Strategic Intelligence</span>
+                    <h3 className="text-3xl font-bold mb-6 group-hover:text-white transition-colors">{pillar.title}</h3>
+                    <p className="text-gray-500 leading-relaxed italic mb-8">{pillar.desc}</p>
+                    <a href={pillar.link} className="inline-block px-8 py-3 border border-white/10 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all">
+                      INITIALIZE →
+                    </a>
                   </div>
-                  <h2 className="text-4xl md:text-5xl font-bold">The Radar (SOAR)</h2>
-                  <p className="text-gray-400 mt-2">Week 4, 2026: Strengths, Opportunities, Aspirations, Results.</p>
-                </div>
-                <div className="mt-4 md:mt-0 font-mono text-right text-xs text-q2-cyan">
-                  <div>FRAMEWORK: SOAR</div>
-                  <div className="text-green-400">STATUS: OPTIMISTIC</div>
-                </div>
-              </motion.div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {soarData.map((item, i) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    onClick={() => setSelectedSOAR(item)}
-                    className="bg-black/40 border border-white/10 p-6 rounded-sm relative group hover:border-q2-cyan/50 transition-colors cursor-pointer"
-                  >
-                    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/30"></div>
-                    <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/30"></div>
-                    <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/30"></div>
-                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/30"></div>
-
-                    <div className="flex justify-between items-start mb-4">
-                      <span className={`text-xs font-mono px-2 py-1 rounded ${typeColors[item.type]}`}>
-                        {item.type}
-                      </span>
-                      {/* ARROW WITH ROTATION ANIMATION */}
-                      <span className="text-gray-600 group-hover:text-q2-cyan group-hover:rotate-90 transition-all inline-block">
-                        →
-                      </span>
-                    </div>
-
-                    <h3 className="text-xl font-bold mb-3 group-hover:text-q2-cyan transition-colors">
-                      {item.title}
-                    </h3>
-
-                    <p className="text-sm text-gray-400 mb-4">
-                      {item.desc}
-                    </p>
-
-                    <div className="flex items-center justify-between border-t border-white/5 pt-4">
-                      <span className="text-xs text-gray-500 font-mono">
-                        IMPACT: <span className="text-white">{item.impact}</span>
-                      </span>
-                      <div className="flex items-center gap-2 text-q2-cyan text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                        VIEW INTEL →
-                      </div>
-                    </div>
-                  </motion.div>
                 ))}
               </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mt-12 bg-gradient-to-r from-q2-cyan/10 to-transparent border-l-4 border-q2-cyan p-8 flex flex-col md:flex-row items-center justify-between gap-6"
-              >
-                <div>
-                  <h3 className="text-2xl font-bold text-white flex items-center gap-2">
-                    <span className="text-q2-cyan">⚡</span> Intercept the Full Briefing
-                  </h3>
-                  <p className="text-gray-400 mt-1 max-w-xl">
-                    Join 7,500+ Education Leaders getting the weekly strategic breakdown.
-                  </p>
-                </div>
-                <form action="https://forms.gle/q2pivot-radar-check" method="GET" target="_blank" className="flex gap-2 w-full md:w-auto">
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Deans@university.edu"
-                    className="bg-black/50 border border-white/20 px-4 py-3 rounded text-white focus:outline-none focus:border-q2-cyan min-w-[250px]"
-                  />
-                  <button type="submit" className="bg-q2-cyan text-black font-bold px-6 py-3 rounded hover:bg-white transition-colors">
-                    SUBSCRIBE
-                  </button>
-                </form>
-              </motion.div>
             </div>
-          </section >
+          </section>
 
           {/* The Vault: Subtraction Strategy */}
-          < section className="py-24 px-8 bg-black/50" id="vault" >
+          <section className="py-24 px-8 bg-black/50" id="vault">
             <div className="max-w-7xl mx-auto">
               <div className="border border-q2-gold/30 rounded-2xl p-8 md:p-12 bg-black/40 backdrop-blur-sm">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
@@ -1049,10 +495,10 @@
                 </div>
               </div>
             </div>
-          </section >
+          </section>
 
           {/* Footer */}
-          < footer className="py-12 px-8 border-t border-white/10" >
+          <footer className="py-12 px-8 border-t border-white/10">
             <div className="max-w-7xl mx-auto text-center">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2">
@@ -1067,7 +513,7 @@
                 © 2026 Q2 Pivot. All rights reserved. | Educational Leadership • AI Governance • Strategic Foresight
               </p>
             </div>
-          </footer >
+          </footer>
 
           <AnimatePresence>
             {selectedSOAR && (
