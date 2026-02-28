@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Resilience Audit™ | K-12 Quality Assurance | Q2 Pivot</title>
+    <meta name="description"
+        content="The AI-Resilience Audit™ for K-12 schools. Exposing assessment vulnerability, inspection exposure, and the 'Measurement Illusion' in the AI era. For Heads of School, Principals, and Quality Assurance Directors in the GCC.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'q2-cyan': '#0ff0fc', 'q2-gold': '#c5a059',
+                        'q2-dark': '#05070a', 'q2-red': '#ff3b3b'
+                    }
+                }
+            }
+        }
+    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@300;400;500&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            background-color: #fcfaf5;
+            color: #18181b;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .mono {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(13, 124, 140, .08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(13, 124, 140, .08) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .hero-glow {
+            background: radial-gradient(ellipse 90% 55% at 50% 0%, rgba(15, 240, 252, .12), transparent 70%),
+                radial-gradient(circle at 80% 80%, rgba(197, 160, 89, .05), transparent 50%);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, .8);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, .08);
+        }
+
+        .glass-dark {
+            background: rgba(0, 0, 0, .55);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, .07);
+        }
+
+        .glass-cyan {
+            background: rgba(15, 240, 252, .04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(15, 240, 252, .18);
+        }
+
+        .glass-gold {
+            background: rgba(197, 160, 89, .04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(197, 160, 89, .22);
+        }
+
+        .glass-red {
+            background: rgba(255, 59, 59, .04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 59, 59, .22);
+        }
+
+        .cta-glow {
+            box-shadow: 0 0 40px rgba(15, 240, 252, .25), 0 0 80px rgba(15, 240, 252, .08);
+        }
+
+        .gold-glow {
+            box-shadow: 0 0 40px rgba(197, 160, 89, .25);
+        }
+
+        .pulse-r {
+            animation: pr 2s infinite;
+        }
+
+        @keyframes pr {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 59, 59, .5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 8px rgba(255, 59, 59, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 59, 59, 0);
+            }
+        }
+
+        input,
+        select,
+        textarea {
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, .12);
+            border-radius: 8px;
+            color: #18181b;
+            padding: 12px 16px;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #0ff0fc;
+        }
+
+        .form-label {
+            font-size: 11px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            font-family: 'Fira Code', monospace;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f5f2eb;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #0d7c8c;
+            border-radius: 3px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+
+    <!-- ══ NAV ══ -->
+    <nav
+        class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl px-6 py-4 flex justify-between items-center border-b border-zinc-100">
+        <a href="index.html" class="flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity">
+            <span class="mono text-xs text-gray-500 tracking-widest">← Q2 PIVOT</span>
+        </a>
+        <div class="flex items-center gap-4">
+            <span class="mono text-xs text-q2-red border border-q2-red/30 px-3 py-1.5 rounded flex items-center gap-2">
+                <span class="w-2 h-2 bg-q2-red rounded-full pulse-r"></span>
+                GCC INSPECTION WINDOW OPEN
+            </span>
+            <a href="#apply"
+                class="bg-q2-cyan text-black font-black text-xs px-5 py-2.5 rounded-lg hover:bg-white transition-colors cta-glow">
+                APPLY FOR AUDIT →
+            </a>
+        </div>
+    </nav>
+
+    <!-- ══ 1. HERO ══ -->
+    <section class="relative py-36 px-8 grid-bg overflow-hidden">
+        <div class="hero-glow absolute inset-0 pointer-events-none"></div>
+        <div class="max-w-4xl mx-auto relative z-10 text-center">
+
+            <div
+                class="inline-flex items-center gap-2 border border-white/10 text-gray-400 px-4 py-2 rounded-full text-xs mono mb-10 tracking-widest uppercase">
+                Regulatory Compliance & Inspection Resilience
+            </div>
+
+            <h1 class="text-5xl md:text-6xl font-black mb-8 leading-tight tracking-tight serif text-zinc-900">
+                The Measurement<br>Illusion.
+                <span class="block text-zinc-400 font-light text-3xl md:text-4xl mt-4"
+                    style="font-family:'Inter',sans-serif;">
+                    Your School is Vulnerable.<br>Evidence is Obsolete.
+                </span>
+            </h1>
+
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed mb-6">
+                Most K-12 assessments in the GCC are structurally vulnerable to AI bypass.
+                The <strong class="text-white">AI-Resilience Audit™</strong> exposes the gap between reported student
+                attainment and actual cognitive rigor.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-5">
+                <a href="#apply"
+                    class="bg-q2-cyan text-black font-black px-10 py-5 rounded-xl text-base hover:bg-white transition-colors cta-glow">
+                    SECURE YOUR QUALITY ASSURANCE AUDIT →
+                </a>
+            </div>
+            <p class="mono text-xs text-gray-600">Prioritizing Gems, Nord Anglia, and Taaleem Network schools.
+            </p>
+        </div>
+    </section>
+
+    <!-- ══ 2. THE GCC CONTEXT ══ -->
+    <section class="py-24 px-8 bg-[#f5f2eb]">
+        <div class="max-w-4xl mx-auto">
+            <div class="mono text-q2-cyan text-xs tracking-widest uppercase mb-6">// The Regulatory Pressure</div>
+            <h2 class="text-4xl font-black mb-12 serif">Inspection Exposure<br>under AI-Era Learning Conditions</h2>
+
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <div>
+                    <div class="space-y-4 mb-10">
+                        <p class="text-xl text-zinc-800 leading-relaxed">Regulatory inspection cycles (KHDA / ADEK)
+                            assume
+                            <span class="text-q2-cyan font-bold">Cognitive Rigor</span>.
+                        </p>
+                        <p class="text-xl text-zinc-800 leading-relaxed">Most homework and coursework now measures <span
+                                class="text-q2-gold font-bold">AI Prompting Speed</span>.</p>
+                        <p class="text-2xl font-black text-q2-red mt-6">This is your Reputation Risk.</p>
+                    </div>
+
+                    <p class="text-zinc-600 leading-relaxed mb-6">Your parent body pays for differentiation. If
+                        AI-generated work passes your internal quality checks, you are not selling education—you are
+                        selling a certificate of AI usage.</p>
+
+                    <p class="text-zinc-900 font-semibold">The AI-Resilience Audit™ provides the defensive governance
+                        architecture required for the next inspection cycle.</p>
+                </div>
+
+                <div class="space-y-5">
+                    <div class="glass-dark rounded-2xl p-7">
+                        <div class="mono text-q2-red text-xs mb-4 tracking-widest">// FIELD FINDING — DUBAI PRIVATE
+                            SCHOOL, FEB 2026</div>
+                        <p class="text-gray-300 leading-relaxed text-sm italic">
+                            "Assessment architecture remains 2021-spec. Student portfolios show 90% bypass
+                            vulnerability. Evaluation metrics are currently measuring the illusion of learning. Parent
+                            confidence remains high only due to a lack of technical scrutiny. This is an existential
+                            quality assurance risk."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ 3. THE 6 DIMENSION AUDIT ══ -->
+    <section class="py-24 px-8 bg-black/60" id="methodology">
+        <div class="max-w-4xl mx-auto">
+            <div class="mono text-q2-cyan text-xs tracking-widest uppercase mb-4">// Technical Framework</div>
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+                <h2 class="text-4xl font-black text-zinc-900">6-Dimension Inspection<br>Resilience Framework</h2>
+            </div>
+
+            <div class="space-y-3">
+                <div class="glass rounded-xl px-6 py-5 flex items-center gap-5">
+                    <span class="mono text-q2-cyan font-bold text-lg w-8 shrink-0">01</span>
+                    <div class="flex-1">
+                        <div class="font-bold text-zinc-900">Regulatory Inspection Exposure</div>
+                        <div class="text-xs text-zinc-500 mt-0.5">How would your current evidence of learning hold up
+                            under technical AI-scrutiny from KHDA/ADEK?</div>
+                    </div>
+                </div>
+                <div class="glass rounded-xl px-6 py-5 flex items-center gap-5">
+                    <span class="mono text-q2-cyan font-bold text-lg w-8 shrink-0">02</span>
+                    <div class="flex-1">
+                        <div class="font-semibold text-white">Assessment Integrity & Authenticity</div>
+                        <div class="text-xs text-gray-500 mt-0.5">Are student outputs ungameable? Do they provide
+                            demonstrable proof of individual cognition?</div>
+                    </div>
+                </div>
+                <div class="glass-red rounded-xl px-6 py-5 flex items-center gap-5">
+                    <span class="mono text-q2-red font-bold text-lg w-8 shrink-0">03</span>
+                    <div class="flex-1">
+                        <div class="font-semibold text-white">AI-Bypass Resistance Scoring</div>
+                        <div class="text-xs text-gray-500 mt-0.5">Stress-testing your curriculum against the latest
+                            frontier models. Can students bypass your rigor?</div>
+                    </div>
+                </div>
+                <div class="glass rounded-xl px-6 py-5 flex items-center gap-5">
+                    <span class="mono text-q2-cyan font-bold text-lg w-8 shrink-0">04</span>
+                    <div class="flex-1">
+                        <div class="font-semibold text-white">Cognitive Depth Mapping</div>
+                        <div class="text-xs text-gray-500 mt-0.5">Redefining Bloom's Taxonomy for the AI era. Ensuring
+                            student work demands levels AI cannot reach.</div>
+                    </div>
+                </div>
+                <div class="glass rounded-xl px-6 py-5 flex items-center gap-5">
+                    <span class="mono text-q2-cyan font-bold text-lg w-8 shrink-0">05</span>
+                    <div class="flex-1">
+                        <div class="font-semibold text-white">Governance & Quality Oversight</div>
+                        <div class="text-xs text-gray-500 mt-0.5">Aligning AI policy with classroom reality. Moving
+                            beyond "detection" to structural resilience.</div>
+                    </div>
+                </div>
+                <div class="glass rounded-xl px-6 py-5 flex items-center gap-5">
+                    <span class="mono text-q2-cyan font-bold text-lg w-8 shrink-0">06</span>
+                    <div class="flex-1">
+                        <div class="font-semibold text-white">Parent Confidence Calibration</div>
+                        <div class="text-xs text-gray-500 mt-0.5">Protecting the premium brand of the school through
+                            demonstrable academic integrity.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ 4. TIERED AUDITS ══ -->
+    <section class="py-24 px-8 bg-black" id="pricing">
+        <div class="max-w-4xl mx-auto">
+            <div class="mono text-q2-cyan text-xs tracking-widest uppercase mb-4">// Engagement</div>
+            <h2 class="text-4xl font-black text-zinc-900 mb-14">Audit Engagement Tiers</h2>
+
+            <div class="space-y-6">
+                <!-- Tier 1 -->
+                <div class="glass rounded-2xl p-8 flex flex-col md:flex-row md:items-center gap-8">
+                    <div class="md:w-48 shrink-0">
+                        <div class="mono text-xs text-zinc-400 uppercase tracking-wider mb-2">Subject Audit</div>
+                        <div class="text-4xl font-black text-zinc-900">$5,000</div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-bold text-white mb-3">Single Department Deep-Dive</div>
+                        <div class="text-sm text-gray-400">Perfect for stress-testing a specific high-stakes curriculum
+                            area (Math, English, Science).</div>
+                    </div>
+                    <a href="#apply" class="btn-cyan">APPLY →</a>
+                </div>
+
+                <!-- Tier 2 -->
+                <div class="glass-cyan rounded-2xl p-8 flex flex-col md:flex-row md:items-center gap-8 relative">
+                    <div
+                        class="absolute -top-4 left-8 bg-q2-cyan text-black text-xs font-black px-4 py-1.5 rounded-full">
+                        RECOMMENDED</div>
+                    <div class="md:w-48 shrink-0">
+                        <div class="mono text-xs text-q2-cyan uppercase tracking-wider mb-2">School Audit</div>
+                        <div class="text-3xl font-black text-zinc-900">$15,000+</div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-bold text-white mb-3">Full Phase/Section Audit</div>
+                        <div class="text-sm text-gray-400">Cross-departmental analysis, live observation, and a
+                            comprehensive Inspection Readiness Report.</div>
+                    </div>
+                    <a href="#apply" class="btn-cyan-solid">APPLY →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ 5. APPLICATION ══ -->
+    <section class="py-32 px-8 relative" id="apply">
+        <div class="max-w-3xl mx-auto relative z-10">
+            <div class="text-center mb-12">
+                <div class="mono text-q2-cyan text-xs tracking-widest uppercase mb-4">// Application</div>
+                <h2 class="text-5xl font-black mb-6 serif leading-tight">Apply for Inspection<br>Resilience Audit</h2>
+                <p class="text-gray-400 max-w-xl mx-auto">Limited to 5 GCC schools per term to ensure depth of executive
+                    oversight.</p>
+            </div>
+
+            <div class="glass-cyan rounded-3xl p-10">
+                <form action="https://forms.gle/q2pivot-audit-gcc" method="GET" target="_blank" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="form-label">School Name</label>
+                            <input type="text" placeholder="e.g. Dubai Academy">
+                        </div>
+                        <div>
+                            <label class="form-label">Network</label>
+                            <select title="Select School Network">
+                                <option>Independent</option>
+                                <option>GEMS</option>
+                                <option>Nord Anglia</option>
+                                <option>Taaleem</option>
+                                <option>Aldar</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label">Primary Role</label>
+                        <select title="Select Your Primary Role">
+                            <option>Principal / Head of School</option>
+                            <option>Director of Teaching & Learning</option>
+                            <option>Governor / Board Member</option>
+                            <option>KHDA/ADEK Liaison</option>
+                            <option>Other Executive</option>
+                        </select>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-q2-cyan text-black font-black py-5 rounded-xl text-lg hover:bg-white transition-all cta-glow">
+                        SUBMIT APPLICATION FOR REVIEW →
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 px-8 border-t border-white/10 text-center opacity-50">
+        <p class="text-[10px] mono uppercase tracking-widest">Q2 Pivot | GCC Private Education Strategy Unit</p>
+    </footer>
+
+    <style>
+        .btn-cyan {
+            @apply shrink-0 block text-center glass border-q2-cyan/30 text-q2-cyan font-bold px-8 py-3.5 rounded-xl hover:bg-q2-cyan hover:text-black transition-colors;
+        }
+
+        .btn-cyan-solid {
+            @apply shrink-0 block text-center bg-q2-cyan text-black font-black px-8 py-3.5 rounded-xl hover:bg-white transition-colors cta-glow;
+        }
+    </style>
+</body>
+
+</html>

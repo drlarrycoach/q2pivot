@@ -27,23 +27,23 @@
 
   <style>
     body {
-      background-color: #0a0a12;
-      color: white;
+      background-color: #fcfaf5;
+      color: #18181b;
       font-family: 'Inter', sans-serif;
     }
 
-    /* Grid background */
+    /* Grid background - Light Authority */
     .grid-bg {
       background-image:
-        linear-gradient(rgba(15, 240, 252, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(15, 240, 252, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(13, 124, 140, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13, 124, 140, 0.08) 1px, transparent 1px);
       background-size: 40px 40px;
     }
 
     .grid-bg-gold {
       background-image:
-        linear-gradient(rgba(197, 160, 89, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(197, 160, 89, 0.05) 1px, transparent 1px);
+        linear-gradient(rgba(180, 140, 60, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(180, 140, 60, 0.1) 1px, transparent 1px);
       background-size: 20px 20px;
     }
 
@@ -58,11 +58,11 @@
     }
 
     ::-webkit-scrollbar-track {
-      background: #1a1a2e;
+      background: #f5f2eb;
     }
 
     ::-webkit-scrollbar-thumb {
-      background: #0ff0fc;
+      background: #0d7c8c;
       border-radius: 4px;
     }
 
@@ -302,8 +302,8 @@
       ),
     };
 
-    // Orchestra Data - The Full Orchestra (Chronological by Birth)
-    const orchestraData = [
+    // Orchestra Data - (Placeholder until hydrated by JSON)
+    const initialOrchestraData = [
       {
         name: "Lev Vygotsky",
         archetype: "The Networker",
@@ -313,409 +313,6 @@
         color: "text-cyan-400",
         strokeColor: "#22d3ee",
         icon: "network"
-      },
-      {
-        name: "Seymour Papert",
-        archetype: "The Maker",
-        image: "assets/images/papert_maker_1769586888969.png",
-        quote: "Handing students keys to build their own cognitive tools.",
-        bio: "Creator of Constructionism and Logo programming. He rejected passive consumption of knowledge, handing students the keys to build their own cognitive tools with AI.",
-        color: "text-purple-400",
-        strokeColor: "#c084fc",
-        icon: "brain"
-      },
-      {
-        name: "Paulo Freire",
-        archetype: "The Liberator",
-        image: "assets/images/freire_liberator_1769586700518.png",
-        quote: "Critical pedagogy weaponizes AI literacy.",
-        bio: "Fought the 'banking model' of education through critical pedagogy. He rejected teachers as authorities filling empty vessels, weaponizing AI literacy to dismantle epistemic privilege.",
-        color: "text-emerald-400",
-        strokeColor: "#34d399",
-        icon: "graduation"
-      },
-      {
-        name: "Benjamin Bloom",
-        archetype: "The Optimizer",
-        image: "assets/images/bloom_optimizer_1769587725495.png",
-        quote: "AI tutors are the scalable path to personalized mastery.",
-        bio: "Identified the '2 Sigma Problem' and created Bloom's Taxonomy. He rejected time-based progression, seeing AI tutors as the scalable path to personalized mastery learning.",
-        color: "text-indigo-400",
-        strokeColor: "#818cf8",
-        icon: "layers"
-      },
-      {
-        name: "Maria Montessori",
-        archetype: "The Architect",
-        image: "assets/images/montessori_architect_1769586306280.png",
-        quote: "Prepared environments where children discover through interaction.",
-        bio: "Pioneered the 'prepared environment' where children discover through interaction. She rejected factory-model classrooms with children in rows, championing child-centered learning spaces.",
-        color: "text-rose-400",
-        strokeColor: "#fb7185",
-        icon: "puzzle"
-      },
-      {
-        name: "John Dewey",
-        archetype: "The Pragmatist",
-        image: "assets/images/dewey_pragmatist_v2_1769706455998.png",
-        quote: "AI simulations as laboratories for experimentation.",
-        bio: "Champion of 'learning by doing' and democratic education. He rejected passive learning, seeing AI simulations as laboratories for experimentation where students test ideas in consequence engines.",
-        color: "text-blue-400",
-        strokeColor: "#60a5fa",
-        icon: "plant"
-      },
-      {
-        name: "Ivan Illich",
-        archetype: "The Disestablisher",
-        quote: "Weaponizing AI to create learning webs that bypass gatekeeping.",
-        bio: "Author of 'Deschooling Society' who challenged institutional monopolies. He rejected credentialing cartels, weaponizing AI to create learning webs that bypass gatekeeping entirely.",
-        color: "text-slate-400",
-        strokeColor: "#94a3b8",
-        icon: "globe"
-      },
-      {
-        name: "Christopher Alexander",
-        archetype: "The Pattern Weaver",
-        image: "assets/images/alexander_weaver_1769587002061.png",
-        quote: "AI generates living architectures that support human wholeness.",
-        bio: "Architect and theorist of 'pattern languages'. He rejected dead, soul-less structures, using AI to generate living architectures that support human wholeness and organic growth.",
-        color: "text-q2-gold",
-        strokeColor: "#c5a059",
-        icon: "puzzle"
-      },
-      {
-        name: "Mihaly Csikszentmihalyi",
-        archetype: "The Flow Master",
-        image: "assets/images/csikszentmihalyi_flow_master_v2_1769705704416.png",
-        quote: "AI as the dynamic difficulty engine for perpetual engagement.",
-        bio: "Defined 'flow states' as optimal experience. He rejected boredom and anxiety as acceptable learning states, seeing AI as the dynamic difficulty engine for perpetual engagement.",
-        color: "text-sky-400",
-        strokeColor: "#38bdf8",
-        icon: "mountain"
-      },
-      {
-        name: "Howard Gardner",
-        archetype: "The Pluralist",
-        image: "assets/images/gardner_pluralist_v2_1769706473952.png",
-        quote: "AI personalization must honor all intelligences.",
-        bio: "Father of 'multiple intelligences' theory. He rejected narrow definitions of intelligence, insisting AI personalization honor all intelligences, not just linguistic and logical-mathematical.",
-        color: "text-fuchsia-400",
-        strokeColor: "#e879f9",
-        icon: "star"
-      },
-      {
-        name: "Carol Dweck",
-        archetype: "The Gardener",
-        image: "assets/images/dweck_gardener_1769587410617.png",
-        quote: "AI hallucinations as 'not yet' moments.",
-        bio: "Mother of 'growth mindset' vs. fixed mindset. She rejected intelligence as innate, framing AI hallucinations as 'not yet' moments—invitations to grow the mind's neural network.",
-        color: "text-lime-400",
-        strokeColor: "#a3e635",
-        icon: "plant"
-      },
-      {
-        name: "Angela Duckworth",
-        archetype: "The Stoic",
-        image: "assets/images/duckworth_stoic_1769587502372.png",
-        quote: "AI as a high-friction sparring partner demanding mastery.",
-        bio: "Champion of grit, perseverance, and character development. She rejected talent as the primary success factor, viewing AI as a high-friction sparring partner demanding mastery.",
-        color: "text-stone-400",
-        strokeColor: "#a8a29e",
-        icon: "mountain"
-      },
-      {
-        name: "bell hooks",
-        archetype: "The Liberatory",
-        image: "assets/images/hooks_liberatory_v2_1769705932261.png",
-        quote: "AI tools must serve the margins first.",
-        bio: "Champion of 'engaged pedagogy' centering marginalized voices. She rejected neutral objectivity, demanding AI tools serve the margins first and confront algorithmic bias head-on.",
-        color: "text-amber-400",
-        strokeColor: "#fbbf24",
-        icon: "star"
-      },
-      {
-        name: "Ken Robinson",
-        archetype: "The Alchemist",
-        image: "assets/images/robinson_alchemist_1769587197450.png",
-        quote: "AI personalizes expression for singular creative force.",
-        bio: "Argued schools kill creativity through standardization. He rejected the factory model, demanding AI personalize expression and turn every student into a singular creative force.",
-        color: "text-orange-400",
-        strokeColor: "#fb923c",
-        icon: "star"
-      },
-      {
-        name: "Simon Sinek",
-        archetype: "The Purpose Prophet",
-        quote: "AI adoption begins with purpose—why before how or what.",
-        bio: "Creator of 'Start with Why' and the golden circle. He rejected feature-first thinking, demanding AI adoption begin with purpose—why before how or what.",
-        color: "text-amber-400",
-        strokeColor: "#fbbf24",
-        icon: "star"
-      },
-      {
-        name: "Peter Senge",
-        archetype: "The Systems Architect",
-        image: "assets/images/senge_systems_architect_1769704996290.png",
-        quote: "AI as a lever for systemic transformation.",
-        bio: "Pioneer of learning organizations and systems thinking. He rejected hierarchical command-and-control, viewing AI as a lever for systemic transformation, not incremental fixes.",
-        color: "text-slate-400",
-        strokeColor: "#94a3b8",
-        icon: "layers"
-      },
-      {
-        name: "John Kotter",
-        archetype: "The Change Conductor",
-        quote: "AI adoption as strategic transformation, not tech deployment.",
-        bio: "Designed the 8-step change management process. He rejected top-down mandates without cultural buy-in, orchestrating AI adoption as strategic transformation, not tech deployment.",
-        color: "text-yellow-400",
-        strokeColor: "#facc15",
-        icon: "star"
-      },
-      {
-        name: "Salman Khan",
-        archetype: "The Mastery Advocate",
-        quote: "AI provides scalable, self-paced mastery learning for the world.",
-        bio: "Founder of Khan Academy. He rejected time-based progression, using AI to provide scalable, self-paced mastery learning for the world.",
-        color: "text-cyan-400",
-        strokeColor: "#22d3ee",
-        icon: "chip"
-      },
-      {
-        name: "Sugata Mitra",
-        archetype: "The Disruptor",
-        image: "assets/images/mitra_disruptor_1769587562405.png",
-        quote: "AI as the ultimate 'Grandmother Cloud'.",
-        bio: "Creator of the 'Hole in the Wall' self-organized learning experiment. He rejected teachers as necessary intermediaries, viewing AI as the ultimate 'Grandmother Cloud'.",
-        color: "text-sky-400",
-        strokeColor: "#38bdf8",
-        icon: "globe"
-      },
-      {
-        name: "Dylan Wiliam",
-        archetype: "The Formative Voice",
-        quote: "AI delivers real-time formative feedback at scale.",
-        bio: "Champion of assessment for learning, not of learning. He rejected summative testing as the primary driver, using AI to deliver real-time formative feedback at scale.",
-        color: "text-green-400",
-        strokeColor: "#4ade80",
-        icon: "chip"
-      },
-      {
-        name: "Robert Marzano",
-        archetype: "The Systematizer",
-        quote: "Mining AI analytics to identify moves with largest effect sizes.",
-        bio: "Researcher of 'high-yield instructional strategies' backed by meta-analysis. He rejected intuition over evidence, mining AI analytics to identify which moves generate largest effect sizes.",
-        color: "text-cyan-400",
-        strokeColor: "#22d3ee",
-        icon: "chip"
-      },
-      {
-        name: "Jay McTighe",
-        archetype: "The Cartographer",
-        quote: "AI assessment honors deep understanding over surface metrics.",
-        bio: "Co-architect of the UbD framework. He rejected teaching to the test, insisting AI assessment honor deep understanding over surface-level performance metrics.",
-        color: "text-violet-400",
-        strokeColor: "#a78bfa",
-        icon: "puzzle"
-      },
-      {
-        name: "Grant Wiggins",
-        archetype: "The Cartographer",
-        quote: "AI prompts as backward-designed learning architectures.",
-        bio: "Co-creator of Understanding by Design and backward design. He rejected content coverage over understanding, treating AI prompts as backward-designed learning architectures.",
-        color: "text-fuchsia-400",
-        strokeColor: "#e879f9",
-        icon: "puzzle"
-      },
-      {
-        name: "Michael Schrage",
-        archetype: "The Collaboration Architect",
-        quote: "AI as collaborative infrastructure for co-creation.",
-        bio: "Theorist of shared spaces and serious play. He rejected isolation as optimal learning, seeing AI as collaborative infrastructure for co-creation, not solo consumption.",
-        color: "text-cyan-400",
-        strokeColor: "#22d3ee",
-        icon: "network"
-      },
-      {
-        name: "Dr. Jean Lave",
-        archetype: "The Connector",
-        quote: "Learning is always an aspect of all human activity.",
-        bio: "Anthropologist who pioneered the theory of situated learning. She rejected the 'Prussian classroom' model, proving that learning is always an aspect of all human activity within communities of practice.",
-        color: "text-indigo-400",
-        strokeColor: "#818cf8",
-        icon: "network"
-      },
-      {
-        name: "Etienne Wenger",
-        archetype: "The Connector",
-        quote: "AI connecting novices to global networks of participation.",
-        bio: "Computer scientist and educational theorist who defined 'Communities of Practice'. He rejected isolated skill acquisition, viewing AI as infrastructure connecting novices to global networks of participation.",
-        color: "text-indigo-400",
-        strokeColor: "#818cf8",
-        icon: "network"
-      },
-      {
-        name: "Malcolm Knowles",
-        archetype: "The Andragogue",
-        quote: "AI must respect learner autonomy over algorithmic control.",
-        bio: "Pioneer of adult learning theory and self-directed learning. He rejected pedagogical paternalism, demanding AI respect learner autonomy rather than algorithmic control.",
-        color: "text-yellow-400",
-        strokeColor: "#facc15",
-        icon: "graduation"
-      },
-      {
-        name: "Edward T. Hall",
-        archetype: "The Context Decoder",
-        quote: "AI must honor cultural context over universalism.",
-        bio: "Mapped high/low context communication and proxemics. He rejected universal communication assumptions, demanding AI honor cultural context over algorithmic universalism.",
-        color: "text-violet-400",
-        strokeColor: "#a78bfa",
-        icon: "globe"
-      },
-      {
-        name: "Geert Hofstede",
-        archetype: "The Cultural Cartographer",
-        quote: "AI personalization honors cultural diversity at its core.",
-        bio: "Mapped cultural dimensions across societies. He rejected one-size-fits-all Western educational models, demanding AI personalization honor cultural diversity at its core.",
-        color: "text-blue-400",
-        strokeColor: "#60a5fa",
-        icon: "globe"
-      },
-      {
-        name: "Nel Noddings",
-        archetype: "The Caregiver",
-        quote: "Technology must serve care.",
-        bio: "Theorist of 'ethics of care' in education. She rejected cold efficiency, insisting AI cannot replace the irreducible moral encounter between teacher and student—technology must serve care.",
-        color: "text-rose-400",
-        strokeColor: "#fb7185",
-        icon: "plant"
-      },
-      {
-        name: "Daniel Pink",
-        archetype: "The Motivation Scientist",
-        quote: "AI as intrinsic motivation engine.",
-        bio: "Author of 'Drive' who mapped autonomy, mastery, and purpose. He rejected carrots-and-sticks, showing how AI can fuel the intrinsic drive to learn and achieve.",
-        color: "text-stone-400",
-        strokeColor: "#a8a29e",
-        icon: "mountain"
-      },
-      {
-        name: "Paul Tough",
-        archetype: "The Character Developer",
-        quote: "Character strengths as the foundation for AI resilience.",
-        bio: "Explorer of how children succeed through non-cognitive skills. He rejected purely academic metrics, highlighting grit and self-control as the foundational traits for resilience.",
-        color: "text-stone-400",
-        strokeColor: "#a8a29e",
-        icon: "mountain"
-      },
-      {
-        name: "Kurt Vonnegut Jr.",
-        archetype: "The Unicorn",
-        quote: "AI must serve human values, not replace them.",
-        bio: "Championed human creativity and kindness over efficiency. He rejected dehumanizing systems and technological determinism, insisting AI serve human values, not replace them.",
-        color: "text-pink-400",
-        strokeColor: "#f472b6",
-        icon: "star"
-      },
-      {
-        name: "Tony Wagner",
-        archetype: "The Innovation Expert",
-        quote: "Play, passion, and purpose as the drivers of innovation.",
-        bio: "Pioneer of 'Survival Skills' for the 21st century. He rejected knowledge consumption, advocating for play, passion, and purpose as the drivers of innovation.",
-        color: "text-orange-400",
-        strokeColor: "#fb923c",
-        icon: "star"
-      },
-      {
-        name: "Yong Zhao",
-        archetype: "The Globalization Scholar",
-        quote: "Fostering world-class learners who create their own paths.",
-        bio: "Champion of entrepreneurial mindsets and globalization. He rejected standardized testing and forced homogenization, fostering world-class learners who create their own paths.",
-        color: "text-blue-400",
-        strokeColor: "#60a5fa",
-        icon: "graduation"
-      },
-      {
-        name: "Brian Eno",
-        archetype: "The Alchemist of Constraint",
-        quote: "Oblique strategies for lateral thinking in the AI era.",
-        bio: "Creator of Oblique Strategies. He rejected the linear path, using constraint and randomness as tools to break cognitive locks and discover new creative horizons.",
-        color: "text-stone-400",
-        strokeColor: "#a8a29e",
-        icon: "star"
-      },
-      {
-        name: "Peter Schmidt",
-        archetype: "The Alchemist of Constraint",
-        quote: "Creative limitation as a driver of originality.",
-        bio: "Artist and co-creator of Oblique Strategies. He rejected the paralysis of infinite choice, championing the productive tension of constraint in the creative process.",
-        color: "text-stone-400",
-        strokeColor: "#a8a29e",
-        icon: "star"
-      },
-      {
-        name: "Dr. Milton Bennett",
-        archetype: "The Intercultural Bridge",
-        quote: "Journey from ethnocentrism to ethnorelativism.",
-        bio: "Co-creator of the Developmental Model of Intercultural Sensitivity (DMIS). He rejected the idea that exposure alone creates competence, insisting on a structured journey from ethnocentrism to ethnorelativism.",
-        color: "text-teal-400",
-        strokeColor: "#2dd4bf",
-        icon: "network"
-      },
-      {
-        name: "Dr. Janet Bennett",
-        archetype: "The Intercultural Bridge",
-        quote: "Deep, transformative mindset shifts for global connection.",
-        bio: "Executive director of the Intercultural Communication Institute. She rejected 'surface-level' diversity training, championing the deep, transformative mindset shifts required for true global connection.",
-        color: "text-teal-400",
-        strokeColor: "#2dd4bf",
-        icon: "network"
-      },
-      {
-        name: "Roger von Oech",
-        archetype: "The Mental Lock-Breaker",
-        quote: "Explorer, Artist, Judge, Warrior—unlocked by AI.",
-        bio: "Creator of the Creative Whack Pack. He rejected mental ruts, using AI as a catalyst to shift perspectives and unlock creative potential across multiple personas.",
-        color: "text-yellow-400",
-        strokeColor: "#facc15",
-        icon: "star"
-      },
-      {
-        name: "Albert Bandura",
-        archetype: "The Observer",
-        quote: "Self-efficacy developed through AI-mediated modeling.",
-        bio: "Architect of 'social learning theory' and self-efficacy. He rejected behaviorist determinism, seeing AI role models as vicarious learning tools while warning against crushing human agency.",
-        color: "text-pink-400",
-        strokeColor: "#f472b6",
-        icon: "brain"
-      },
-      {
-        name: "Jerome Bruner",
-        archetype: "The Scaffolder",
-        quote: "AI as dynamic scaffolding for discovery learning.",
-        bio: "Theorist of 'discovery learning' and the spiral curriculum. He rejected rote memorization, treating AI as dynamic scaffolding that adjusts complexity as learners construct understanding.",
-        color: "text-green-400",
-        strokeColor: "#4ade80",
-        icon: "mountain"
-      },
-      {
-        name: "Caleb Gattegno",
-        archetype: "The Encoder",
-        image: "assets/images/gattegno_encoder_1769586618987.png",
-        quote: "Only awareness is educable.",
-        bio: "Believed only awareness is educable, demanding we subordinate teaching to learning. He rejected learning without awareness, treating AI as a feedback mirror for conscious cognition.",
-        color: "text-amber-400",
-        strokeColor: "#fbbf24",
-        icon: "chip"
-      },
-      {
-        name: "David Cooperrider",
-        archetype: "The Appreciative Inquirer",
-        image: "assets/images/cooperrider_appreciative_inquirer_v2_1769705685828.png",
-        quote: "Amplify the positive core through AI visioning.",
-        bio: "Founder of Appreciative Inquiry. He rejected the deficit paradigm of 'fixing what's wrong', proving organizations change faster by amplifying their 'positive core' and envisioning aspirational futures.",
-        color: "text-yellow-400",
-        strokeColor: "#facc15",
-        icon: "star"
       }
     ];
 
@@ -742,13 +339,13 @@
             initial={{ scale: 0.9, y: 20 }}
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.9, y: 20 }}
-            className="bg-gray-900 border border-q2-cyan/30 rounded-lg max-w-2xl w-full shadow-2xl relative overflow-hidden"
+            className="bg-white border border-q2-cyan/30 rounded-lg max-w-2xl w-full shadow-2xl relative overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-8 border-b border-white/10 relative">
+            <div className="p-8 border-b border-zinc-100 relative">
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl"
+                className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-900 text-2xl"
               >
                 ×
               </button>
@@ -757,15 +354,15 @@
                   {item.type} // INTELLIGENCE
                 </span>
               </div>
-              <h3 className="text-3xl font-bold text-white mb-2">
+              <h3 className="text-3xl font-bold text-zinc-900 mb-2">
                 {item.fullTitle}
               </h3>
-              <p className="text-gray-400 text-lg">
+              <p className="text-zinc-600 text-lg">
                 {item.content}
               </p>
             </div>
 
-            <div className="p-8 bg-black/30">
+            <div className="p-8 bg-zinc-50">
               <h4 className="text-q2-gold font-bold uppercase tracking-widest text-xs mb-3 flex items-center gap-2">
                 <span>⚡</span> Proposed Solution
               </h4>
@@ -774,7 +371,7 @@
                   {item.service}
                 </p>
               </div>
-              <a href={item.link} className="w-full bg-q2-cyan text-black font-bold py-4 rounded hover:bg-white transition-colors flex items-center justify-center gap-2">
+              <a href={item.link} className="w-full bg-q2-cyan text-white font-bold py-4 rounded hover:bg-zinc-800 transition-colors flex items-center justify-center gap-2">
                 INITIALIZE PROTOCOL →
               </a>
             </div>
@@ -785,75 +382,99 @@
 
     // Orchestra Card Component - NAME MOVES UP, text drops down, NO card movement
     function OrchestraCard({ member, index }) {
+      const [imageError, setImageError] = useState(false);
+
       return (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: index * 0.05 }}
-          className="ancestor-card group border border-white/10 rounded-xl p-6 bg-gray-900/40 backdrop-blur-sm transition-all duration-300 hover:border-q2-cyan/50"
+          className="ancestor-card group border border-zinc-200 rounded-xl p-6 bg-white shadow-sm transition-all duration-300 hover:border-q2-cyan/50"
         >
           {/* Background Image */}
-          {member.image ? (
+          {member.image && !imageError ? (
             <div className="absolute inset-0 z-0">
-              <img src={member.image} alt={member.name} className="w-full h-full object-cover opacity-100 saturate-125 transition-all duration-700 group-hover:opacity-40 group-hover:grayscale" />
+              <img
+                src={member.image}
+                alt={member.name}
+                className="w-full h-full object-cover opacity-100 saturate-125 transition-all duration-700 group-hover:opacity-40 group-hover:grayscale"
+                onError={() => setImageError(true)}
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent"></div>
             </div>
           ) : (
             /* Large background icon - very subtle */
             <div className="ancestor-icon-bg">
-              {LineIcons[member.icon](member.strokeColor, "line-icon-large")}
+              {LineIcons[member.icon] ? LineIcons[member.icon](member.strokeColor, "line-icon-large") : LineIcons.puzzle(member.strokeColor, "line-icon-large")}
             </div>
           )}
 
           {/* Content that moves up on hover */}
           <div className="ancestor-content">
-            <p className={`${member.color} text-xs tracking-widest mb-2 uppercase`}>
+            <p className={`${member.color} text-[10px] tracking-widest mb-1 uppercase font-bold`}>
               {member.archetype}
             </p>
-            <h3 className="font-bold text-sm mb-1">
+            <h3 className="font-bold text-sm mb-1 text-white">
               {member.name}
             </h3>
 
             {/* Hover to decrypt - fades out */}
-            <p className="hover-hide text-gray-500 text-xs mt-2 transition-all duration-300">
+            <p className="hover-hide text-gray-500 text-[10px] mt-2 transition-all duration-300">
               [HOVER TO DECRYPT]
             </p>
 
             {/* Text that drops down */}
             <div className="ancestor-bio">
-              {member.quote && (
-                <p className="text-q2-cyan text-sm font-bold mb-3 italic">
-                  "{member.quote}"
+              {(member.secondary_quote || member.quote) && (
+                <p className="text-q2-cyan text-[11px] font-bold mb-2 italic leading-tight">
+                  "{member.secondary_quote || member.quote}"
                 </p>
               )}
-              <p className="text-gray-400 text-sm leading-relaxed">
+              <p className="text-zinc-600 text-[11px] leading-relaxed line-clamp-4">
                 {member.bio}
               </p>
+
+              {member.notebookLink && (
+                <a
+                  href={member.notebookLink}
+                  target="_blank"
+                  className="mt-4 inline-flex items-center gap-2 bg-q2-cyan/20 text-q2-cyan border border-q2-cyan/30 px-3 py-1.5 rounded text-[10px] font-bold hover:bg-q2-cyan hover:text-black transition-all"
+                >
+                  <span className="w-2 h-2 bg-q2-cyan rounded-full animate-pulse"></span>
+                  NOTEBOOKLM ACCESS →
+                </a>
+              )}
             </div>
           </div>
         </motion.div>
       );
     }
 
-    function RotatingQuotes() {
-      const quotes = orchestraData.filter(m => m.quote || m.bio).map(m => ({
-        text: m.quote || `"${m.bio.split('.')[0]}."`,
-        author: m.name,
-        instrument: m.instrument || m.archetype
-      }));
+    function RotatingQuotes({ data }) {
+      const quotes = React.useMemo(() => {
+        if (!data || data.length === 0) return [];
+        return data.filter(m => m.secondary_quote || m.quote).map(m => ({
+          text: m.secondary_quote || m.quote,
+          author: m.name,
+          instrument: m.instrument || m.archetype
+        }));
+      }, [data]);
 
       const [index, setIndex] = useState(0);
 
       useEffect(() => {
+        if (quotes.length <= 1) return;
         const interval = setInterval(() => {
           setIndex((prev) => (prev + 1) % quotes.length);
         }, 10000);
         return () => clearInterval(interval);
       }, [quotes.length]);
 
+      if (quotes.length === 0) return null;
+
       return (
-        <div className="max-w-4xl mx-auto my-12 text-center relative h-48 flex items-center justify-center">
+        <div className="max-w-4xl mx-auto my-12 text-center relative h-32 flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
@@ -861,16 +482,16 @@
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.5 }}
-              className="absolute inset-0 flex flex-col items-center justify-center"
+              className="absolute inset-0 flex flex-col items-center justify-center px-4"
             >
               <p
-                className="text-xl md:text-2xl font-serif text-gray-200 mb-4 leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: quotes[index].text }}
+                className="text-lg md:text-xl font-serif text-zinc-800 mb-4 leading-relaxed italic"
+                dangerouslySetInnerHTML={{ __html: `"${quotes[index].text}"` }}
               />
-              <div className="flex items-center gap-2 text-sm text-gray-400 font-mono tracking-wide">
+              <div className="flex items-center gap-2 text-[10px] text-zinc-500 font-mono tracking-wide">
                 <span className="text-q2-cyan font-bold uppercase">{quotes[index].author}</span>
                 <span className="w-1 h-1 bg-gray-500 rounded-full"></span>
-                <span className="text-q2-gold border border-q2-gold/30 px-2 py-0.5 rounded-full text-xs bg-q2-gold/5">
+                <span className="text-q2-gold border border-q2-gold/30 px-2 py-0.5 rounded-full text-[10px] bg-q2-gold/5">
                   {quotes[index].instrument}
                 </span>
               </div>
@@ -882,9 +503,22 @@
 
     // Main App Component
     function App() {
-      useHashScroll(); // Activate hash scrolling fix
-
+      useHashScroll();
       const [selectedSOAR, setSelectedSOAR] = useState(null);
+      const [orchestraData, setOrchestraData] = useState([]);
+      const [gridData, setGridData] = useState([]);
+
+      useEffect(() => {
+        fetch('virtuosos_db.json')
+          .then(res => res.json())
+          .then(data => {
+            setOrchestraData(data);
+            // Shuffle and pick 12 for the landing page grid
+            const shuffled = [...data].sort(() => 0.5 - Math.random());
+            setGridData(shuffled.slice(0, 12));
+          })
+          .catch(err => console.error("Error loading virtuosos:", err));
+      }, []);
 
       const typeColors = {
         STRENGTH: "bg-blue-500/20 text-blue-400",
@@ -896,7 +530,7 @@
       return (
         <>
           {/* Navigation */}
-          <header className="relative z-50 border-b border-white/5 bg-black/40 backdrop-blur-xl sticky top-0">
+          <header className="relative z-50 border-b border-zinc-100 bg-white/80 backdrop-blur-xl sticky top-0">
             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
               <a href="index.html" className="flex items-center gap-4 group">
                 <div
@@ -913,17 +547,17 @@
                   </svg>
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold tracking-tight text-white">Q2 PIVOT</h1>
-                  <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mt-0.5 font-bold">The Conductor's Toolkit</p>
+                  <h1 className="text-xl font-bold tracking-tight text-zinc-900">SOVEREIGN TRANSITIONS</h1>
+                  <p className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mt-0.5 font-bold">The Conductor's Toolkit</p>
                 </div>
               </a>
               <nav className="hidden md:flex items-center gap-8">
                 <a href="#pivot"
-                  className="text-sm font-medium text-zinc-400 hover:text-q2-cyan transition-colors italic">The Pivot</a>
+                  className="text-sm font-medium text-zinc-600 hover:text-q2-cyan transition-colors italic">The Pivot</a>
                 <a href="orchestra.html"
-                  className="text-sm font-medium text-zinc-400 hover:text-q2-cyan transition-colors italic">The Orchestra</a>
+                  className="text-sm font-medium text-zinc-600 hover:text-q2-cyan transition-colors italic">The Orchestra</a>
                 <a href="#radar"
-                  className="text-sm font-medium text-zinc-400 hover:text-q2-cyan transition-colors italic">The Radar</a>
+                  className="text-sm font-medium text-zinc-600 hover:text-q2-cyan transition-colors italic">The Radar</a>
                 <a href="vault.html"
                   className="bg-q2-cyan/10 text-q2-cyan px-4 py-2 border border-q2-cyan/30 rounded text-sm hover:bg-q2-cyan hover:text-black transition-all font-mono italic">SECURE ARCHIVE</a>
               </nav>
@@ -948,41 +582,41 @@
                     <span className="text-q2-cyan">Transformation.</span>
                   </h1>
 
-                  <p className="text-gray-300 text-lg leading-relaxed max-w-xl">
-                    Most institutions acknowledge the need for change, but few are implementing what they are supposed to. Q2 Pivot bridges the gap between acknowledgment and orchestration.
+                  <p className="text-zinc-600 text-lg leading-relaxed max-w-xl">
+                    Your institution has an AI policy. Your faculty aren't using it. The problem isn't resistance—it's architecture. The Foundational Constants framework gives provosts the institutional infrastructure that makes AI adoption inevitable.
                   </p>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {/* The Radar - with line icon */}
-                    <a href="#radar" className="group relative p-1 rounded-2xl bg-gradient-to-br from-q2-gold/20 to-transparent hover:from-q2-cyan/50 transition-all duration-300 block">
-                      <div className="border border-q2-gold/30 rounded-xl p-6 bg-black/40 backdrop-blur-sm">
+                    <a href="#radar" className="group relative p-1 rounded-2xl bg-gradient-to-br from-q2-gold/10 to-transparent hover:from-q2-cyan/50 transition-all duration-300 block">
+                      <div className="border border-q2-gold/20 rounded-xl p-6 bg-white shadow-sm">
                         <div className="text-q2-gold mb-3 group-hover:text-q2-cyan transition-colors flex justify-center">
                           {LineIcons.radar("#c5a059", "w-10 h-10 mx-auto group-hover:stroke-q2-cyan transition-colors")}
                         </div>
-                        <h3 className="text-xl font-bold mb-2">The Radar</h3>
-                        <p className="text-gray-400 text-sm">Weekly governance intelligence.</p>
+                        <h3 className="text-xl font-bold mb-2 text-zinc-900">The Radar</h3>
+                        <p className="text-zinc-500 text-sm">Weekly governance intelligence.</p>
                       </div>
                     </a>
 
                     {/* The Collision - with line icon */}
-                    <a href="#collision" className="group relative p-1 rounded-2xl bg-gradient-to-br from-q2-cyan/20 to-transparent hover:from-q2-gold/50 transition-all duration-300 block">
-                      <div className="border border-q2-cyan/30 rounded-xl p-6 bg-black/40 backdrop-blur-sm">
+                    <a href="#collision" className="group relative p-1 rounded-2xl bg-gradient-to-br from-q2-cyan/10 to-transparent hover:from-q2-gold/50 transition-all duration-300 block">
+                      <div className="border border-q2-cyan/20 rounded-xl p-6 bg-white shadow-sm">
                         <div className="text-q2-cyan mb-3 group-hover:text-q2-gold transition-colors flex justify-center">
                           {LineIcons.document("#0ff0fc", "w-10 h-10 mx-auto group-hover:stroke-q2-gold transition-colors")}
                         </div>
-                        <h3 className="text-xl font-bold mb-2">The Collision</h3>
-                        <p className="text-gray-400 text-sm">Steampunk meets AI.</p>
+                        <h3 className="text-xl font-bold mb-2 text-zinc-900">The Collision</h3>
+                        <p className="text-zinc-500 text-sm">Steampunk meets AI.</p>
                       </div>
                     </a>
 
                     {/* The Orchestra - with line icon */}
-                    <a href="#orchestra" className="group relative p-1 rounded-2xl bg-gradient-to-br from-purple-500/20 to-transparent hover:from-q2-cyan/50 transition-all duration-300 block">
-                      <div className="border border-purple-500/30 rounded-xl p-6 bg-black/40 backdrop-blur-sm">
-                        <div className="text-purple-400 mb-3 group-hover:text-q2-cyan transition-colors flex justify-center">
+                    <a href="#orchestra" className="group relative p-1 rounded-2xl bg-gradient-to-br from-purple-500/10 to-transparent hover:from-q2-cyan/50 transition-all duration-300 block">
+                      <div className="border border-purple-500/20 rounded-xl p-6 bg-white shadow-sm">
+                        <div className="text-purple-600 mb-3 group-hover:text-q2-cyan transition-colors flex justify-center">
                           {LineIcons.star("#a78bfa", "w-10 h-10 mx-auto group-hover:stroke-q2-cyan transition-colors")}
                         </div>
-                        <h3 className="text-xl font-bold mb-2">The Orchestra</h3>
-                        <p className="text-gray-400 text-sm">Giants with cybernetic upgrades.</p>
+                        <h3 className="text-xl font-bold mb-2 text-zinc-900">The Orchestra</h3>
+                        <p className="text-zinc-500 text-sm">Giants with cybernetic upgrades.</p>
                       </div>
                     </a>
                   </div>
@@ -1002,7 +636,7 @@
                     >
                       01001010<br />
                       11010011<br />
-                      PIVOT_COMPLETE
+                      TRANSITION_COMPLETE
                     </motion.div>
                   </motion.div>
 
@@ -1014,7 +648,7 @@
                   >
                     <motion.img
                       src="https://0b252e7e.q2pivot-web.pages.dev/logo.png"
-                      alt="Q2 Pivot Logo"
+                      alt="Sovereign Transitions Logo"
                       className="absolute inset-0 m-auto w-[400px] h-[400px] object-contain z-10"
                       animate={{
                         y: [0, -15, 0],
@@ -1054,8 +688,8 @@
                 className="border-l-4 border-q2-gold pl-6 mb-16 relative"
               >
                 <div className="absolute -ml-20 mt-2 text-q2-gold text-6xl opacity-10 font-bold">1885</div>
-                <h2 className="text-5xl md:text-6xl font-bold mb-4">The Collision</h2>
-                <p className="text-gray-400 text-2xl italic">
+                <h2 className="text-5xl md:text-6xl font-bold mb-4 text-zinc-900">The Collision</h2>
+                <p className="text-zinc-500 text-2xl italic">
                   "We are entering Q2 of the 21st Century using the Operating systems of 1885."
                 </p>
               </motion.div>
@@ -1075,7 +709,7 @@
 
                   Behind us lies a model forged in the <span className="text-q2-gold font-semibold">Prussian reforms</span> and solidified in the <span className="text-q2-gold font-semibold">1885</span>.
 
-                  <p className="text-gray-300 leading-relaxed text-lg">
+                  <p className="text-zinc-600 leading-relaxed text-lg">
                     It was built for the industrial age—standardized testing, rigid hierarchies, and the scarcity of information. It is a machine of brass gears: heavy, reliable, but grinding to a halt.
                   </p>
                 </motion.div>
@@ -1092,11 +726,11 @@
                     The AI Future
                   </h3>
 
-                  <p className="text-gray-300 leading-relaxed text-lg">
+                  <p className="text-zinc-600 leading-relaxed text-lg">
                     Ahead lies a fluid, hyper-accelerated reality where <span className="text-q2-cyan font-semibold">intelligence is abundant</span>, and the old metrics of "knowledge retention" are obsolete.
                   </p>
 
-                  <p className="text-gray-300 leading-relaxed text-lg">
+                  <p className="text-zinc-600 leading-relaxed text-lg">
                     This mismatch is not just inefficient; it is dangerous. Using <span className="text-q2-gold font-semibold">steam-engine policies</span> to <span className="text-q2-cyan font-semibold">govern generative AI results</span> in catastrophic friction.
                   </p>
                 </motion.div>
@@ -1108,13 +742,13 @@
           <section className="py-24 px-8 bg-black/30 border-y border-white/5" id="pillars">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold mb-4">The 3 Pillars Framework</h2>
-                <p className="text-gray-400 text-xl max-w-3xl mx-auto">
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900">The Foundational Constants</h2>
+                <p className="text-zinc-600 text-xl max-w-3xl mx-auto">
                   Architectural decisions that shape faculty behavior for years. Sustainable transformation through infrastructure, not mandating.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+              <div className="grid md:grid-cols-3 gap-8">
                 {[
                   {
                     title: "Friction Tolerance",
@@ -1136,13 +770,6 @@
                     desc: "How do we make faculty adoption intrinsically motivated?",
                     detail: "Aligning AI adoption with professional purpose, peer belonging, and creative agency.",
                     theorists: "Kotter, Senge, Sinek, Lave & Wenger"
-                  },
-                  {
-                    title: "Moral Fidelity",
-                    icon: "plant",
-                    desc: "Preserving the irreducible moral encounter between teacher and student.",
-                    detail: "Technology must serve care. We architect for the unique soul of the student, ensuring AI amplifies rather than replaces human presence.",
-                    theorists: "Hooks, Noddings, Montessori, Alexander"
                   }
                 ].map((pillar, i) => (
                   <motion.div
@@ -1151,16 +778,16 @@
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.2 }}
-                    className="p-8 border border-white/10 rounded-2xl bg-gray-900/50 hover:border-q2-cyan/30 transition-all group"
+                    className="p-8 border border-zinc-200 rounded-2xl bg-white shadow-sm hover:border-q2-cyan/30 transition-all group"
                   >
                     <div className="text-q2-cyan mb-6 group-hover:scale-110 transition-transform flex justify-center">
-                      {LineIcons[pillar.icon]("#0ff0fc", "w-16 h-16")}
+                      {LineIcons[pillar.icon]("#0d7c8c", "w-16 h-16")}
                     </div>
-                    <h3 className="text-2xl font-bold mb-4 text-center">{pillar.title}</h3>
-                    <p className="text-gray-300 font-bold mb-4 text-center italic">{pillar.desc}</p>
-                    <p className="text-gray-400 text-sm mb-6 text-center">{pillar.detail}</p>
-                    <div className="pt-6 border-t border-white/5">
-                      <p className="text-[10px] font-mono text-gray-500 uppercase tracking-widest text-center">Intellectual Foundation</p>
+                    <h3 className="text-2xl font-bold mb-4 text-center text-zinc-900">{pillar.title}</h3>
+                    <p className="text-zinc-700 font-bold mb-4 text-center italic">{pillar.desc}</p>
+                    <p className="text-zinc-500 text-sm mb-6 text-center">{pillar.detail}</p>
+                    <div className="pt-6 border-t border-zinc-100">
+                      <p className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest text-center">Intellectual Foundation</p>
                       <p className="text-xs text-q2-gold text-center mt-1">{pillar.theorists}</p>
                     </div>
                   </motion.div>
@@ -1185,13 +812,13 @@
                 transition={{ duration: 0.6 }}
                 className="border border-white/10 rounded-2xl p-8 md:p-12 bg-black/30 backdrop-blur-sm space-y-8"
               >
-                <h2 className="text-4xl md:text-5xl font-bold mb-8">The Q2 Pivot</h2>
+                <h2 className="text-4xl md:text-5xl font-bold mb-8">The Sovereign Transitions</h2>
 
                 <div className="space-y-8">
                   {[
                     { num: "01", from: "Training Faculty on AI", to: "Cognitive Architects", desc: "Turn faculty from AI skeptics into Cognitive Architects through 6 weeks of live certification.", link: "authenticity.html" },
                     { num: "02", from: "Renting Intelligence", to: "Sovereign Infrastructure", desc: "Stop renting intelligence. Own your infrastructure, your models, and your data sovereignty.", link: "architecture.html" },
-                    { num: "03", from: "The 15-Week Semester", to: "The Async-First Pivot", desc: "Condense rote content delivery into AI-driven asynchronous modules. Reclaim campus hours for high-value research.", link: "strategy.html" },
+                    { num: "03", from: "The 15-Week Semester", to: "The Async-First Transition", desc: "Condense rote content delivery into AI-driven asynchronous modules. Reclaim campus hours for high-value research.", link: "strategy.html" },
                     { num: "04", from: "Coding AI", to: "Governing the Machine", desc: "Launch a student-facing credential that trains the governors of the machine. Turnkey curriculum.", link: "guardrails.html" }
                   ].map((item, i) => (
                     <a href={item.link} key={i} className="block group">
@@ -1230,10 +857,7 @@
                     The first quarter of the 21st Century is
                   </span>
                   <span className="text-q2-cyan"> over.</span>
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-q2-gold via-white to-q2-cyan ml-2">
-                    It's time for the Q2
-                  </span>
-                  <span className="text-q2-cyan"> Pivot.</span>
+                  <span className="text-q2-cyan"> Transitions.</span>
                 </motion.p>
               </motion.div>
             </div>
@@ -1254,13 +878,13 @@
                 </p>
 
                 {/* Rotating Quotes */}
-                <RotatingQuotes />
+                <RotatingQuotes data={orchestraData} />
 
               </motion.div>
 
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {orchestraData.map((member, index) => (
+                {gridData.map((member, index) => (
                   <OrchestraCard key={index} member={member} index={index} />
                 ))}
               </div>
@@ -1399,8 +1023,8 @@
 
                   {[
                     { title: "The Subtraction Strategy Playbook", classification: "AVAILABLE: CONTACT US", color: "bg-blue-500/20 border-blue-900 text-blue-400" },
-                    { title: "Oasis International School: Phase 1 Report", classification: "RESTRICTED", color: "bg-yellow-500/20 border-yellow-900 text-yellow-400" },
-                    { title: "UIC Executive Summary: Governance Models", classification: "RESTRICTED", color: "bg-yellow-500/20 border-yellow-900 text-yellow-400" },
+                    { title: "UAE Private Institution: Phase 1 Report", classification: "RESTRICTED", color: "bg-yellow-500/20 border-yellow-900 text-yellow-400" },
+                    { title: "Florida Private Institution Executive Summary: Governance Models", classification: "RESTRICTED", color: "bg-yellow-500/20 border-yellow-900 text-yellow-400" },
                     { title: "Cognitive Architecture: 2026 Spec", classification: "CONFIDENTIAL", color: "bg-q2-gold/20 border-q2-gold/50 text-q2-gold" },
                     { title: "Sovereign Cloud: Deployment Roadmap", classification: "RESTRICTED", color: "bg-yellow-500/20 border-yellow-900 text-yellow-400" },
                     { title: "The Forbidden Orchestra: NotebookLM Source", classification: "TOP SECRET", color: "bg-red-500/20 border-red-900/30 text-red-500" }
@@ -1432,12 +1056,12 @@
             <div className="max-w-7xl mx-auto text-center">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2">
-                  <span className="text-q2-gold">Q2</span> <span className="text-q2-cyan">PIVOT</span>
+                  <span className="text-q2-gold">SOVEREIGN</span> <span className="text-q2-cyan">TRANSITIONS</span>
                 </h3>
-                <p className="text-gray-500 text-sm">Governing the AI Transition</p>
+                <p className="text-gray-500 text-sm">GOVERN the AI Transition</p>
               </div>
               <p className="text-gray-600 text-xs mb-2">
-                Q2 Pivot is an initiative of the Elmwood Fields Leadership Alliance (EFLA) and Coaching with Dr. Larry, LLC.
+                Q2 Pivot is a division of Q2 Education (Pty) Ltd, incorporated in South Africa.
               </p>
               <p className="text-gray-600 text-xs">
                 © 2026 Q2 Pivot. All rights reserved. | Educational Leadership • AI Governance • Strategic Foresight

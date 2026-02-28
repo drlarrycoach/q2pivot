@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Orchestra | Q2 Pivot</title>
+    <title>The Orchestra | Sovereign Transitions</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -27,16 +27,16 @@
 
     <style>
         body {
-            background-color: #0a0a12;
-            color: white;
+            background-color: #fcfaf5;
+            color: #18181b;
             font-family: 'Inter', sans-serif;
         }
 
-        /* Grid background */
+        /* Grid background - Light Authority */
         .grid-bg {
             background-image:
-                linear-gradient(rgba(15, 240, 252, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(15, 240, 252, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(13, 124, 140, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(13, 124, 140, 0.08) 1px, transparent 1px);
             background-size: 40px 40px;
         }
 
@@ -106,11 +106,11 @@
         }
 
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
+            background: #f5f2eb;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(15, 240, 252, 0.3);
+            background: rgba(13, 124, 140, 0.3);
             border-radius: 10px;
         }
     </style>
@@ -768,7 +768,7 @@
                 borderColor: "border-q2-gold",
                 metaphor: "The brass section announces power and transformation. These voices shout above the noise, demanding we begin with 'Why' and find the courage to lead through disruption rather than manage decline.",
                 products: [
-                    { name: "The Subtraction Strategy", link: "strategy.html", style: "primary" },
+                    { name: "The Subtraction Strategy", link: "product_strategy.html", style: "primary" },
                     { name: "Leadership Pivot Retreats", link: "product_mockup.html?product=Leadership_Retreats", style: "secondary" },
                     { name: "Crisis Management", link: "product_mockup.html?product=Crisis_Management", style: "secondary" }
                 ],
@@ -825,10 +825,8 @@
                             <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl">×</button>
                             <div className="flex items-center gap-4 mb-2">
                                 {LineIcons[section.icon] ? LineIcons[section.icon](section.color.replace('text-', '#').replace('-400', ''), "w-10 h-10") : null}
-                                <div>
-                                    <h2 className={`text-3xl font-bold ${section.color} uppercase tracking-widest`}>{section.title}</h2>
-                                    <p className="text-gray-400 font-serif italic">{section.subtitle}</p>
-                                </div>
+                                <h4 className="text-3xl font-bold text-zinc-900 mb-2 truncate group-hover:text-q2-cyan transition-colors">{section.title}</h4>
+                                <p className="text-xs text-zinc-400 uppercase tracking-[0.2em] font-mono">{section.subtitle}</p>
                             </div>
                         </div>
 
@@ -893,7 +891,7 @@
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.05 }}
-                    className="ancestor-card group border border-white/10 rounded-xl p-6 bg-gray-900/40 backdrop-blur-sm transition-all duration-300 hover:border-q2-cyan/50"
+                    className="ancestor-card group border border-zinc-200 rounded-xl p-6 bg-white shadow-sm transition-all duration-300 hover:border-q2-cyan/50"
                 >
                     {/* Background Image */}
                     {member.image && !imageError ? (
@@ -1031,7 +1029,7 @@
             return (
                 <div className="min-h-screen flex flex-col">
                     {/* Navigation */}
-                    <header className="relative z-50 border-b border-white/5 bg-black/40 backdrop-blur-xl sticky top-0">
+                    <header className="relative z-50 border-b border-zinc-100 bg-white/80 backdrop-blur-xl sticky top-0">
                         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                             <a href="index.html" className="flex items-center gap-4 group">
                                 <div
@@ -1045,20 +1043,26 @@
                                         <line x1="2" y1="12" x2="22" y2="12"></line>
                                         <line x1="2" y1="7" x2="22" y2="7"></line>
                                         <line x1="2" y1="17" x2="22" y2="17"></line>
+                                        <div key={idx} className="p-6 border border-zinc-100 rounded-xl bg-zinc-50/50">
+                                            <h5 className={`font-bold text-lg mb-1`} style={{ color: member.strokeColor || '#fff' }}>{member.name}</h5>
+                                            <p className="text-[10px] text-zinc-400 uppercase tracking-widest mb-3">{member.instrument || member.archetype}</p>
+                                            <p className="text-zinc-600 text-sm italic mb-4 leading-relaxed">"{member.secondary_quote || member.quote}"</p>
+                                            <p className="text-zinc-500 text-sm leading-relaxed">{member.bio}</p>
+                                        </div>
                                     </svg>
                                 </div>
                                 <div>
-                                    <h1 className="text-xl font-bold tracking-tight text-white">Q2 PIVOT</h1>
+                                    <h1 className="text-xl font-bold tracking-tight text-white">SOVEREIGN TRANSITIONS</h1>
                                     <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mt-0.5 font-bold">The Original Orchestra</p>
                                 </div>
                             </a>
                             <nav className="hidden md:flex items-center gap-8">
                                 <a href="index.html#pivot"
-                                    className="text-sm font-medium text-zinc-400 hover:text-q2-cyan transition-colors italic">The Pivot</a>
+                                    className="text-sm font-medium text-zinc-600 hover:text-q2-cyan transition-colors italic">The Pivot</a>
                                 <a href="orchestra.html"
-                                    className="text-sm font-medium text-zinc-400 hover:text-q2-cyan transition-colors italic text-q2-cyan">The Orchestra</a>
+                                    className="text-sm font-medium text-zinc-600 hover:text-q2-cyan transition-colors italic">The Orchestra</a>
                                 <a href="index.html#radar"
-                                    className="text-sm font-medium text-zinc-400 hover:text-q2-cyan transition-colors italic">The Radar</a>
+                                    className="text-sm font-medium text-zinc-600 hover:text-q2-cyan transition-colors italic">The Radar</a>
                                 <a href="vault.html"
                                     className="bg-q2-cyan/10 text-q2-cyan px-4 py-2 border border-q2-cyan/30 rounded text-sm hover:bg-q2-cyan hover:text-black transition-all font-mono italic">SECURE ARCHIVE</a>
                             </nav>
@@ -1071,7 +1075,7 @@
                             The <span className="text-q2-cyan font-black">Orchestra.</span>
                         </h1>
                         <p className="text-gray-400 text-xl max-w-2xl mx-auto mb-12 italic">
-                            d foundational learning theorists. Each one reimagined for the AI era.
+                            Built on insights from 44 foundational learning theorists. Each one reimagined for the AI era.
                         </p>
 
                         {/* Section Buttons */}
@@ -1128,12 +1132,12 @@
                                             <line x1="2" y1="17" x2="22" y2="17"></line>
                                         </svg>
                                     </div>
-                                    <span className="text-xl font-bold tracking-tight text-white"><span className="text-q2-gold">Q2</span> PIVOT</span>
+                                    <span className="text-xl font-bold tracking-tight text-white"><span className="text-q2-gold">SOVEREIGN</span> TRANSITIONS</span>
                                 </div>
                                 <p className="text-gray-500 text-sm">Governing the AI Transition</p>
                             </div>
                             <p className="text-gray-600 text-xs">
-                                © 2026 Q2 Pivot. Training the governors of the machine.
+                                © 2026 Sovereign Transitions. Training the governors of the machine.
                             </p>
                         </div>
                     </footer>
